@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/globals.css}" rel="stylesheet" />
-    <link th:href="@{/index.css}" rel="stylesheet" />
-    <link th:href="@{/theme.css}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -15,7 +16,7 @@
     <div class="w-full lg:w-1/2 flex flex-col px-8 lg:px-24 py-12 bg-white">
 
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 mb-20">
+        <a th:href="@{/v1/home}" class="flex items-center gap-3 mb-20">
             <div class="w-10 h-10 bg-black flex items-center justify-center">
                 <span class="text-white text-lg font-black">FS</span>
             </div>
@@ -26,7 +27,7 @@
         <div class="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
 
             <!-- Welcome message -->
-            <h1 class="text-5xl font-black tracking-tighter mb-4">
+            <h1 class="text-4xl font-black tracking-tighter mb-4">
                 WELCOME BACK
             </h1>
 
@@ -72,9 +73,9 @@
 
                 <!-- Forgot Password -->
                 <div class="text-right">
-                    <button type="button" class="text-sm text-gray-600 hover:text-black transition-colors font-light">
+                    <a class="text-sm text-gray-600 hover:text-black transition-colors font-light">
                         Forgot password?
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Sign In Button -->
@@ -88,10 +89,9 @@
             <div class="mt-12 text-center">
                 <p class="text-base text-gray-600 font-light">
                     Don't have an account?
-                    <button type="button"
-                            class="text-black font-bold underline underline-offset-4 hover:no-underline transition-all">
+                    <a th:href="@{/v1/auth/register}" class="text-black font-bold underline underline-offset-4 hover:no-underline transition-all">
                         Create account
-                    </button>
+                    </a>
                 </p>
             </div>
         </div>
@@ -128,6 +128,5 @@
     </div>
     <!-- End Right Image -->
 </div>
-<script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>

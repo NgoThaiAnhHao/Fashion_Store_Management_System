@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-    <link th:href="@{/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/globals.css}" rel="stylesheet" />
-    <link th:href="@{/index.css}" rel="stylesheet" />
-    <link th:href="@{/theme.css}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
 <!-- Navbar -->
@@ -58,13 +59,10 @@
         </div>
 
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-
             <div class="w-px h-10 bg-white animate-pulse"></div>
-
             <span class="text-[9px] tracking-[0.3em] uppercase text-white">
                 Scroll
             </span>
-
         </div>
 
     </section>
@@ -74,20 +72,59 @@
     <section class="py-20 bg-[#F5F1EB]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <a
-                        class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm"
-                >
-                    <img
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                            alt="photo"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400"></div>
+                <!-- Product 1 -->
+                <a href="#"
+                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                         src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
+                         alt="photo"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
+                    </div>
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
+                            Spring 2026
                         </p>
-                        <h3
-                                class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
-                                style="font-family: 'Josefin Sans', sans-serif;"
-                        >
+                        <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                            NEW ARRIVALS
+                        </h3>
+                    </div>
+                </a>
+
+                <!-- Product 2 -->
+                <a href="#"
+                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                         src="https://images.unsplash.com/photo-1692178574181-7a47d4225278?w=600&h=800&fit=crop&auto=format"
+                         alt="photo"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
+                            MATCH TOGETHER
+                        </p>
+                        <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                            COUPLE SETS
+                        </h3>
+                    </div>
+                </a>
+
+                <!-- Product 3 -->
+                <a href="#"
+                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                         src="https://images.unsplash.com/photo-1623869111118-0d09e74fe9a7?w=600&h=800&fit=crop&auto=format"
+                         alt="photo"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
+                            UP TO 40% OFF
+                        </p>
+                        <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                            SALE
                         </h3>
                     </div>
                 </a>
@@ -104,56 +141,45 @@
                     <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777] mb-3">
                         Just dropped
                     </p>
-                    <h2
-                            class="text-4xl md:text-5xl font-semibold tracking-[0.06em] uppercase text-[#222222]"
-                            style="font-family: 'Josefin Sans', sans-serif;"
-                    >
+                    <h2 class="text-4xl md:text-5xl font-semibold tracking-[0.06em] uppercase text-[#222222]"
+                        style="font-family: 'Josefin Sans', sans-serif;">
                     Latest Drops
                     </h2>
                 </div>
-                <a
-                        class="hidden md:inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200"
-                        style="font-family: 'Josefin Sans', sans-serif;"
-                >
-                View All
 
+                <!-- View All Products -->
+                <a href="#"
+                   class="hidden md:inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200"
+                   style="font-family: 'Josefin Sans', sans-serif;">
+                    View All
+
+                    <!-- Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide lucide-arrow-right-icon lucide-arrow-right">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                    </svg>
                 </a>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-                <a
-                        class="group"
-                >
+                <a class="group">
                     <div class="relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
-                        <img
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                        />
-                        <span
-                                class="absolute top-3 left-3 bg-[#1F1F1F] text-[#F5F1EB] px-2.5 py-1 text-[9px] tracking-[0.2em] uppercase"
-                                style="font-family: 'Josefin Sans', sans-serif;"
-                        >
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"/>
+                        <span class="absolute top-3 left-3 bg-[#1F1F1F] text-[#F5F1EB] px-2.5 py-1 text-[9px] tracking-[0.2em] uppercase"
+                                style="font-family: 'Josefin Sans', sans-serif;">
                         </span>
-
                         <div class="absolute inset-0 bg-[#D8C3A5]/0 group-hover:bg-[#D8C3A5]/10 transition-colors duration-400"></div>
                     </div>
+
                     <div>
-                        <h3
-                                class="text-sm tracking-[0.06em] text-[#222222] mb-1.5 group-hover:text-[#777777] transition-colors duration-200"
-                        >
+                        <h3 class="text-sm tracking-[0.06em] text-[#222222] mb-1.5 group-hover:text-[#777777] transition-colors duration-200">
                         </h3>
                         <p class="text-sm text-[#777777] font-light">
                         </p>
                     </div>
-                </a>
-            </div>
-
-            <div class="md:hidden mt-10 text-center">
-                <a
-                        class="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#222222]"
-                        style="font-family: 'Josefin Sans', sans-serif;"
-                >
-                View All Products
-
                 </a>
             </div>
         </div>
@@ -168,13 +194,9 @@
                     <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777] mb-5">
                         Our philosophy
                     </p>
-                    <h2
-                            class="text-4xl md:text-6xl font-semibold tracking-[0.05em] uppercase text-[#222222] leading-[1.1] mb-8"
-                            style="font-family: 'Josefin Sans', sans-serif;"
-                    >
-                    Crafted
-                    <br />
-                    for Two
+                    <h2 class="text-4xl md:text-6xl font-semibold tracking-[0.05em] uppercase text-[#222222] leading-[1.1] mb-8"
+                        style="font-family: 'Josefin Sans', sans-serif;">
+                        Crafted<br/>for Two
                     </h2>
                     <p class="text-base text-[#777777] leading-relaxed mb-6 font-light max-w-md">
                         Fashion Store was born from a simple idea — that
@@ -187,18 +209,16 @@
                         and finish with care. Vietnamese craftsmanship
                         at its quietest and most considered.
                     </p>
-                    <a
-                            class="inline-flex items-center gap-3 border border-[#1F1F1F] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#D8C3A5] hover:border-[#D8C3A5] transition-all duration-300"
-                            style="font-family: 'Josefin Sans', sans-serif;"
-                    >
+                    <a href="#"
+                       class="inline-flex items-center gap-3 border border-[#1F1F1F] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#D8C3A5] hover:border-[#D8C3A5] transition-all duration-300"
+                       style="font-family: 'Josefin Sans', sans-serif;">
                     Our Story
                     </a>
                 </div>
                 <div class="aspect-[4/5] bg-[#D8C3A5] overflow-hidden rounded-sm">
-                    <img
-                            src="https://images.unsplash.com/photo-1739809006763-49663591bdcd?w=800&h=1000&fit=crop&auto=format"
-                            alt="Couple wearing matching outfits"
-                            class="w-full h-full object-cover"
+                    <img src="https://images.unsplash.com/photo-1739809006763-49663591bdcd?w=800&h=1000&fit=crop&auto=format"
+                         alt="Couple wearing matching outfits"
+                         class="w-full h-full object-cover"
                     />
                 </div>
             </div>
@@ -213,86 +233,99 @@
                 Lookbook SS26
             </p>
         </div>
-        <div class="flex gap-4 px-6 lg:px-8 overflow-x-auto scrollbar-hide pb-2">
-            <div
-                    class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm"
-            >
-                <img
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
+
+        <div class="flex gap-4 px-6 lg:px-8 overflow-x-auto pb-2 hide-scrollbar">
+            <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1777917677061-7471ce48388d?w=600&h=800&fit=crop&auto=format"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+            </div>
+
+            <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1695438370903-6d24c554a614?w=600&h=800&fit=crop&auto=format"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+            </div>
+
+            <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1569286390753-4c884438d49c?w=600&h=800&fit=crop&auto=format"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+            </div>
+
+            <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1623869111118-0d09e74fe9a7?w=600&h=800&fit=crop&auto=format"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+            </div>
+
+            <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1692178574181-7a47d4225278?w=600&h=800&fit=crop&auto=format"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
             </div>
         </div>
     </section>
     <!-- End Section 5 -->
 
     <!-- Section 6 -->
-    <section
-            class="flex min-h-[560px] md:min-h-[620px]"
-    style="background: linear-gradient(135deg, #1F1B18 0%, #2A2421 100%)"
-    >
-    <div class="hidden md:block w-[42%] relative overflow-hidden">
-        <img
-                src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
-                alt="Couple in matching outfits"
-                class="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div
-                class="absolute inset-0"
-                style="background: linear-gradient(to right, transparent 60%, #1F1B18 100%)"
+    <section class="flex min-h-[560px] md:min-h-[620px]"
+        style="background: linear-gradient(135deg, #1F1B18 0%, #2A2421 100%)">
+        <div class="hidden md:block w-[42%] relative overflow-hidden">
+            <img
+                    src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
+                    alt="Couple in matching outfits"
+                    class="absolute inset-0 w-full h-full object-cover object-center"
+            />
 
-
-        > </div>
-        <div class="absolute inset-0 bg-[#2A1810]/30"> </div>
-        <div class="absolute bottom-8 left-8">
-            <p class="text-[9px] tracking-[0.4em] uppercase text-[#D8C3A5]/70">
-                SS 2026 Campaign
-            </p>
-        </div>
-    </div>
-
-    <div class="flex-1 flex items-center justify-center px-8 md:px-16 py-20 md:py-0">
-        <div class="max-w-[420px] w-full">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="h-px w-10 bg-[#D8C3A5]/50"> </div>
-                <p class="text-[9px] tracking-[0.5em] uppercase text-[#D8C3A5]">
-                    Exclusive Access
-                </p>
+            <div class="absolute inset-0"
+                 style="background: linear-gradient(to right, transparent 60%, #1F1B18 100%)">
             </div>
 
-            <h2
-                    class="text-5xl md:text-6xl font-semibold tracking-[0.06em] uppercase text-[#F5F1EB] leading-[1.05] mb-6"
-                    style="font-family: 'Josefin Sans', sans-serif;"
-            >
-            Join the
-            <br />
-            Circle
-            </h2>
+            <div class="absolute inset-0 bg-[#2A1810]/30"></div>
 
-            <p class="text-[13px] text-white mb-10 font-light leading-[1.8] max-w-xs">
-                Early access to new drops, couple lookbooks,
-                exclusive styling guides, and members-only offers.
-            </p>
-
-            <form class="flex gap-0">
-                <input
-                        type="email"
-                        placeholder="your@email.com"
-                        class="flex-1 min-w-0 px-5 py-4 bg-white/[0.04] border border-white/10 border-r-0 text-white placeholder-white/50 text-[13px] ..."
-                />
-                <button
-                        type="submit"
-                        class="px-7 py-4 bg-[#D8C3A5] text-[#1A1510] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E8D8C0] transition-colors duration-300 whitespace-nowrap shrink-0"
-                        style="font-family: 'Josefin Sans', sans-serif;"
-                >
-                Subscribe
-                </button>
-            </form>
-
-            <p class="mt-5 text-[10px] text-white tracking-[0.2em] uppercase">
-                No spam · Unsubscribe anytime
-            </p>
+            <div class="absolute bottom-8 left-8">
+                <p class="text-[9px] tracking-[0.4em] uppercase text-[#D8C3A5]/70">
+                    SS 2026 Campaign
+                </p>
+            </div>
         </div>
-    </div>
+
+        <div class="flex-1 flex items-center justify-center px-8 md:px-16 py-20 md:py-0">
+            <div class="max-w-[420px] w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-px w-10 bg-[#D8C3A5]/50"></div>
+                    <p class="text-[9px] tracking-[0.5em] uppercase text-[#D8C3A5]">
+                        Exclusive Access
+                    </p>
+                </div>
+
+                <h2 class="text-5xl md:text-6xl font-semibold tracking-[0.06em] uppercase text-[#F5F1EB] leading-[1.05] mb-6"
+                    style="font-family: 'Josefin Sans', sans-serif;">
+                    Join the<br/>Circle
+                </h2>
+
+                <p class="text-[13px] text-white mb-10 font-light leading-[1.8] max-w-xs">
+                    Early access to new drops, couple lookbooks,
+                    exclusive styling guides, and members-only offers.
+                </p>
+
+                <form class="flex gap-0">
+                    <label for="email"></label>
+                    <input
+                            type="email"
+                            id="email"
+                            placeholder="your@email.com"
+                            class="flex-1 min-w-0 px-5 py-4 bg-white/[0.04] border border-white/10 border-r-0 text-white placeholder-white/50 text-[13px] ..."
+                    />
+
+                    <button type="submit"
+                            class="px-7 py-4 bg-[#D8C3A5] text-[#1A1510] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E8D8C0] transition-colors duration-300 whitespace-nowrap shrink-0"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                        Subscribe
+                    </button>
+                </form>
+
+                <p class="mt-5 text-[10px] text-white tracking-[0.2em] uppercase">
+                    No spam · Unsubscribe anytime
+                </p>
+            </div>
+        </div>
     </section>
     <!-- End Section 6 -->
 </div>
@@ -301,6 +334,5 @@
 <!-- Footer -->
 <div th:replace="fragments/layout :: footer"></div>
 
-<script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
