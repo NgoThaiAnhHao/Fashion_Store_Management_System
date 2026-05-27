@@ -1,0 +1,295 @@
+<div class="min-h-screen bg-background">
+
+    <!-- NAV BAR -->
+    <header  th:fragment="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#F5F1EB]/95 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-18" style="height: 72px">
+                <!-- Left Navbar -->
+                <nav class="hidden md:flex items-center gap-10 flex-1">
+
+                    <!-- New In -->
+                    <a href= "#"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                        New In
+                    </a>
+
+                    <!-- Collection -->
+                    <a href="#"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                        Collection
+                    </a>
+
+                </nav>
+                <!-- End left Navbar -->
+
+                <!-- Center logo -->
+                <a href="#"
+                   class="flex flex-col items-center gap-0.5 group absolute left-1/2 -translate-x-1/2">
+                    <span class="text-xl font-bold tracking-[0.22em] uppercase text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-300"
+                          style="font-family: 'Josefin Sans', sans-serif">
+                        Fashion Store
+                    </span>
+
+                    <span class="text-[9px] tracking-[0.3em] uppercase text-[#777777]">
+                        Est. 2024
+                    </span>
+                </a>
+                <!-- End center logo -->
+
+                <!-- Right actions -->
+                <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
+
+                    <!-- Logout Button -->
+                    <button class="flex items-center gap-1.5 text-xs tracking-[0.14em] uppercase text-[#222222] hover:text-[#D8C3A5] transition-colors duration-200">
+                        Logout
+                    </button>
+
+                    <!-- Login Button -->
+                    <a href="#"
+                       class="text-xs tracking-[0.14em] uppercase text-[#222222] hover:text-[#D8C3A5] transition-colors duration-200">
+                        Login
+                    </a>
+
+                    <!-- Cart Items -->
+                    <a href="#"
+                       class="relative group">
+
+                        <!-- Shopping-Bag Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="lucide lucide-shopping-bag-icon lucide-shopping-bag w-5 h-5 text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-200">
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                                <path d="M3.103 6.034h17.794"/>
+                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/>
+                        </svg>
+
+                        <!-- Cart Items Quantity -->
+                        <span class="absolute -top-2 -right-2 w-4 h-4 bg-[#1F1F1F] text-[#F5F1EB] rounded-full flex items-center justify-center text-[9px] font-bold">
+                            2
+                        </span>
+                    </a>
+                </div>
+                <!-- End right actions -->
+
+            </div>
+
+        </div>
+    </header>
+    <!-- END NAV BAR -->
+
+    <!-- FOOTER -->
+    <footer th:fragment="footer"
+            class="text-white"
+            style="background: linear-gradient(180deg, #2A2421 0%, #1A1714 100%)">
+
+        <!-- Divider accent -->
+        <div class="h-px w-full"
+             style="background: linear-gradient(to right, transparent, #D8C3A5/30, transparent)">
+        </div>
+
+        <!-- Line gradient -->
+        <div class="h-px w-full opacity-20"
+             style="background: linear-gradient(90deg, transparent 0%, #D8C3A5 40%, #D8C3A5 60%, transparent 100%)">
+        </div>
+
+        <!-- Content -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-8">
+
+            <!-- Main Content -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-14">
+
+                <!-- Brand column -->
+                <div class="md:col-span-4">
+
+                    <!-- Info -->
+                    <div class="mb-6">
+                        <!-- Company name -->
+                        <p class="text-base font-semibold tracking-[0.35em] uppercase text-white mb-0.5"
+                           style="font-family: 'Josefin Sans', sans-serif">
+                            Fashion Store
+                        </p>
+
+                        <!-- Company location -->
+                        <p class="text-[9px] tracking-[0.3em] uppercase text-white">
+                            Est. 2024 · Vietnam
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-[13px] text-white leading-[1.85] max-w-[240px] mb-8 font-light">
+                        Thoughtfully designed matching sets for couples
+                        who share a sense of style. Modern minimalism,
+                        made in Vietnam.
+                    </p>
+
+                    <!-- Social icons -->
+                    <div class="flex gap-2.5">
+                        <a href="#"
+                           class="w-8 h-8 border border-white/20 flex items-center justify-center text-white hover:border-[#D8C3A5] hover:text-[#D8C3A5] transition-all duration-300">
+                        </a>
+                    </div>
+                </div>
+                <!-- End brand column -->
+
+                <!-- Shop -->
+                <div class="md:col-span-2">
+                    <!-- Shop Title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Shop
+                    </p>
+
+                    <!-- Shop List -->
+                    <ul class="space-y-4">
+                        <!-- New Arrivals -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                New Arrivals
+                            </a>
+                        </li>
+
+                        <!-- Couple Sets -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Couple Sets
+                            </a>
+                        </li>
+
+                        <!-- Tees -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Tees
+                            </a>
+                        </li>
+
+                        <!-- Sale -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Sale
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Shop -->
+
+                <!-- Info -->
+                <div class="md:col-span-2">
+                    <!-- Info title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Info
+                    </p>
+
+                    <!-- Info List -->
+                    <ul class="space-y-4">
+
+                        <!-- Info List -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Our Story
+                            </a>
+                        </li>
+
+                        <!-- Sizing Guide -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Sizing Guide
+                            </a>
+                        </li>
+
+                        <!-- Shipping -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Shipping
+                            </a>
+                        </li>
+
+                        <!-- Returns -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Returns
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Info -->
+
+                <!-- Stay in touch -->
+                <div class="md:col-span-4">
+
+                    <!-- Stay in touch title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Stay in touch
+                    </p>
+
+                    <!-- Stay in touch description-->
+                    <p class="text-[13px] text-white mb-6 leading-[1.8] font-light">
+                        Early access, exclusive drops, and couple style
+                        guides.
+                    </p>
+
+                    <!-- Stay in touch form for subscribe -->
+                    <form class="space-y-2.5">
+
+                        <!-- Email field -->
+                        <label for="email"></label>
+                        <input type="email"
+                               placeholder="your@email.com"
+                               class="w-full px-4 py-3 bg-white/[0.03] border border-white/20 text-white placeholder-white/40 text-[13px] focus:outline-none focus:border-[#D8C3A5]/50 transition-colors duration-300 font-light"
+                               id="email"
+                        />
+
+                        <!-- Submit subscribe field -->
+                        <button type="submit"
+                                class="w-full py-3 bg-[#D8C3A5] text-[#1A1510] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E8D8C0] transition-colors duration-300"
+                                style="font-family: 'Josefin Sans', sans-serif">
+                            Subscribe
+                        </button>
+
+                    </form>
+                    <!-- End stay in touch form for subscribe -->
+
+                </div>
+            </div>
+            <!-- End main Content -->
+
+            <!-- Bottom bar -->
+            <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+
+                <!-- Policy Description -->
+                <span class="text-[11px] text-white tracking-[0.1em]">
+                  © 2026 Fashion Store. All rights reserved.
+                </span>
+
+                <!-- Policy Details -->
+                <div class="flex gap-6">
+                    <!-- Privacy Policy -->
+                    <a href="#"
+                       class="text-[11px] text-white hover:text-[#D8C3A5] transition-colors duration-200 tracking-wide">
+                        Privacy Policy
+                    </a>
+
+                    <!-- Term of Service -->
+                    <a href="#"
+                       class="text-[11px] text-white hover:text-[#D8C3A5] transition-colors duration-200 tracking-wide">
+                        Term of Service
+                    </a>
+                </div>
+                <!-- End Policy Details -->
+
+            </div>
+            <!-- Bottom bar -->
+
+        </div>
+        <!-- End content -->
+</footer>
+    <!-- END FOOTER -->
+
+</div>
