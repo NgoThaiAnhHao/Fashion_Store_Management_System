@@ -33,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // Mapper UserRegistrationDto -> User
         User user = UserMapper.toEntity(userRegistrationDto);
 
-        // Get default role (ROLE_CUSTOMER)
+        // Get default role (ROLE_CUSTOMER) github dev
         Role role = roleRepository
                 .findByRoleName(RoleNameEnum.ROLE_CUSTOMER)
                 .orElseThrow(
