@@ -8,6 +8,11 @@
   <link th:href="@{/css/globals.css}" rel="stylesheet" />
   <link th:href="@{/css/index.css}" rel="stylesheet" />
   <link th:href="@{/css/theme.css}" rel="stylesheet" />
+
+  <!-- Link Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -38,7 +43,7 @@
 
       <!-- Error message after register-->
       <div th:if="${error}"
-           class="text-xs bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+           class="text-xs bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative " role="alert">
         <span th:text="${error}"
               class="block sm:inline"></span>
       </div>
@@ -47,19 +52,12 @@
       <form th:action="@{/v1/auth/register}"
             th:object="${user}"
             method="POST"
-              class="space-y-8 mt-6">
+              class="space-y-6 mt-6">
         <!-- Full Name -->
         <div>
           <label for="name"
                  class="block text-xs font-bold tracking-[0.2em] uppercase text-black mb-3">
             Full Name
-
-            <!-- Full Name Error Message-->
-            <span th:if="${#fields.hasErrors('fullName')}"
-                  th:errors="*{fullName}"
-                    class="text-xs text-red-700 font-normal px-4 py-3 rounded relative" role="alert">
-                <span class="block sm:inline text-xs text-red-700 font-normal tracking-[0.05em] italic"></span>
-            </span>
 
           </label>
           <input
@@ -68,8 +66,14 @@
                   type="text"
                   th:field="*{fullName}"
                   placeholder="JOHN DOE"
-                  class="w-full px-0 py-4 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
+                  class="w-full px-0 py-0 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
           />
+
+          <!-- Full Name Error Message-->
+          <div th:if="${#fields.hasErrors('fullName')}"
+               class="text-[10px] text-red-500 py-2 rounded relative font-normal tracking-[0] roboto-slab normal-case" role="alert">
+            <span th:errors="*{fullName}" class="block sm:inline"></span>
+          </div>
         </div>
 
         <!-- Email -->
@@ -83,10 +87,15 @@
                   name="email"
                   type="email"
                   th:field="*{email}"
-                  required
+
                   placeholder="hello@fashionstore.com"
-                  class="w-full px-0 py-4 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
+                  class="w-full px-0 py-0 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
           />
+          <!-- Email Error Message-->
+          <div th:if="${#fields.hasErrors('email')}"
+               class="text-[10px] text-red-500 py-2 rounded relative font-normal tracking-[0] roboto-slab normal-case" role="alert">
+            <span th:errors="*{email}" class="block sm:inline"></span>
+          </div>
         </div>
 
         <!-- Password -->
@@ -100,10 +109,15 @@
                   name="password"
                   type="password"
                   th:field="*{password}"
-                  required
+
                   placeholder="••••••••"
-                  class="w-full px-0 py-4 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
+                  class="w-full px-0 py-0 border-0 border-b-2 border-gray-200 focus:border-black focus:outline-none text-base bg-transparent transition-colors placeholder-gray-400 font-light"
           />
+          <!-- Password Error Message-->
+          <div th:if="${#fields.hasErrors('password')}"
+               class="text-[10px] text-red-500 py-2 rounded relative font-normal tracking-[0] roboto-slab normal-case" role="alert">
+            <span th:errors="*{password}" class="block sm:inline"></span>
+          </div>
         </div>
 
         <!-- Create Account Button -->

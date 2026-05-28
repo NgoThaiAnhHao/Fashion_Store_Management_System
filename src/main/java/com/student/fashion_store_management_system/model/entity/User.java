@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.model.entity;
 
+import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -66,6 +67,14 @@ public class User {
         this.isEnabled = isEnabled;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public Role getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
     }
 
     public long getUserId() {

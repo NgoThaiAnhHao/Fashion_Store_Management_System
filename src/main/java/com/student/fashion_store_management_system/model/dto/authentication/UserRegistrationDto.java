@@ -6,16 +6,16 @@ import jakarta.validation.constraints.Size;
 
 public class UserRegistrationDto {
 
-    @NotBlank(message = "Your full name is mandatory")
-    @Size(min = 3, max = 30, message = "Your full name must be at least 3 characters long")
+    @NotBlank(message = "* Your full name is mandatory!")
+    @Size(min = 3, max = 30, message = "* Your full name must be at least 3 characters long!")
     private String fullName;
 
-    @NotBlank(message = "Email is mandatory")
-    @Email(message = "Invalid email format")
+    @NotBlank(message = "* Email is mandatory!")
+    @Email(message = "* Invalid email format!")
     private String email;
 
-    @NotBlank(message = "Password is mandatory")
-    @Size(min = 5, max = 30, message = "Password must be at least 5 characters long")
+    @NotBlank(message = "* Password is mandatory!")
+    @Size(min = 5, max = 30, message = "* Password must be at least 5 characters long!")
     private String password;
 
     public UserRegistrationDto() {
