@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- Navbar -->
-<div th:replace="fragments/layout :: navbar"></div>
+<div th:replace="~{fragments/layout :: navbar}"></div>
 
 <!-- MAIN CONTENT -->
 <div class="pt-[72px]">
@@ -332,7 +332,7 @@
 <!-- END MAIN CONTENT -->
 
 <!-- Footer -->
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="~{fragments/layout :: footer}"></div>
 
 </body>
 </html>
