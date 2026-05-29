@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-background">
+<div class="min-h-screen bg-background" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <!-- NAV BAR -->
     <header  th:fragment="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#F5F1EB]/95 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
@@ -41,7 +41,7 @@
                 <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
 
                     <!-- Menu Profile -->
-                    <div class="relative group">
+                    <div sec:authorize="isAuthenticated()" class="relative group">
                         <!-- Profile Button -->
                         <button class="flex items-center gap-3  px-3 py-2 rounded-full transition-all duration-200">
 
@@ -59,9 +59,7 @@
                                     Welcome,
                                 </span>
 
-                                <span class="text-sm font-medium text-[#222222]">
-                                    Ngo Thai Anh Hao
-                                </span>
+                                <span sec:authentication="principal.user.fullName" class="text-sm font-medium text-[#222222]"></span>
                             </div>
 
                             <!-- Arrow -->
@@ -90,7 +88,7 @@
                                     <path d="M8 11V6a4 4 0 0 1 8 0v5"/>
                                 </svg>
 
-                                Đơn hàng
+                                My Orders
                             </a>
 
                             <a th:href="@{/profile}"
@@ -103,10 +101,10 @@
                                     <circle cx="12" cy="10" r="3"/>
                                     <path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
                                 </svg>
-                                Thông tin tài khoản
+                                My Profile
                             </a>
 
-                            <form th:action="@{/logout}" method="post">
+                            <form th:action="@{/v1/auth/logout}" method="post">
                                 <button type="submit"
                                         class="w-full text-left px-4 py-3 text-xs text-red-500 hover:bg-red-50 transition-colors duration-150 flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +122,8 @@
                     </div>
 
                     <!-- Login Button -->
-                    <a th:href="@{/v1/auth/login}"
+                    <a sec:authorize="isAnonymous()"
+                            th:href="@{/v1/auth/login}"
                        class="text-xs tracking-[0.14em] uppercase text-[#222222] hover:text-[#D8C3A5] transition-colors duration-200">
                         Login
                     </a>
