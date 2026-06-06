@@ -12,6 +12,7 @@ public class HomeController {
 
     private final AuthenticationService authenticationService;
 
+    // Add something
     public HomeController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
