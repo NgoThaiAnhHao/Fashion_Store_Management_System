@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.mapper.UserMapper;
 import com.student.fashion_store_management_system.model.dto.authentication.UserUpdateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
 import com.student.fashion_store_management_system.model.entity.User;
@@ -34,18 +35,25 @@ public class UserController {
     @GetMapping("/my-profile")
     public String getProfile(Model model) {
         User user = authenticationService.getCurrentUser();
-        model.addAttribute("user", user);
+        model.addAttribute("user", UserMapper.toResponse(user));
         return "user-profile";
     }
 
-    @PostMapping("/update-profile")
-    public String updateProfile(@RequestParam("userId") long userId,
+    @GetMapping("/edit/{id}")
+    public String getProfileA(@PathVariable long id, Model model) {
+        UserResponseDto user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "/admin/edit-user";
+    }
+
+    @PostMapping("/update-profile/{id}")
+    public String updateProfile(@PathVariable long id,
                                 @RequestParam("avatar") MultipartFile multipartFile,
                                 @Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
-        userUpdateDto.setUserId(userId);
+        userUpdateDto.setUserId(id);
 
         // Check validation
         if (bindingResult.hasErrors()) {
@@ -92,9 +100,33 @@ public class UserController {
         }
 
         // Return message after update successfully
-        redirectAttributes.addFlashAttribute("successMessage", "Updated Your Profile Successfully!");
+        redirectAttributes.addFlashAttribute("successMessage", "Updated Profile Successfully!");
+
+        // For Admin
+        User currentUser = authenticationService.getCurrentUser();
+        if ("ROLE_ADMIN".equals(currentUser.getRoles().getRoleName().toString())) {
+            return "redirect:/fashion-store/users/users-management";
+        }
 
         return "redirect:/fashion-store/users/my-profile";
     }
 
+    @GetMapping("/users-management")
+    public String getAllUsers(Model model) {
+        List<UserResponseDto> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "admin/user-management";
+    }
+
+    @PostMapping("/update-status/{id}")
+    public String updateUserStatus(@PathVariable long id) {
+        userService.updateStatus(id);
+        return "redirect:/fashion-store/users/users-management";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable long id) {
+        userService.delete(id);
+        return "redirect:/fashion-store/users/users-management";
+    }
 }

@@ -198,3 +198,30 @@ INSERT INTO [Roles] ([role_name]) VALUES
 
 INSERT INTO [Users] ([email], [password], [full_name], [phone], [home_address], [role_id]) VALUES
     ('admin@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'ADMINISTRATOR', '0123123123', 'Ho Chi Minh City', 3);
+
+	INSERT INTO [Users]
+([email], [password], [full_name], [phone], [home_address], [role_id])
+VALUES
+('nguyenvana@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen Van A', '0901000001', 'Ho Chi Minh City', 1),
+('tranthib@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Tran Thi B', '0901000002', 'Ha Noi', 1),
+('leminhc@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Le Minh C', '0901000003', 'Da Nang', 1),
+('phamthid@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Pham Thi D', '0901000004', 'Can Tho', 1),
+('hoange@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Hoang E', '0901000005', 'Hai Phong', 1),
+
+('vuf@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vu F', '0901000006', 'Hue', 1),
+('dangg@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Dang G', '0901000007', 'Quang Nam', 1),
+('buih@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Bui H', '0901000008', 'Binh Duong', 1),
+('doti@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Do Thi I', '0901000009', 'Dong Nai', 1),
+('ngoj@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ngo J', '0901000010', 'Vung Tau', 1),
+
+('phank@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Phan K', '0901000011', 'Nha Trang', 1),
+('truongl@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Truong L', '0901000012', 'Da Lat', 1),
+('lym@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ly M', '0901000013', 'Quy Nhon', 2),
+('mainguyen@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Mai Nguyen', '0901000014', 'Ben Tre', 1),
+('voo@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vo O', '0901000015', 'Long An', 2),
+
+('huynhp@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Huynh P', '0901000016', 'Tien Giang', 1),
+('caoq@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Cao Q', '0901000017', 'Soc Trang', 1),
+('luur@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Luu R', '0901000018', 'Bac Lieu', 2),
+('tons@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ton S', '0901000019', 'Ca Mau', 2),
+('nguyent@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen T', '0901000020', 'An Giang', 1);

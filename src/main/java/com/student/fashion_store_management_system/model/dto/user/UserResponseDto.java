@@ -3,6 +3,7 @@ package com.student.fashion_store_management_system.model.dto.user;
 import com.student.fashion_store_management_system.model.entity.Role;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class UserResponseDto {
     private long userId;
@@ -64,6 +65,10 @@ public class UserResponseDto {
         this.fullName = fullName;
     }
 
+    public String getFirstCharOfFullName() {
+        return this.fullName.substring(0, 1);
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -110,5 +115,17 @@ public class UserResponseDto {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getFormattedCreatedAt() {
+        return createdAt.format(
+                DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")
+        );
+    }
+
+    public String getFormattedUpdatedAt() {
+        return updatedAt.format(
+                DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")
+        );
     }
 }

@@ -19,9 +19,6 @@
 
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100">
-        <!-- Topbar -->
-        <div th:replace="~{/fragments/topbar :: topbar}"></div>
-
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
 
@@ -88,6 +85,10 @@
                                 </th>
 
                                 <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Home Address
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
                                     Role
                                 </th>
 
@@ -100,6 +101,10 @@
                                 </th>
 
                                 <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Updated Date
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
                                     Actions
                                 </th>
                             </tr>
@@ -107,291 +112,91 @@
                             </thead>
 
                             <tbody>
-                            <tr class="border-b border-[#E5DDD2]/60 hover:bg-[#FBF8F4] transition-colors">
-                                <td class="px-4 py-3">
-                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br flex items-center justify-center text-[11px] font-bold text-white">
-                                        {user.avatar}
+                            <tr th:each="user : ${users}" class="border-b border-[#E5DDD2]/60 hover:bg-[#FBF8F4] transition-colors">
+                                <td class="px-4 py-3 flex items-center justify-center">
+                                    <div class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                                        <div class="w-7 h-7 rounded-full overflow-hidden border-2 border-[#D8C3A5] flex items-center justify-center bg-white">
+                                            <!-- Use default avatar if user profile photo is null -->
+                                            <div th:if="${user != null and user.avatarUrl == null}"
+                                                 th:text="${user.getFirstCharOfFullName()}"
+                                                class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                                            </div>
+
+                                            <!-- Use user's avatar if user profile photo is not null -->
+                                            <img th:if="${user != null and user.avatarUrl != null}"
+                                                 th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                                                 alt="Profile photo"
+                                                 class="object-cover"
+                                            />
+                                        </div>
                                     </div>
                                 </td>
 
-                                <td class="px-4 py-3 text-sm font-medium text-[#222222] whitespace-nowrap">
-                                    Linh Nguyen
-                                </td>
+                                <td th:text="*{user.fullName}" class="px-4 py-3 text-xs font-medium text-[#222222] whitespace-nowrap"></td>
 
-                                <td class="px-4 py-3 text-sm text-[#6B6B6B]">
-                                    linh@example.com
-                                </td>
+                                <td th:text="*{user.email}" class="px-4 py-3 text-xs text-[#6B6B6B]"></td>
 
-                                <td class="px-4 py-3 text-sm text-[#6B6B6B] whitespace-nowrap">
-                                    0912 345 678
-                                </td>
+                                <td th:text="*{user.phone}" class="px-4 py-3 text-xs text-[#6B6B6B] whitespace-nowrap"></td>
+
+                                <td th:text="*{user.homeAddress}" class="px-4 py-3 text-xs text-[#6B6B6B] whitespace-nowrap"></td>
 
                                 <td class="px-4 py-3">
-                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${roleColors[user.role]}">
-                                      ROLE_CUSTOMER
+                                    <span th:text="*{user.getRole().getSeparatedRoleName()}"
+                                          class="text-xs font-bold px-2 py-0.5 rounded-full"
+                                          th:classappend="
+                                                *{user.getRole().getSeparatedRoleName() == 'ADMIN'} ? ' bg-indigo-100 text-indigo-700' :
+                                                (*{user.getRole().getSeparatedRoleName() == 'MANAGER'} ? ' bg-purple-100 text-purple-700' :
+                                                ' bg-blue-100 text-blue-700')">
                                     </span>
                                 </td>
 
                                 <td class="px-4 py-3">
                                     <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full">
-                                      <span class="w-1.5 h-1.5 rounded-full ${statusDotColors[user.status]}"></span>
-                                      Active
+                                        <div th:if="${user.isEnabled()}" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#DFF2E2] text-[#2E7D32]">
+                                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1.5"></span>
+                                                Active
+                                        </div>
+
+                                        <div th:if="${!user.isEnabled()}" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F3EEE8] text-[#8A6B45]">
+                                            <span class="w-1.5 h-1.5 bg-slate-400 rounded-full mr-1.5"></span>
+                                                Inactive
+                                        </div>
                                     </span>
                                 </td>
 
-                                <td class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap">
-                                    Jan 12, 2026
-                                </td>
+                                <td th:text="*{user.getFormattedCreatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+
+                                <td th:text="*{user.getFormattedUpdatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
 
                                 <td class="px-4 py-3">
                                     <div class="flex items-center gap-1">
-                                        <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-                                        </button>
-
-                                        <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
+                                        <!-- Edit User -->
+                                        <a th:href="@{/fashion-store/users/edit/{id}(id=${user.userId})}"
+                                                type="button"
+                                                class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-                                        </button>
+                                        </a>
 
-                                        <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                                        </button>
+                                        <!-- Update User Status -->
+                                        <form th:action="@{/fashion-store/users/update-status/{id}(id=${user.userId})}"
+                                              method="POST">
+                                            <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                            </button>
+                                        </form>
 
-                                        <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>                                        </button>
-
-                                        <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                                        </button>
+                                        <!-- Delete User -->
+                                        <form th:action="@{/fashion-store/users/delete/{id}(id=${user.userId})}"
+                                                method="POST">
+                                            <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-
-                <!-- User Detail Modal -->
-                <div id="userDetailModal"
-                     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 hidden">
-                    <div class="bg-[#FDFAF6] rounded-xl shadow-2xl w-full max-w-md border border-[#E5DDD2]">
-                        <!-- Header -->
-                        <div class="flex items-center justify-between px-5 py-4 border-b border-[#E5DDD2]">
-                            <h3 class="text-sm font-semibold text-[#222222]">
-                                User Details
-                            </h3>
-                            <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777777] hover:bg-[#F3EEE8]">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-
-                        <!-- Body -->
-                        <div class="p-5">
-                            <div class="flex items-center gap-4 mb-5">
-                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#D8C3A5] to-[#C9B18D] flex items-center justify-center text-lg font-bold text-white">
-                                    LN
-                                </div>
-
-                                <div>
-                                    <div class="text-base font-semibold text-[#222222]">
-                                        Linh Nguyen
-                                    </div>
-
-                                    <div class="text-sm text-[#6B6B6B]">
-                                        linh@example.com
-                                    </div>
-
-                                    <div class="flex items-center gap-2 mt-1.5">
-
-                                    <span
-                                            class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
-                                        ROLE_CUSTOMER
-                                    </span>
-
-                                    <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#DFF2E2] text-[#2E7D32]">
-                                        Active
-                                    </span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- DetailRow 1 -->
-                            <div class="flex items-center justify-between py-2.5 border-b border-[#E5DDD2]/70">
-                                <span class="text-xs text-[#8A6B45] font-medium">
-                                    Phone Number
-                                </span>
-
-                                <span class="text-sm text-[#222222] font-medium">
-                                    0912 345 678
-                                </span>
-                            </div>
-
-                            <!-- DetailRow 2 -->
-                            <div class="flex items-center justify-between py-2.5 border-b border-[#E5DDD2]/70">
-                                <span class="text-xs text-[#8A6B45] font-medium">
-                                    Created Date
-                                </span>
-
-                                <span class="text-sm text-[#222222] font-medium">
-                                    Jan 12, 2026
-                                </span>
-                            </div>
-
-                            <!-- DetailRow 3 -->
-                            <div class="flex items-center justify-between py-2.5">
-                                <span class="text-xs text-[#8A6B45] font-medium">
-                                    User ID
-                                </span>
-
-                                <span class="text-sm text-[#222222] font-medium">
-                                    #1
-                                </span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Edit User Modal -->
-                <div id="editUserModal"
-                     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 hidden ">
-
-                    <div class="bg-[#FDFAF6] rounded-xl shadow-2xl w-full max-w-md border border-[#E5DDD2]">
-                        <!-- Header -->
-                        <div class="flex items-center justify-between px-5 py-4 border-b border-[#E5DDD2]">
-                            <h3 class="text-sm font-semibold text-[#222222]">
-                                Edit User
-                            </h3>
-
-                            <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777777] hover:bg-[#F3EEE8]">
-                            </button>
-                        </div>
-
-                        <!-- Body -->
-                        <div class="p-5">
-                            <div class="space-y-3">
-
-                                <!-- Full Name -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-[#8A6B45] mb-1.5">
-                                        Full Name
-                                    </label>
-                                    <input type="text"
-                                            value="Linh Nguyen"
-                                            class="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]">
-                                </div>
-
-                                <!-- Email -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-[#8A6B45] mb-1.5">
-                                        Email
-                                    </label>
-                                    <input type="email"
-                                            value="linh@example.com"
-                                            class="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]">
-                                </div>
-
-                                <!-- Phone -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-[#8A6B45] mb-1.5">
-                                        Phone
-                                    </label>
-                                    <input type="text"
-                                            value="0912345678"
-                                            class="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]">
-                                </div>
-
-                                <!-- Role -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-[#8A6B45] mb-1.5">
-                                        Role
-                                    </label>
-
-                                    <select class="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]">
-                                        <option value="ROLE_CUSTOMER">
-                                            ROLE_CUSTOMER
-                                        </option>
-
-                                        <option value="ROLE_MANAGER">
-                                            ROLE_MANAGER
-                                        </option>
-
-                                        <option value="ROLE_ADMIN">
-                                            ROLE_ADMIN
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <!-- Status -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-[#8A6B45] mb-1.5">
-                                        Status
-                                    </label>
-
-                                    <select class="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]">
-                                        <option value="Active">Active</option>
-                                        <option value="Locked">Locked</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Footer -->
-                            <div class="flex justify-end gap-2 mt-5">
-                                <button type="button"
-                                        class="px-4 py-2 text-sm text-[#6B6B6B] border border-[#E5DDD2] rounded-lg hover:bg-[#F3EEE8]">
-                                    Cancel
-                                </button>
-                                <button type="submit"
-                                        class="px-4 py-2 text-sm text-[#1F1B18] bg-[#D8C3A5] rounded-lg hover:bg-[#C9B18D]">
-                                    Save Changes
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Delete User Modal -->
-                <div id="deleteUserModal"
-                     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 hidden">
-
-                    <div class="bg-[#FDFAF6] rounded-xl shadow-2xl w-full max-w-md border border-[#E5DDD2]">
-                        <!-- Header -->
-                        <div class="flex items-center justify-between px-5 py-4 border-b border-[#E5DDD2]">
-
-                            <h3 class="text-sm font-semibold text-[#222222]">
-                                Delete User
-                            </h3>
-
-                            <button class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777777] hover:bg-[#F3EEE8]">
-                            </button>
-                        </div>
-
-                        <!-- Body -->
-                        <div class="p-5">
-                            <p class="text-sm text-[#6B6B6B] mb-5">
-                                Permanently delete
-                                <span class="font-semibold text-[#222222]">
-                                    Linh Nguyen
-                                </span>
-                                ?
-                                This action cannot be undone.
-                            </p>
-
-                            <div class="flex justify-end gap-2">
-                                <button type="button"
-                                        class="px-4 py-2 text-sm text-[#6B6B6B] border border-[#E5DDD2] rounded-lg hover:bg-[#F3EEE8]">
-                                    Cancel
-                                </button>
-
-                                <button type="button"
-                                        class="px-4 py-2 text-sm text-white bg-[#B85450] rounded-lg hover:bg-[#8B3A2F]">
-                                    Delete User
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -400,138 +205,6 @@
 </div>
 
 
-
-<!--                        <DetailRow label="Phone Number" value={viewUser.phone} />-->
-<!--                        <DetailRow label="Created Date" value={viewUser.created} />-->
-<!--                        <DetailRow label="User ID" value={`#${viewUser.id}`} />-->
-<!--                        </Modal>-->
-<!--                        )}-->
-
-<!--                        {editUser && (-->
-<!--                        <Modal title="Edit User" onClose={() => setEditUser(null)}>-->
-<!--                        <div className="space-y-3">-->
-<!--                            {[-->
-<!--                            ["Full Name", editUser.name],-->
-<!--                            ["Email", editUser.email],-->
-<!--                            ["Phone", editUser.phone],-->
-<!--                            ].map(([label, value]) => (-->
-<!--                            <div key={label}>-->
-<!--                                <label className="block text-xs font-semibold text-[#8A6B45] mb-1.5">-->
-<!--                                    {label}-->
-<!--                                </label>-->
-<!--                                <input-->
-<!--                                        defaultValue={value}-->
-<!--                                        className="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]"-->
-<!--                                />-->
-<!--                            </div>-->
-<!--                            ))}-->
-
-<!--                            <div>-->
-<!--                                <label className="block text-xs font-semibold text-[#8A6B45] mb-1.5">-->
-<!--                                    Role-->
-<!--                                </label>-->
-<!--                                <select-->
-<!--                                        defaultValue={editUser.role}-->
-<!--                                        className="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]"-->
-<!--                                >-->
-<!--                                    <option value="ROLE_CUSTOMER">ROLE_CUSTOMER</option>-->
-<!--                                    <option value="ROLE_MANAGER">ROLE_MANAGER</option>-->
-<!--                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-
-<!--                            <div>-->
-<!--                                <label className="block text-xs font-semibold text-[#8A6B45] mb-1.5">-->
-<!--                                    Status-->
-<!--                                </label>-->
-<!--                                <select-->
-<!--                                        defaultValue={editUser.status}-->
-<!--                                        className="w-full border border-[#E5DDD2] rounded-lg px-3 py-2 text-sm text-[#222222] bg-[#FDFAF6] outline-none focus:border-[#D8C3A5]"-->
-<!--                                >-->
-<!--                                    <option value="Active">Active</option>-->
-<!--                                    <option value="Locked">Locked</option>-->
-<!--                                    <option value="Inactive">Inactive</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div className="flex justify-end gap-2 mt-5">-->
-<!--                            <button-->
-<!--                                    onClick={() => setEditUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-[#6B6B6B] border border-[#E5DDD2] rounded-lg hover:bg-[#F3EEE8]"-->
-<!--                            >-->
-<!--                            Cancel-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                    onClick={() => setEditUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-[#1F1B18] bg-[#D8C3A5] rounded-lg hover:bg-[#C9B18D]"-->
-<!--                            >-->
-<!--                            Save Changes-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        </Modal>-->
-<!--                        )}-->
-
-<!--                        {resetUser && (-->
-<!--                        <Modal title="Reset Password" onClose={() => setResetUser(null)}>-->
-<!--                        <p className="text-sm text-[#6B6B6B] mb-5">-->
-<!--                            Send a password reset email to{" "}-->
-<!--                            <span className="font-semibold text-[#222222]">{resetUser.email}</span>?-->
-<!--                        </p>-->
-
-<!--                        <div className="flex justify-end gap-2">-->
-<!--                            <button-->
-<!--                                    onClick={() => setResetUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-[#6B6B6B] border border-[#E5DDD2] rounded-lg hover:bg-[#F3EEE8]"-->
-<!--                            >-->
-<!--                            Cancel-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                    onClick={() => setResetUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-white bg-[#A57C52] rounded-lg hover:bg-[#8A6B45]"-->
-<!--                            >-->
-<!--                            Send Reset Email-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        </Modal>-->
-<!--                        )}-->
-
-<!--                        {deleteUser && (-->
-<!--                        <Modal title="Delete User" onClose={() => setDeleteUser(null)}>-->
-<!--                        <p className="text-sm text-[#6B6B6B] mb-5">-->
-<!--                            Permanently delete{" "}-->
-<!--                            <span className="font-semibold text-[#222222]">{deleteUser.name}</span>?-->
-<!--                            This action cannot be undone.-->
-<!--                        </p>-->
-
-<!--                        <div className="flex justify-end gap-2">-->
-<!--                            <button-->
-<!--                                    onClick={() => setDeleteUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-[#6B6B6B] border border-[#E5DDD2] rounded-lg hover:bg-[#F3EEE8]"-->
-<!--                            >-->
-<!--                            Cancel-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                    onClick={() => setDeleteUser(null)}-->
-<!--                            className="px-4 py-2 text-sm text-white bg-[#B85450] rounded-lg hover:bg-[#8B3A2F]"-->
-<!--                            >-->
-<!--                            Delete User-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        </Modal>-->
-<!--                        )}-->
-<!--                    </div>-->
-<!--                    );-->
-<!--                    }-->
-
-<!--                   -->
-<!--                    <button-->
-<!--                            title={title}-->
-<!--                            onClick={onClick}-->
-<!--                            className={`w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all ${colors[color]}`}-->
-<!--                    >-->
-<!--                        {children}-->
-<!--                    </button>-->
-
+<script th:src="@{/script/admin/user-management.js}"></script>
 </body>
 </html>

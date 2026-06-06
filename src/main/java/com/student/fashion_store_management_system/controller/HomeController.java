@@ -26,7 +26,6 @@ public class HomeController {
     public String home(Model model) {
         // Log current user for debug
         User user = authenticationService.getCurrentUser();
-        model.addAttribute("user", user);
 
         if (user != null) {
             System.out.println("CURRENT USER EMAIL: " + user.getEmail());
@@ -45,6 +44,6 @@ public class HomeController {
 
     @GetMapping("/test")
     public String test() {
-        return "/admin/user-management";
+        return "/admin/edit-user";
     }
 }

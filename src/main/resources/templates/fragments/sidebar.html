@@ -4,7 +4,7 @@
 <aside th:fragment="sidebar" class="sidebar fixed inset-y-0 left-0 z-40 w-64 flex flex-col
             bg-[#1F1B18] text-[#F5F1EB]
             transition-transform duration-300 ease-in-out
-            lg:relative translate-x-0">
+            lg:relative translate-x-0 font-bold">
 
     <!-- Logo -->
     <div class="flex items-center gap-3 px-5 h-16 border-b border-[#D8C3A5]/15 flex-shrink-0">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="space-y-0.5">
-                <a href="#"
+                <a th:href="@{/fashion-store/users/users-management}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
                     <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">User Management</span>
                 </a>
@@ -120,27 +120,58 @@
             </div>
 
             <div class="space-y-0.5">
-                <a href="#"
+                <a th:href="@{/fashion-store/users/my-profile}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
                     <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">My Profile</span>
                 </a>
             </div>
+
+
         </div>
     </nav>
 
     <!-- Footer -->
     <div class="border-t border-[#D8C3A5]/15 p-3 space-y-0.5 flex-shrink-0">
+        <div class="px-3 py-2 flex items-center gap-3">
+            <form th:action="@{/fashion-store/auth/logout}" method="post" class="w-full">
+                <button type="submit"
+                        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#F5F1EB]/60 hover:bg-[#D8C3A5]/10 hover:text-[#D8C3A5] transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide lucide-log-out-icon lucide-log-out pr-2">
+                        <path d="m16 17 5-5-5-5"/>
+                        <path d="M21 12H9"/>
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    </svg>
+                    SIGN OUT
+                </button>
+            </form>
+        </div>
+
         <div class="px-3 py-2 mt-2 flex items-center gap-3">
             <div class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
-                A
+                <div class="w-7 h-7 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                    <!-- Use default avatar if user profile photo is null -->
+                    <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
+                         th:text="${currentUser.getFirstCharOfFullName()}"
+                         class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                    </div>
+
+                    <!-- Use user's avatar if user profile photo is not null -->
+                    <img th:if="${currentUser != null and currentUser.avatarUrl != null}"
+                         th:src="@{'/images/users/' + ${currentUser.userId} + '/' + ${currentUser.avatarUrl}}"
+                         alt="Profile photo"
+                         class="object-cover"
+                    />
+                </div>
             </div>
 
             <div class="min-w-0">
-                <div class="text-xs font-semibold text-[#F5F1EB] truncate">
-                    Admin User
+                <div th:text="${currentUser.fullName}" class="text-xs font-semibold text-[#F5F1EB] truncate">
                 </div>
-                <div class="text-[10px] text-[#D8C3A5]/60 truncate">
-                    admin@fashionstore.vn
+
+                <div th:text="${currentUser.email}" class="text-[10px] text-[#D8C3A5]/60 truncate font-normal">
                 </div>
             </div>
         </div>

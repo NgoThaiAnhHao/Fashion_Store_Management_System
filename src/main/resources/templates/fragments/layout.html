@@ -48,13 +48,14 @@
                             <!-- Avatar -->
                             <div class="w-8 h-8 rounded-full border border-[#D8C3A5] overflow-hidden flex items-center justify-center bg-white">
                                 <!-- Use default avatar if user profile photo is null -->
-                                <img th:if="${user != null and user.avatarUrl == null}" th:src="@{/images/avatars/default.jpg}"
-                                     alt="Profile photo"
-                                     class="object-cover"
-                                />
+                                <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
+                                     th:text="${currentUser.getFirstCharOfFullName()}"
+                                     class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                                </div>
 
                                 <!-- Use user's avatar if user profile photo is not null -->
-                                <img th:if="${user != null and user.avatarUrl != null}" th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                                <img th:if="${currentUser != null and currentUser.avatarUrl != null}"
+                                     th:src="@{'/images/users/' + ${currentUser.userId} + '/' + ${currentUser.avatarUrl}}"
                                      alt="Profile photo"
                                      class="object-cover"
                                 />
@@ -66,7 +67,7 @@
                                     Welcome Back,
                                 </span>
 
-                                <span sec:authentication="principal.user.fullName" class="text-sm font-medium text-[#222222]"></span>
+                                <span th:text="${currentUser.fullName}" class="text-sm font-medium text-[#222222]"></span>
                             </div>
 
                             <!-- Arrow -->
