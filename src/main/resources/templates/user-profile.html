@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body class="user-profile">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="min-h-screen bg-[#F8FAFC]" style="padding-top: 72px">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-1.5 text-xs text-gray-400 mb-3">
+                <a th:href="@{/fashion-store/dashboard}" class="hover:text-indigo-600 transition-colors">
+                    Home
+                </a>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+                <span class="text-gray-600 font-medium">Profile</span>
+            </nav>
+
+            <h1 class="text-gray-900"
+                style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em">
+                My Profile
+            </h1>
+
+            <p class="text-gray-400 text-sm mt-1">
+                View and manage your account information.
+            </p>
+        </div>
+
+        <!-- Main modal -->
+        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full h-full">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm h-full"></div>
+
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative border border-default rounded-base shadow-sm p-4 md:p-6 bg-white">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                        <h3 class="text-lg font-medium text-heading">
+                            Update Profile
+                        </h3>
+                        <button type="button" class="cancel-update-profile-btn text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center" data-modal-hide="crud-modal">
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/></svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <form th:action="@{/fashion-store/users/update-profile}"
+                        th:object="${user}"
+                        method="POST"
+                        enctype="multipart/form-data">
+                        <div class="grid gap-4 grid-cols-2 py-4 md:py-6">
+
+                            <input type="hidden" th:field="*{userId}">
+
+                            <!-- Profile Photo -->
+                            <div class="col-span-2">
+                                <label for="profile-photo" class="block mb-2.5 text-sm font-medium text-heading">Profile Photo</label>
+                                <input
+                                        type="file"
+                                        id="profile-photo"
+                                        name="avatar"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body">
+                            </div>
+
+                            <!-- Full name -->
+                            <div class="col-span-2">
+                                <label for="full-name" class="block mb-2.5 text-sm font-medium text-heading">Full Name</label>
+                                <input type="text"
+                                       id="full-name"
+                                       th:field="*{fullName}"
+                                       placeholder="Enter your full name..."
+                                       class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body">
+                            </div>
+
+
+                            <!-- Phone -->
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="phone" class="block mb-2.5 text-sm font-medium text-heading">Phone</label>
+                                <input
+                                        type="text"
+                                        th:field="*{phone}"
+                                        placeholder="Enter your phone..."
+                                        id="phone"
+                                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body">
+                            </div>
+
+                            <!-- Home address -->
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="home-address" class="block mb-2.5 text-sm font-medium text-heading">Home Address</label>
+                                <input type="text"
+                                       th:field="*{homeAddress}"
+                                       placeholder="Enter your home address..."
+                                       id="home-address"
+                                       class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" >
+<!--                                <label for="category" class="block mb-2.5 text-sm font-medium text-heading">Roles</label>-->
+<!--                                <select id="category" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body">-->
+<!--                                    <option selected="">Select Role</option>-->
+<!--                                    <option value="TV">TV/Monitors</option>-->
+<!--                                    <option value="PC">PC</option>-->
+<!--                                    <option value="GA">Gaming/Console</option>-->
+<!--                                    <option value="PH">Phones</option>-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 border-t border-default pt-4 md:pt-6">
+                            <button type="submit"
+                                    id="save-profile-btn"
+                                    class="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 shadow-sm shadow-indigo-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-line-icon lucide-pencil-line"><path d="M13 21h8"/><path d="m15 5 4 4"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
+                                Save
+                            </button>
+
+                            <button type="button"
+                                    class="cancel-update-profile-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-red-500 hover:bg-red-600 active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 shadow-sm shadow-red-100">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <!-- Card top accent bar -->
+            <div class="h-1.5 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-400" ></div>
+
+            <div class="user-profile-form p-6 sm:p-8">
+
+                <!-- Avatar + name row -->
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 mb-8">
+                    <!-- Avatar -->
+                    <div class="relative flex-shrink-0">
+                        <!-- Use default avatar if user profile photo is null -->
+                        <img th:if="${user != null and user.avatarUrl == null}" th:src="@{/images/avatars/default.jpg}"
+                             alt="Profile photo"
+                             class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-lg"
+                        />
+
+                        <!-- Use user's avatar if user profile photo is not null -->
+                        <img th:if="${user != null and user.avatarUrl != null}" th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                             alt="Profile photo"
+                             class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-lg"
+                        />
+
+                        <!-- Online dot -->
+                        <span class="absolute bottom-1.5 right-1.5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white shadow-sm"></span>
+                    </div>
+
+                    <!-- Name + role + status -->
+                    <div class="text-center sm:text-left pt-1">
+                        <!-- Full Name -->
+                        <h2 th:text="${user.fullName}" class="text-gray-900 mb-0.5" style="font-size: 1.35rem; font-weight: 700"></h2>
+
+                        <!-- Email -->
+                        <p th:text="${user.email}" class="text-gray-400 text-sm mb-3">Email</p>
+
+                        <div class="flex items-center justify-center sm:justify-start gap-2">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-icon lucide-shield"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                                <span th:text="${user.roles.getSeparatedRoleName()}"></span>
+                            </div>
+
+                            <div th:if="${user.isEnabled()}" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-50  border-emerald-200 border text-green-700">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User ID — pushed right on desktop -->
+                    <div class="sm:ml-auto text-center sm:text-right">
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-0.5">
+                            User ID
+                        </p>
+                        <p th:text="${user.userId}"
+                            class="text-xs font-mono text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-3 py-1.5">
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Success message after update -->
+                <div th:if="${successMessage}"
+                        class="text-xs bg-green-100 border border-green-400 text-green-700 px-10 py-3 rounded relative mb-8" role="alert">
+                    <span th:text="${successMessage}" class="block sm:inline"></span>
+                </div>
+
+                <!-- Error message after update-->
+                <ul th:if="${errors}"
+                     class=" text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 rounded relative " role="alert">
+                    <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
+                </ul>
+
+                <!-- Divider -->
+                <div class="border-t border-gray-200 mb-7"></div>
+
+                <!-- Info fields — 2 col on desktop -->
+                <div class="input-fields grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Full Name -->
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <label class="text-xs text-gray-500">Full Name</label>
+                        </div>
+
+                        <p th:text="${user.fullName}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-icon lucide-mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>                        <label class="text-xs text-gray-500">Email Address</label>
+                        </div>
+
+                        <p th:text="${user.email}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-icon lucide-phone"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>                        <label class="text-xs text-gray-500">Phone Number</label>
+                        </div>
+
+                        <p th:text="${user.phone}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Home address -->
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-icon lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                            <label class="text-xs text-gray-500">Home Address</label>
+                        </div>
+
+                        <p th:text="${user.homeAddress}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+
+                    <!-- Created At -->
+                    <div class="bg-gray-50 p-4 rounded-lg border mt-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-icon lucide-calendar"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>                        <label class="text-xs text-gray-500">Account Created</label>
+                        </div>
+
+                        <p th:text="${user.getFormattedCreatedAt()}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Updated At -->
+                    <div class="bg-gray-50 p-4 rounded-lg border mt-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>                        <label class="text-xs text-gray-500">Last Updated</label>
+                        </div>
+
+                        <p th:text="${user.getFormattedUpdatedAt}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Role -->
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(58.5% 0.233 277.117)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-icon lucide-shield"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>                        <label class="text-xs text-gray-500">Role</label>
+                        </div>
+
+                        <p th:text="${user.roles.getSeparatedRoleName()}" class="font-medium text-xs text-gray-900 pl-6"></p>
+                    </div>
+
+                    <!-- Status  -->
+                    <div class="sm:col-span-2 bg-gray-50 p-4 rounded-lg border mt-3">
+                        <label class="text-xs text-gray-500">Account Status</label>
+                        <br>
+                        <span th:if="${user.isEnabled()}" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-50  border-emerald-200 border text-green-700">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                            Active
+                        </span>
+
+                        <span th:if="!${user.isEnabled()}" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-50 border-red-200 border text-red-700">
+                            Disabled
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-gray-200 mt-7 mb-6"></div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="button"
+                            id="update-profile-btn"
+                            class="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 shadow-sm shadow-indigo-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-line-icon lucide-pencil-line"><path d="M13 21h8"/><path d="m15 5 4 4"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
+                        Update Profile
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Subtle info note -->
+        <p class="text-center text-xs text-gray-400 mt-6">
+            Account information is read-only. Contact support to update restricted fields.
+        </p>
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+
+<script th:src="@{/script/user-profile.js}"></script>
+</body>
+</html>

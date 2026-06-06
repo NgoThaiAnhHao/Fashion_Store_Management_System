@@ -1,0 +1,608 @@
+2026-05-28 01:20:12.105310+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "USE [*][master]"; expected "identifier"; SQL statement:
+USE [master] [42001-240]
+2026-05-28 01:20:12.108329+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- Drop Database only if it exists\000d\000aDROP DATABASE IF EXISTS [fashion_store_management_system]"; expected "GRANT"; SQL statement:
+GO
+
+-- Drop Database only if it exists
+DROP DATABASE IF EXISTS [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:12.109328+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- Create new Database\000d\000aCREATE DATABASE [fashion_store_management_system]"; expected "GRANT"; SQL statement:
+GO
+
+-- Create new Database
+CREATE DATABASE [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:12.110333+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- Use Database\000d\000aUSE [fashion_store_management_system]"; expected "GRANT"; SQL statement:
+GO
+
+-- Use Database
+USE [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:12.111293+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- ================================== CREATE TABLE ==================================\000d\000a-- AUTHORITIES\000d\000aCREATE TABLE [Roles] (\000d\000a\0009[role_id] INT NOT NULL IDENTITY(1,1),\000d\000a\0009[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[role_name] IN (\000d\000a\0009\0009\0009'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([role_id]),\000d\000a\0009UNIQUE ([role_name])\000d\000a)"; expected "GRANT"; SQL statement:
+GO
+
+-- ================================== CREATE TABLE ==================================
+-- AUTHORITIES
+CREATE TABLE [Roles] (
+	[role_id] INT NOT NULL IDENTITY(1,1),
+	[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',
+
+	CHECK (
+		[role_name] IN (
+			'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'
+		)
+	),
+
+	PRIMARY KEY ([role_id]),
+	UNIQUE ([role_name])
+) [42001-240]
+2026-05-28 01:20:12.112333+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- USERS\000d\000aCREATE TABLE [*][Users] (\000d\000a\0009[user_id] BIGINT IDENTITY(1,1),\000d\000a\0009[email] VARCHAR(50) NOT NULL,\000d\000a\0009[password] VARCHAR(255) NOT NULL,\000d\000a\0009[full_name] VARCHAR(50),\000d\000a\0009[phone] VARCHAR(50),\000d\000a\0009[avatar_url] VARCHAR(255),\000d\000a\0009[is_enabled] BIT NOT NULL DEFAULT 1,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[role_id] INT DEFAULT NULL,\000d\000a\000d\000a\0009PRIMARY KEY ([user_id]),\000d\000a\0009UNIQUE ([email]),\000d\000a\0009FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- USERS
+CREATE TABLE [Users] (
+	[user_id] BIGINT IDENTITY(1,1),
+	[email] VARCHAR(50) NOT NULL,
+	[password] VARCHAR(255) NOT NULL,
+	[full_name] VARCHAR(50),
+	[phone] VARCHAR(50),
+	[avatar_url] VARCHAR(255),
+	[is_enabled] BIT NOT NULL DEFAULT 1,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[role_id] INT DEFAULT NULL,
+
+	PRIMARY KEY ([user_id]),
+	UNIQUE ([email]),
+	FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])
+) [42001-240]
+2026-05-28 01:20:12.113335+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- CATEGORY\000d\000aCREATE TABLE [*][Category] (\000d\000a\0009[category_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009PRIMARY KEY ([category_id]),\000d\000a\0009UNIQUE ([name])\000d\000a)"; expected "identifier"; SQL statement:
+-- CATEGORY
+CREATE TABLE [Category] (
+	[category_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	PRIMARY KEY ([category_id]),
+	UNIQUE ([name])
+) [42001-240]
+2026-05-28 01:20:12.114292+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PRODUCT\000d\000aCREATE TABLE [*][Product] (\000d\000a\0009[product_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[price] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[image_url] VARCHAR(255),\000d\000a\0009[category_id] BIGINT NOT NULL,\000d\000a\0009[stock_quantity] INT DEFAULT 0,\000d\000a\0009[discount_percent] INT NOT NULL DEFAULT 0,\000d\000a\0009[created_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([stock_quantity] BETWEEN 0 AND 999),\000d\000a\0009CHECK ([discount_percent] BETWEEN 0 AND 100),\000d\000a\0009CHECK ([price] >= 0),\000d\000a\000d\000a\0009PRIMARY KEY ([product_id]),\000d\000a\0009FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PRODUCT
+CREATE TABLE [Product] (
+	[product_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[price] DECIMAL(10, 2) NOT NULL,
+	[image_url] VARCHAR(255),
+	[category_id] BIGINT NOT NULL,
+	[stock_quantity] INT DEFAULT 0,
+	[discount_percent] INT NOT NULL DEFAULT 0,
+	[created_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([stock_quantity] BETWEEN 0 AND 999),
+	CHECK ([discount_percent] BETWEEN 0 AND 100),
+	CHECK ([price] >= 0),
+
+	PRIMARY KEY ([product_id]),
+	FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])
+) [42001-240]
+2026-05-28 01:20:12.115292+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER\000d\000aCREATE TABLE [*][Order] (\000d\000a\0009[order_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_date] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[total_amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[shipping_address] VARCHAR(255) NOT NULL,\000d\000a\0009[receiver_name] VARCHAR(50) NOT NULL,\000d\000a\0009[receiver_phone] VARCHAR(50) NOT NULL,\000d\000a\0009[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[ordered_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([total_amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[status] IN (\000d\000a\0009\0009\0009'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_id]),\000d\000a\0009FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER
+CREATE TABLE [Order] (
+	[order_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_date] DATETIME NOT NULL DEFAULT GETDATE(),
+	[total_amount] DECIMAL(10, 2) NOT NULL,
+	[shipping_address] VARCHAR(255) NOT NULL,
+	[receiver_name] VARCHAR(50) NOT NULL,
+	[receiver_phone] VARCHAR(50) NOT NULL,
+	[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[ordered_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([total_amount] >= 0.0),
+	CHECK (
+		[status] IN (
+			'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'
+		)
+	),
+
+	PRIMARY KEY ([order_id]),
+	FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])
+) [42001-240]
+2026-05-28 01:20:12.115292+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER_DETAILS\000d\000aCREATE TABLE [*][OrderDetails] (\000d\000a\0009[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[logo_text] VARCHAR(50),\000d\000a\0009[logo_image] VARCHAR(255),\000d\000a\0009[quantity] INT NOT NULL DEFAULT 1,\000d\000a\0009[unit_price] DECIMAL(10, 2) NOT NULL,\000d\000a\000d\000a\0009CHECK ([quantity] > 0),\000d\000a\0009CHECK ([unit_price] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[female_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[male_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_detail_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER_DETAILS
+CREATE TABLE [OrderDetails] (
+	[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[product_id] BIGINT NOT NULL,
+	[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[logo_text] VARCHAR(50),
+	[logo_image] VARCHAR(255),
+	[quantity] INT NOT NULL DEFAULT 1,
+	[unit_price] DECIMAL(10, 2) NOT NULL,
+
+	CHECK ([quantity] > 0),
+	CHECK ([unit_price] >= 0.0),
+	CHECK (
+		[female_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	CHECK (
+		[male_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	PRIMARY KEY ([order_detail_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])
+) [42001-240]
+2026-05-28 01:20:12.116333+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PAYMENT\000d\000aCREATE TABLE [*][Payment] (\000d\000a\0009[payment_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',\000d\000a\0009[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[payment_date] DATETIME,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_method] IN \000d\000a\0009\0009\0009('COD', 'BANKING')\000d\000a\0009),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_status] IN\000d\000a\0009\0009\0009('PENDING', 'PAID', 'FAILED', 'REFUNDED')\000d\000a\0009),\000d\000a\0009\000d\000a\0009PRIMARY KEY ([payment_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009UNIQUE ([order_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PAYMENT
+CREATE TABLE [Payment] (
+	[payment_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[amount] DECIMAL(10, 2) NOT NULL,
+	[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',
+	[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[payment_date] DATETIME,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([amount] >= 0.0),
+	CHECK (
+		[payment_method] IN 
+			('COD', 'BANKING')
+	),
+	CHECK (
+		[payment_status] IN
+			('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+	),
+	
+	PRIMARY KEY ([payment_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	UNIQUE ([order_id])
+) [42001-240]
+2026-05-28 01:20:12.116333+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- REVIEW \000d\000aCREATE TABLE [*][Review] (\000d\000a\0009[rating_id] BIGINT IDENTITY(1,1),\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[user_id] BIGINT NOT NULL,\000d\000a\0009[order_detail_id] BIGINT NOT NULL,\000d\000a\0009[comment] VARCHAR(MAX),\000d\000a\0009[rating] INT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([rating] BETWEEN 1 AND 5),\000d\000a\000d\000a\0009PRIMARY KEY ([rating_id]),\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),\000d\000a\0009FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),\000d\000a\0009UNIQUE ([order_detail_id])\000d\000a) \000d\000a\000d\000a\000d\000a-- ========================================= TEST VALUES =========================================\000d\000a\000d\000aINSERT INTO [Users] ([email], [password]) VALUES \000d\000a\0009('anna@gmail.com', '{noop}test123'),\000d\000a\0009('benta@gmail.com', '{noop}test123'),\000d\000a\0009('carol@gmail.com', '{noop}test123')"; expected "identifier"; SQL statement:
+-- REVIEW 
+CREATE TABLE [Review] (
+	[rating_id] BIGINT IDENTITY(1,1),
+	[product_id] BIGINT NOT NULL,
+	[user_id] BIGINT NOT NULL,
+	[order_detail_id] BIGINT NOT NULL,
+	[comment] VARCHAR(MAX),
+	[rating] INT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([rating] BETWEEN 1 AND 5),
+
+	PRIMARY KEY ([rating_id]),
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),
+	FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),
+	UNIQUE ([order_detail_id])
+) 
+
+
+-- ========================================= TEST VALUES =========================================
+
+INSERT INTO [Users] ([email], [password]) VALUES 
+	('anna@gmail.com', '{noop}test123'),
+	('benta@gmail.com', '{noop}test123'),
+	('carol@gmail.com', '{noop}test123') [42001-240]
+2026-05-28 01:20:12.117340+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO [*][Roles] ([role_name]) VALUES\000d\000a\0009('ROLE_CUSTOMER'),\000d\000a\0009('ROLE_MANAGER'),\000d\000a\0009('ROLE_ADMIN')"; expected "identifier"; SQL statement:
+INSERT INTO [Roles] ([role_name]) VALUES
+	('ROLE_CUSTOMER'),
+	('ROLE_MANAGER'),
+	('ROLE_ADMIN') [42001-240]
+2026-05-28 01:20:27.349275+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- Drop Database only if it exists\000d\000aDROP [*]DATABASE IF EXISTS [fashion_store_management_system]"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, MATERIALIZED, VIEW, ROLE, ALIAS, SCHEMA, ALL OBJECTS, DOMAIN, TYPE, AGGREGATE, SYNONYM"; SQL statement:
+-- Drop Database only if it exists
+DROP DATABASE IF EXISTS [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:27.350269+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- Create new Database\000d\000aCREATE DATABASE [fashion_store_management_system]"; expected "GRANT"; SQL statement:
+GO
+
+-- Create new Database
+CREATE DATABASE [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:27.350269+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- Use Database\000d\000aUSE [fashion_store_management_system]"; expected "GRANT"; SQL statement:
+GO
+
+-- Use Database
+USE [fashion_store_management_system] [42001-240]
+2026-05-28 01:20:27.351267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GO\000d\000a\000d\000a-- ================================== CREATE TABLE ==================================\000d\000a-- AUTHORITIES\000d\000aCREATE TABLE [Roles] (\000d\000a\0009[role_id] INT NOT NULL IDENTITY(1,1),\000d\000a\0009[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[role_name] IN (\000d\000a\0009\0009\0009'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([role_id]),\000d\000a\0009UNIQUE ([role_name])\000d\000a)"; expected "GRANT"; SQL statement:
+GO
+
+-- ================================== CREATE TABLE ==================================
+-- AUTHORITIES
+CREATE TABLE [Roles] (
+	[role_id] INT NOT NULL IDENTITY(1,1),
+	[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',
+
+	CHECK (
+		[role_name] IN (
+			'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'
+		)
+	),
+
+	PRIMARY KEY ([role_id]),
+	UNIQUE ([role_name])
+) [42001-240]
+2026-05-28 01:20:27.351267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- USERS\000d\000aCREATE TABLE [*][Users] (\000d\000a\0009[user_id] BIGINT IDENTITY(1,1),\000d\000a\0009[email] VARCHAR(50) NOT NULL,\000d\000a\0009[password] VARCHAR(255) NOT NULL,\000d\000a\0009[full_name] VARCHAR(50),\000d\000a\0009[phone] VARCHAR(50),\000d\000a\0009[avatar_url] VARCHAR(255),\000d\000a\0009[is_enabled] BIT NOT NULL DEFAULT 1,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[role_id] INT DEFAULT NULL,\000d\000a\000d\000a\0009PRIMARY KEY ([user_id]),\000d\000a\0009UNIQUE ([email]),\000d\000a\0009FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- USERS
+CREATE TABLE [Users] (
+	[user_id] BIGINT IDENTITY(1,1),
+	[email] VARCHAR(50) NOT NULL,
+	[password] VARCHAR(255) NOT NULL,
+	[full_name] VARCHAR(50),
+	[phone] VARCHAR(50),
+	[avatar_url] VARCHAR(255),
+	[is_enabled] BIT NOT NULL DEFAULT 1,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[role_id] INT DEFAULT NULL,
+
+	PRIMARY KEY ([user_id]),
+	UNIQUE ([email]),
+	FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])
+) [42001-240]
+2026-05-28 01:20:27.352267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- CATEGORY\000d\000aCREATE TABLE [*][Category] (\000d\000a\0009[category_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009PRIMARY KEY ([category_id]),\000d\000a\0009UNIQUE ([name])\000d\000a)"; expected "identifier"; SQL statement:
+-- CATEGORY
+CREATE TABLE [Category] (
+	[category_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	PRIMARY KEY ([category_id]),
+	UNIQUE ([name])
+) [42001-240]
+2026-05-28 01:20:27.352267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PRODUCT\000d\000aCREATE TABLE [*][Product] (\000d\000a\0009[product_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[price] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[image_url] VARCHAR(255),\000d\000a\0009[category_id] BIGINT NOT NULL,\000d\000a\0009[stock_quantity] INT DEFAULT 0,\000d\000a\0009[discount_percent] INT NOT NULL DEFAULT 0,\000d\000a\0009[created_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([stock_quantity] BETWEEN 0 AND 999),\000d\000a\0009CHECK ([discount_percent] BETWEEN 0 AND 100),\000d\000a\0009CHECK ([price] >= 0),\000d\000a\000d\000a\0009PRIMARY KEY ([product_id]),\000d\000a\0009FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PRODUCT
+CREATE TABLE [Product] (
+	[product_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[price] DECIMAL(10, 2) NOT NULL,
+	[image_url] VARCHAR(255),
+	[category_id] BIGINT NOT NULL,
+	[stock_quantity] INT DEFAULT 0,
+	[discount_percent] INT NOT NULL DEFAULT 0,
+	[created_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([stock_quantity] BETWEEN 0 AND 999),
+	CHECK ([discount_percent] BETWEEN 0 AND 100),
+	CHECK ([price] >= 0),
+
+	PRIMARY KEY ([product_id]),
+	FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])
+) [42001-240]
+2026-05-28 01:20:27.353266+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER\000d\000aCREATE TABLE [*][Order] (\000d\000a\0009[order_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_date] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[total_amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[shipping_address] VARCHAR(255) NOT NULL,\000d\000a\0009[receiver_name] VARCHAR(50) NOT NULL,\000d\000a\0009[receiver_phone] VARCHAR(50) NOT NULL,\000d\000a\0009[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[ordered_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([total_amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[status] IN (\000d\000a\0009\0009\0009'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_id]),\000d\000a\0009FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER
+CREATE TABLE [Order] (
+	[order_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_date] DATETIME NOT NULL DEFAULT GETDATE(),
+	[total_amount] DECIMAL(10, 2) NOT NULL,
+	[shipping_address] VARCHAR(255) NOT NULL,
+	[receiver_name] VARCHAR(50) NOT NULL,
+	[receiver_phone] VARCHAR(50) NOT NULL,
+	[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[ordered_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([total_amount] >= 0.0),
+	CHECK (
+		[status] IN (
+			'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'
+		)
+	),
+
+	PRIMARY KEY ([order_id]),
+	FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])
+) [42001-240]
+2026-05-28 01:20:27.353266+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER_DETAILS\000d\000aCREATE TABLE [*][OrderDetails] (\000d\000a\0009[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[logo_text] VARCHAR(50),\000d\000a\0009[logo_image] VARCHAR(255),\000d\000a\0009[quantity] INT NOT NULL DEFAULT 1,\000d\000a\0009[unit_price] DECIMAL(10, 2) NOT NULL,\000d\000a\000d\000a\0009CHECK ([quantity] > 0),\000d\000a\0009CHECK ([unit_price] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[female_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[male_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_detail_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER_DETAILS
+CREATE TABLE [OrderDetails] (
+	[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[product_id] BIGINT NOT NULL,
+	[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[logo_text] VARCHAR(50),
+	[logo_image] VARCHAR(255),
+	[quantity] INT NOT NULL DEFAULT 1,
+	[unit_price] DECIMAL(10, 2) NOT NULL,
+
+	CHECK ([quantity] > 0),
+	CHECK ([unit_price] >= 0.0),
+	CHECK (
+		[female_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	CHECK (
+		[male_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	PRIMARY KEY ([order_detail_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])
+) [42001-240]
+2026-05-28 01:20:27.353266+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PAYMENT\000d\000aCREATE TABLE [*][Payment] (\000d\000a\0009[payment_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',\000d\000a\0009[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[payment_date] DATETIME,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_method] IN \000d\000a\0009\0009\0009('COD', 'BANKING')\000d\000a\0009),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_status] IN\000d\000a\0009\0009\0009('PENDING', 'PAID', 'FAILED', 'REFUNDED')\000d\000a\0009),\000d\000a\0009\000d\000a\0009PRIMARY KEY ([payment_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009UNIQUE ([order_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PAYMENT
+CREATE TABLE [Payment] (
+	[payment_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[amount] DECIMAL(10, 2) NOT NULL,
+	[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',
+	[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[payment_date] DATETIME,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([amount] >= 0.0),
+	CHECK (
+		[payment_method] IN 
+			('COD', 'BANKING')
+	),
+	CHECK (
+		[payment_status] IN
+			('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+	),
+	
+	PRIMARY KEY ([payment_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	UNIQUE ([order_id])
+) [42001-240]
+2026-05-28 01:20:27.354267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- REVIEW \000d\000aCREATE TABLE [*][Review] (\000d\000a\0009[rating_id] BIGINT IDENTITY(1,1),\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[user_id] BIGINT NOT NULL,\000d\000a\0009[order_detail_id] BIGINT NOT NULL,\000d\000a\0009[comment] VARCHAR(MAX),\000d\000a\0009[rating] INT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([rating] BETWEEN 1 AND 5),\000d\000a\000d\000a\0009PRIMARY KEY ([rating_id]),\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),\000d\000a\0009FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),\000d\000a\0009UNIQUE ([order_detail_id])\000d\000a) \000d\000a\000d\000a\000d\000a-- ========================================= TEST VALUES =========================================\000d\000a\000d\000aINSERT INTO [Users] ([email], [password]) VALUES \000d\000a\0009('anna@gmail.com', '{noop}test123'),\000d\000a\0009('benta@gmail.com', '{noop}test123'),\000d\000a\0009('carol@gmail.com', '{noop}test123')"; expected "identifier"; SQL statement:
+-- REVIEW 
+CREATE TABLE [Review] (
+	[rating_id] BIGINT IDENTITY(1,1),
+	[product_id] BIGINT NOT NULL,
+	[user_id] BIGINT NOT NULL,
+	[order_detail_id] BIGINT NOT NULL,
+	[comment] VARCHAR(MAX),
+	[rating] INT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([rating] BETWEEN 1 AND 5),
+
+	PRIMARY KEY ([rating_id]),
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),
+	FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),
+	UNIQUE ([order_detail_id])
+) 
+
+
+-- ========================================= TEST VALUES =========================================
+
+INSERT INTO [Users] ([email], [password]) VALUES 
+	('anna@gmail.com', '{noop}test123'),
+	('benta@gmail.com', '{noop}test123'),
+	('carol@gmail.com', '{noop}test123') [42001-240]
+2026-05-28 01:20:27.354267+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO [*][Roles] ([role_name]) VALUES\000d\000a\0009('ROLE_CUSTOMER'),\000d\000a\0009('ROLE_MANAGER'),\000d\000a\0009('ROLE_ADMIN')"; expected "identifier"; SQL statement:
+INSERT INTO [Roles] ([role_name]) VALUES
+	('ROLE_CUSTOMER'),
+	('ROLE_MANAGER'),
+	('ROLE_ADMIN') [42001-240]
+2026-05-28 01:23:01.648954+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ================================== CREATE TABLE ==================================\000d\000a-- AUTHORITIES\000d\000aCREATE TABLE [*][Roles] (\000d\000a\0009[role_id] INT NOT NULL IDENTITY(1,1),\000d\000a\0009[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[role_name] IN (\000d\000a\0009\0009\0009'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([role_id]),\000d\000a\0009UNIQUE ([role_name])\000d\000a)"; expected "identifier"; SQL statement:
+-- ================================== CREATE TABLE ==================================
+-- AUTHORITIES
+CREATE TABLE [Roles] (
+	[role_id] INT NOT NULL IDENTITY(1,1),
+	[role_name] VARCHAR(50) NOT NULL DEFAULT 'ROLE_CUSTOMER',
+
+	CHECK (
+		[role_name] IN (
+			'ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_ADMIN'
+		)
+	),
+
+	PRIMARY KEY ([role_id]),
+	UNIQUE ([role_name])
+) [42001-240]
+2026-05-28 01:23:01.649946+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- USERS\000d\000aCREATE TABLE [*][Users] (\000d\000a\0009[user_id] BIGINT IDENTITY(1,1),\000d\000a\0009[email] VARCHAR(50) NOT NULL,\000d\000a\0009[password] VARCHAR(255) NOT NULL,\000d\000a\0009[full_name] VARCHAR(50),\000d\000a\0009[phone] VARCHAR(50),\000d\000a\0009[avatar_url] VARCHAR(255),\000d\000a\0009[is_enabled] BIT NOT NULL DEFAULT 1,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[role_id] INT DEFAULT NULL,\000d\000a\000d\000a\0009PRIMARY KEY ([user_id]),\000d\000a\0009UNIQUE ([email]),\000d\000a\0009FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- USERS
+CREATE TABLE [Users] (
+	[user_id] BIGINT IDENTITY(1,1),
+	[email] VARCHAR(50) NOT NULL,
+	[password] VARCHAR(255) NOT NULL,
+	[full_name] VARCHAR(50),
+	[phone] VARCHAR(50),
+	[avatar_url] VARCHAR(255),
+	[is_enabled] BIT NOT NULL DEFAULT 1,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[role_id] INT DEFAULT NULL,
+
+	PRIMARY KEY ([user_id]),
+	UNIQUE ([email]),
+	FOREIGN KEY ([role_id]) REFERENCES [Roles]([role_id])
+) [42001-240]
+2026-05-28 01:23:01.653905+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- CATEGORY\000d\000aCREATE TABLE [*][Category] (\000d\000a\0009[category_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009PRIMARY KEY ([category_id]),\000d\000a\0009UNIQUE ([name])\000d\000a)"; expected "identifier"; SQL statement:
+-- CATEGORY
+CREATE TABLE [Category] (
+	[category_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	PRIMARY KEY ([category_id]),
+	UNIQUE ([name])
+) [42001-240]
+2026-05-28 01:23:01.654947+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PRODUCT\000d\000aCREATE TABLE [*][Product] (\000d\000a\0009[product_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[name] VARCHAR(100) NOT NULL,\000d\000a\0009[description] VARCHAR(MAX),\000d\000a\0009[price] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[image_url] VARCHAR(255),\000d\000a\0009[category_id] BIGINT NOT NULL,\000d\000a\0009[stock_quantity] INT DEFAULT 0,\000d\000a\0009[discount_percent] INT NOT NULL DEFAULT 0,\000d\000a\0009[created_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([stock_quantity] BETWEEN 0 AND 999),\000d\000a\0009CHECK ([discount_percent] BETWEEN 0 AND 100),\000d\000a\0009CHECK ([price] >= 0),\000d\000a\000d\000a\0009PRIMARY KEY ([product_id]),\000d\000a\0009FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PRODUCT
+CREATE TABLE [Product] (
+	[product_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[name] VARCHAR(100) NOT NULL,
+	[description] VARCHAR(MAX),
+	[price] DECIMAL(10, 2) NOT NULL,
+	[image_url] VARCHAR(255),
+	[category_id] BIGINT NOT NULL,
+	[stock_quantity] INT DEFAULT 0,
+	[discount_percent] INT NOT NULL DEFAULT 0,
+	[created_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+	[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([stock_quantity] BETWEEN 0 AND 999),
+	CHECK ([discount_percent] BETWEEN 0 AND 100),
+	CHECK ([price] >= 0),
+
+	PRIMARY KEY ([product_id]),
+	FOREIGN KEY ([created_by]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([category_id]) REFERENCES [Category]([category_id])
+) [42001-240]
+2026-05-28 01:23:01.654947+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER\000d\000aCREATE TABLE [*][Order] (\000d\000a\0009[order_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_date] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\0009[total_amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[shipping_address] VARCHAR(255) NOT NULL,\000d\000a\0009[receiver_name] VARCHAR(50) NOT NULL,\000d\000a\0009[receiver_phone] VARCHAR(50) NOT NULL,\000d\000a\0009[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[ordered_by] BIGINT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([total_amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[status] IN (\000d\000a\0009\0009\0009'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'\000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_id]),\000d\000a\0009FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER
+CREATE TABLE [Order] (
+	[order_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_date] DATETIME NOT NULL DEFAULT GETDATE(),
+	[total_amount] DECIMAL(10, 2) NOT NULL,
+	[shipping_address] VARCHAR(255) NOT NULL,
+	[receiver_name] VARCHAR(50) NOT NULL,
+	[receiver_phone] VARCHAR(50) NOT NULL,
+	[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[ordered_by] BIGINT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([total_amount] >= 0.0),
+	CHECK (
+		[status] IN (
+			'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'
+		)
+	),
+
+	PRIMARY KEY ([order_id]),
+	FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])
+) [42001-240]
+2026-05-28 01:23:01.655904+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- ORDER_DETAILS\000d\000aCREATE TABLE [*][OrderDetails] (\000d\000a\0009[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',\000d\000a\0009[logo_text] VARCHAR(50),\000d\000a\0009[logo_image] VARCHAR(255),\000d\000a\0009[quantity] INT NOT NULL DEFAULT 1,\000d\000a\0009[unit_price] DECIMAL(10, 2) NOT NULL,\000d\000a\000d\000a\0009CHECK ([quantity] > 0),\000d\000a\0009CHECK ([unit_price] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[female_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009CHECK (\000d\000a\0009\0009[male_size] IN (\000d\000a\0009\0009\0009'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' \000d\000a\0009\0009)\000d\000a\0009),\000d\000a\000d\000a\0009PRIMARY KEY ([order_detail_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- ORDER_DETAILS
+CREATE TABLE [OrderDetails] (
+	[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[product_id] BIGINT NOT NULL,
+	[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',
+	[logo_text] VARCHAR(50),
+	[logo_image] VARCHAR(255),
+	[quantity] INT NOT NULL DEFAULT 1,
+	[unit_price] DECIMAL(10, 2) NOT NULL,
+
+	CHECK ([quantity] > 0),
+	CHECK ([unit_price] >= 0.0),
+	CHECK (
+		[female_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	CHECK (
+		[male_size] IN (
+			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+		)
+	),
+
+	PRIMARY KEY ([order_detail_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])
+) [42001-240]
+2026-05-28 01:23:01.655904+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- PAYMENT\000d\000aCREATE TABLE [*][Payment] (\000d\000a\0009[payment_id] BIGINT IDENTITY(1,1) NOT NULL,\000d\000a\0009[order_id] BIGINT NOT NULL,\000d\000a\0009[amount] DECIMAL(10, 2) NOT NULL,\000d\000a\0009[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',\000d\000a\0009[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',\000d\000a\0009[payment_date] DATETIME,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([amount] >= 0.0),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_method] IN \000d\000a\0009\0009\0009('COD', 'BANKING')\000d\000a\0009),\000d\000a\0009CHECK (\000d\000a\0009\0009[payment_status] IN\000d\000a\0009\0009\0009('PENDING', 'PAID', 'FAILED', 'REFUNDED')\000d\000a\0009),\000d\000a\0009\000d\000a\0009PRIMARY KEY ([payment_id]),\000d\000a\0009FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,\000d\000a\0009UNIQUE ([order_id])\000d\000a)"; expected "identifier"; SQL statement:
+-- PAYMENT
+CREATE TABLE [Payment] (
+	[payment_id] BIGINT IDENTITY(1,1) NOT NULL,
+	[order_id] BIGINT NOT NULL,
+	[amount] DECIMAL(10, 2) NOT NULL,
+	[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',
+	[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+	[payment_date] DATETIME,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([amount] >= 0.0),
+	CHECK (
+		[payment_method] IN 
+			('COD', 'BANKING')
+	),
+	CHECK (
+		[payment_status] IN
+			('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+	),
+	
+	PRIMARY KEY ([payment_id]),
+	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	UNIQUE ([order_id])
+) [42001-240]
+2026-05-28 01:23:01.656906+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- REVIEW \000d\000aCREATE TABLE [*][Review] (\000d\000a\0009[rating_id] BIGINT IDENTITY(1,1),\000d\000a\0009[product_id] BIGINT NOT NULL,\000d\000a\0009[user_id] BIGINT NOT NULL,\000d\000a\0009[order_detail_id] BIGINT NOT NULL,\000d\000a\0009[comment] VARCHAR(MAX),\000d\000a\0009[rating] INT NOT NULL,\000d\000a\0009[created_at] DATETIME NOT NULL DEFAULT GETDATE(),\000d\000a\000d\000a\0009CHECK ([rating] BETWEEN 1 AND 5),\000d\000a\000d\000a\0009PRIMARY KEY ([rating_id]),\000d\000a\0009FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),\000d\000a\0009FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),\000d\000a\0009FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),\000d\000a\0009UNIQUE ([order_detail_id])\000d\000a) \000d\000a\000d\000a\000d\000a-- ========================================= TEST VALUES =========================================\000d\000a\000d\000aINSERT INTO [Users] ([email], [password]) VALUES \000d\000a\0009('anna@gmail.com', '{noop}test123'),\000d\000a\0009('benta@gmail.com', '{noop}test123'),\000d\000a\0009('carol@gmail.com', '{noop}test123')"; expected "identifier"; SQL statement:
+-- REVIEW 
+CREATE TABLE [Review] (
+	[rating_id] BIGINT IDENTITY(1,1),
+	[product_id] BIGINT NOT NULL,
+	[user_id] BIGINT NOT NULL,
+	[order_detail_id] BIGINT NOT NULL,
+	[comment] VARCHAR(MAX),
+	[rating] INT NOT NULL,
+	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
+
+	CHECK ([rating] BETWEEN 1 AND 5),
+
+	PRIMARY KEY ([rating_id]),
+	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),
+	FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),
+	FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),
+	UNIQUE ([order_detail_id])
+) 
+
+
+-- ========================================= TEST VALUES =========================================
+
+INSERT INTO [Users] ([email], [password]) VALUES 
+	('anna@gmail.com', '{noop}test123'),
+	('benta@gmail.com', '{noop}test123'),
+	('carol@gmail.com', '{noop}test123') [42001-240]
+2026-05-28 01:23:01.656906+07:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO [*][Roles] ([role_name]) VALUES\000d\000a\0009('ROLE_CUSTOMER'),\000d\000a\0009('ROLE_MANAGER'),\000d\000a\0009('ROLE_ADMIN')"; expected "identifier"; SQL statement:
+INSERT INTO [Roles] ([role_name]) VALUES
+	('ROLE_CUSTOMER'),
+	('ROLE_MANAGER'),
+	('ROLE_ADMIN') [42001-240]

@@ -1,0 +1,379 @@
+<div class="min-h-screen bg-background" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- NAV BAR -->
+    <header  th:fragment="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#E5DDD2]/50 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-18" style="height: 72px">
+                <!-- Left Navbar -->
+                <nav class="hidden md:flex items-center gap-10 flex-1">
+
+                    <!-- New In -->
+                    <a href= "#"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                        New In
+                    </a>
+
+                    <!-- Collection -->
+                    <a href="#"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                        Collection
+                    </a>
+
+                </nav>
+                <!-- End left Navbar -->
+
+                <!-- Center logo -->
+                <a th:href="@{/fashion-store/dashboard}"
+                   class="flex flex-col items-center gap-0.5 group absolute left-1/2 -translate-x-1/2">
+                    <span class="text-xl font-bold tracking-[0.22em] uppercase text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-300"
+                          style="font-family: 'Josefin Sans', sans-serif">
+                        Fashion Store
+                    </span>
+
+                    <span class="text-[9px] tracking-[0.3em] uppercase text-[#777777]">
+                        Est. 2024
+                    </span>
+                </a>
+                <!-- End center logo -->
+
+                <!-- Right actions -->
+                <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
+
+                    <!-- Menu Profile -->
+                    <div sec:authorize="isAuthenticated()" class="relative group">
+                        <!-- Profile Button -->
+                        <button class="flex items-center gap-3  px-3 py-2 rounded-full transition-all duration-200">
+
+                            <!-- Avatar -->
+                            <div class="w-8 h-8 rounded-full border border-[#D8C3A5] overflow-hidden flex items-center justify-center bg-white">
+                                <!-- Use default avatar if user profile photo is null -->
+                                <img th:if="${user != null and user.avatarUrl == null}" th:src="@{/images/avatars/default.jpg}"
+                                     alt="Profile photo"
+                                     class="object-cover"
+                                />
+
+                                <!-- Use user's avatar if user profile photo is not null -->
+                                <img th:if="${user != null and user.avatarUrl != null}" th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                                     alt="Profile photo"
+                                     class="object-cover"
+                                />
+                            </div>
+
+                            <!-- User info -->
+                            <div class="hidden md:flex flex-col items-start leading-tight">
+                                <span class="text-xs text-[#777777]">
+                                    Welcome Back,
+                                </span>
+
+                                <span sec:authentication="principal.user.fullName" class="text-sm font-medium text-[#222222]"></span>
+                            </div>
+
+                            <!-- Arrow -->
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 text-[#777777]"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div class="absolute right-0 mt-3 w-60 bg-white border border-[#E8DDD0] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
+                            <a th:href="@{/orders}"
+                               class="flex items-center px-4 py-3 text-xs text-[#222222] hover:bg-[#F5F1EB] transition-colors duration-150">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="lucide lucide-handbag-icon lucide-handbag pr-2">
+                                    <path d="M2.048 18.566A2 2 0 0 0 4 21h16a2 2 0 0 0 1.952-2.434l-2-9A2 2 0 0 0 18 8H6a2 2 0 0 0-1.952 1.566z"/>
+                                    <path d="M8 11V6a4 4 0 0 1 8 0v5"/>
+                                </svg>
+
+                                My Orders
+                            </a>
+
+                            <a th:href="@{/fashion-store/users/my-profile}"
+                               class="flex items-center px-4 py-3 text-xs text-[#222222] hover:bg-[#F5F1EB] transition-colors duration-150">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="lucide lucide-square-user-icon lucide-square-user pr-2">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                    <path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                                My Profile
+                            </a>
+
+                            <form th:action="@{/fashion-store/auth/logout}" method="post">
+                                <button type="submit"
+                                        class="w-full text-left px-4 py-3 text-xs text-red-500 hover:bg-red-50 transition-colors duration-150 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                         class="lucide lucide-log-out-icon lucide-log-out pr-2">
+                                        <path d="m16 17 5-5-5-5"/>
+                                        <path d="M21 12H9"/>
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    </svg>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Login Button -->
+                    <a sec:authorize="isAnonymous()"
+                            th:href="@{/fashion-store/auth/login}"
+                       class="text-xs tracking-[0.14em] uppercase text-[#222222] hover:text-[#D8C3A5] transition-colors duration-200">
+                        Login
+                    </a>
+
+                    <!-- Cart Items -->
+                    <a href="#"
+                       class="relative group">
+
+                        <!-- Shopping-Bag Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="lucide lucide-shopping-bag-icon lucide-shopping-bag w-5 h-5 text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-200">
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                                <path d="M3.103 6.034h17.794"/>
+                                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/>
+                        </svg>
+
+                        <!-- Cart Items Quantity -->
+                        <span class="absolute -top-2 -right-2 w-4 h-4 bg-[#1F1F1F] text-[#F5F1EB] rounded-full flex items-center justify-center text-[9px] font-bold">
+                            2
+                        </span>
+                    </a>
+                </div>
+                <!-- End right actions -->
+
+            </div>
+
+        </div>
+    </header>
+    <!-- END NAV BAR -->
+
+    <!-- FOOTER -->
+    <footer th:fragment="footer"
+            class="text-white"
+            style="background: linear-gradient(180deg, #2A2421 0%, #1A1714 100%)">
+
+        <!-- Divider accent -->
+        <div class="h-px w-full"
+             style="background: linear-gradient(to right, transparent, #D8C3A5/30, transparent)">
+        </div>
+
+        <!-- Line gradient -->
+        <div class="h-px w-full opacity-20"
+             style="background: linear-gradient(90deg, transparent 0%, #D8C3A5 40%, #D8C3A5 60%, transparent 100%)">
+        </div>
+
+        <!-- Content -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-8">
+
+            <!-- Main Content -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-14">
+
+                <!-- Brand column -->
+                <div class="md:col-span-4">
+
+                    <!-- Info -->
+                    <div class="mb-6">
+                        <!-- Company name -->
+                        <p class="text-base font-semibold tracking-[0.35em] uppercase text-white mb-0.5"
+                           style="font-family: 'Josefin Sans', sans-serif">
+                            Fashion Store
+                        </p>
+
+                        <!-- Company location -->
+                        <p class="text-[9px] tracking-[0.3em] uppercase text-white">
+                            Est. 2024 · Vietnam
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-[13px] text-white leading-[1.85] max-w-[240px] mb-8 font-light">
+                        Thoughtfully designed matching sets for couples
+                        who share a sense of style. Modern minimalism,
+                        made in Vietnam.
+                    </p>
+
+                    <!-- Social icons -->
+                    <div class="flex gap-2.5">
+                        <a href="#"
+                           class="w-8 h-8 border border-white/20 flex items-center justify-center text-white hover:border-[#D8C3A5] hover:text-[#D8C3A5] transition-all duration-300">
+                        </a>
+                    </div>
+                </div>
+                <!-- End brand column -->
+
+                <!-- Shop -->
+                <div class="md:col-span-2">
+                    <!-- Shop Title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Shop
+                    </p>
+
+                    <!-- Shop List -->
+                    <ul class="space-y-4">
+                        <!-- New Arrivals -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                New Arrivals
+                            </a>
+                        </li>
+
+                        <!-- Couple Sets -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Couple Sets
+                            </a>
+                        </li>
+
+                        <!-- Tees -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Tees
+                            </a>
+                        </li>
+
+                        <!-- Sale -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Sale
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Shop -->
+
+                <!-- Info -->
+                <div class="md:col-span-2">
+                    <!-- Info title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Info
+                    </p>
+
+                    <!-- Info List -->
+                    <ul class="space-y-4">
+
+                        <!-- Info List -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Our Story
+                            </a>
+                        </li>
+
+                        <!-- Sizing Guide -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Sizing Guide
+                            </a>
+                        </li>
+
+                        <!-- Shipping -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Shipping
+                            </a>
+                        </li>
+
+                        <!-- Returns -->
+                        <li>
+                            <a href="#"
+                               class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light">
+                                Returns
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Info -->
+
+                <!-- Stay in touch -->
+                <div class="md:col-span-4">
+
+                    <!-- Stay in touch title -->
+                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                        Stay in touch
+                    </p>
+
+                    <!-- Stay in touch description-->
+                    <p class="text-[13px] text-white mb-6 leading-[1.8] font-light">
+                        Early access, exclusive drops, and couple style
+                        guides.
+                    </p>
+
+                    <!-- Stay in touch form for subscribe -->
+                    <form class="space-y-2.5">
+
+                        <!-- Email field -->
+                        <label for="email"></label>
+                        <input type="email"
+                               placeholder="your@email.com"
+                               class="w-full px-4 py-3 bg-white/[0.03] border border-white/20 text-white placeholder-white/40 text-[13px] focus:outline-none focus:border-[#D8C3A5]/50 transition-colors duration-300 font-light"
+                               id="email"
+                        />
+
+                        <!-- Submit subscribe field -->
+                        <button type="submit"
+                                class="w-full py-3 bg-[#D8C3A5] text-[#1A1510] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E8D8C0] transition-colors duration-300"
+                                style="font-family: 'Josefin Sans', sans-serif">
+                            Subscribe
+                        </button>
+
+                    </form>
+                    <!-- End stay in touch form for subscribe -->
+
+                </div>
+            </div>
+            <!-- End main Content -->
+
+            <!-- Bottom bar -->
+            <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+
+                <!-- Policy Description -->
+                <span class="text-[11px] text-white tracking-[0.1em]">
+                  © 2026 Fashion Store. All rights reserved.
+                </span>
+
+                <!-- Policy Details -->
+                <div class="flex gap-6">
+                    <!-- Privacy Policy -->
+                    <a href="#"
+                       class="text-[11px] text-white hover:text-[#D8C3A5] transition-colors duration-200 tracking-wide">
+                        Privacy Policy
+                    </a>
+
+                    <!-- Term of Service -->
+                    <a href="#"
+                       class="text-[11px] text-white hover:text-[#D8C3A5] transition-colors duration-200 tracking-wide">
+                        Term of Service
+                    </a>
+                </div>
+                <!-- End Policy Details -->
+
+            </div>
+            <!-- Bottom bar -->
+
+        </div>
+        <!-- End content -->
+</footer>
+    <!-- END FOOTER -->
+
+</div>

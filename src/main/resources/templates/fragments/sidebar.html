@@ -1,0 +1,148 @@
+<!-- Sidebar -->
+<!-- ${sidebarOpen ? "translate-x-0" : "-translate-x-full"-->
+<!-- Backdrop -->
+<aside th:fragment="sidebar" class="sidebar fixed inset-y-0 left-0 z-40 w-64 flex flex-col
+            bg-[#1F1B18] text-[#F5F1EB]
+            transition-transform duration-300 ease-in-out
+            lg:relative translate-x-0">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3 px-5 h-16 border-b border-[#D8C3A5]/15 flex-shrink-0">
+        <!--        <div class="w-8 h-8 bg-[#D8C3A5] rounded-lg flex items-center justify-center flex-shrink-0">-->
+        <!--        </div>-->
+
+        <div class="min-w-0">
+            <div class="text-sm font-bold tracking-wide text-[#F5F1EB]">
+                FashionStore
+            </div>
+            <div class="text-[10px] text-[#D8C3A5]/70 tracking-widest uppercase">
+                Admin Panel
+            </div>
+        </div>
+
+        <!--            <button onclick="closeSideBar()" class="ml-auto text-[#D8C3A5]/70 hover:text-[#D8C3A5]">-->
+        <!--                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-open-icon lucide-panel-right-open"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m10 15-3-3 3-3"/></svg>-->
+        <!--            </button>-->
+    </div>
+
+    <!-- Role badge -->
+    <div class="px-4 py-3 border-b border-[#D8C3A5]/15 flex-shrink-0">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#D8C3A5]/15 text-[#D8C3A5] text-[10px] font-bold tracking-widest uppercase rounded-md">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#D8C3A5] animate-pulse"></span>
+                    ROLE_ADMIN
+                  </span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-5"
+         style="scrollbar-width: none">
+        <!-- Overview -->
+        <div>
+            <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
+                Overview
+            </div>
+
+            <div class="space-y-0.5">
+                <a th:href="@{/fashion-store/dashboard}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Dashboard</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- User & Access -->
+        <div>
+            <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
+                User & Access
+            </div>
+
+            <div class="space-y-0.5">
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">User Management</span>
+                </a>
+
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Manager Accounts</span>
+                </a>
+
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Role Management</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Catalog -->
+        <div>
+            <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
+                Catalog
+            </div>
+
+            <div class="space-y-0.5">
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Product Management</span>
+                </a>
+
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Category Management</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Operations -->
+        <div>
+            <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
+                Operations
+            </div>
+
+            <div class="space-y-0.5">
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Order Management</span>
+                </a>
+
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Payment Management</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- System -->
+        <div>
+            <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
+                System
+            </div>
+
+            <div class="space-y-0.5">
+                <a href="#"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
+                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">My Profile</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <div class="border-t border-[#D8C3A5]/15 p-3 space-y-0.5 flex-shrink-0">
+        <div class="px-3 py-2 mt-2 flex items-center gap-3">
+            <div class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                A
+            </div>
+
+            <div class="min-w-0">
+                <div class="text-xs font-semibold text-[#F5F1EB] truncate">
+                    Admin User
+                </div>
+                <div class="text-[10px] text-[#D8C3A5]/60 truncate">
+                    admin@fashionstore.vn
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
