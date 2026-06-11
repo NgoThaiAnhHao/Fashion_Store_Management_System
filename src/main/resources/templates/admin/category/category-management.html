@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+     style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
+
+    <!-- SideBar -->
+    <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden w-100">
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+            <!-- Topbar -->
+            <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+            <div class="p-6 space-y-5 bg-[#F5F1EB] min-h-full">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-xl font-bold text-[#222222]">Category Management</h1>
+                        <p class="text-sm text-[#6B6B6B] mt-0.5">
+                            7 categories · 164 total products
+                        </p>
+                    </div>
+
+                    <a th:href="@{/fashion-store/categories/add-new}" class="text-[#8A6B45] bg-[#D8C3A5]/60 hover:bg-[#D8C3A5]/80 border border-[#D8C3A5]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D8C3A5]/90 active:bg-[#D8C3A5]/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        Create Category
+                    </a>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] p-4 flex flex-wrap gap-3 items-center">
+                    <div class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A6B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                        <input type="text"
+                               placeholder="Search by category name..."
+                               class="bg-transparent text-sm text-[#222222] placeholder:text-[#8A6B45]/70 outline-none w-full">
+                    </div>
+                </div>
+
+                <!-- Error message when categories empty -->
+                <div class="flex justify-center items-center">
+                    <ul th:if="${categories.isEmpty()}" class="text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        <li class="block">No data for categories</li>
+                    </ul>
+                </div>
+
+                <!-- Table -->
+                <div th:if="${!categories.isEmpty()}" class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                            <tr class="bg-[#F3EEE8] border-b border-[#E5DDD2]">
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Category ID
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Category Name
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Description
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Products
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Created Date
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Updated Date
+                                </th>
+
+                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                    Actions
+                                </th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="category : ${categories}" class="border-b border-[#E5DDD2]/60 hover:bg-[#FBF8F4] transition-colors">
+                                <td th:text="*{category.categoryId}" class="text-center px-4 py-3 text-xs font-medium text-[#222222] whitespace-nowrap"></td>
+
+                                <td th:text="*{category.name}" class="font-bold px-4 py-3 text-xs text-[#6B6B6B]"></td>
+
+                                <td th:text="*{category.description}" class="px-4 py-3 text-xs text-[#6B6B6B] whitespace-nowrap"></td>
+
+                                <td class="px-4 py-3 text-xs text-[#6B6B6B] whitespace-nowrap"></td>
+
+                                <td th:text="*{category.getFormattedCreatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+
+                                <td th:text="*{category.getFormattedUpdatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-1">
+                                        <!-- Edit Category -->
+                                        <a th:href="@{/fashion-store/categories/update/{id}(id=${category.categoryId})}"
+                                           type="button"
+                                           class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                                        </a>
+
+                                        <!-- Delete Category -->
+                                        <form th:action="@{/fashion-store/categories/delete/{id}(id=${category.categoryId})}"
+                                                method="POST">
+                                            <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+</body>
+</html>

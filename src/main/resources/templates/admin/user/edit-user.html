@@ -18,9 +18,12 @@
     <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 
     <!-- Main -->
-    <div class="flex-1 flex flex-col overflow-hidden w-100">
+    <div class="flex-1 flex flex-col overflow-hidden w-100 ">
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[#F5F1EB] flex justify-center">
+        <main class="flex-1 overflow-y-auto bg-[#F5F1EB] ">
+            <!-- Topbar -->
+            <div th:replace="~{fragments/topbar :: topbar}"></div>
+
             <div class="p-6 space-y-6 w-full">
                 <div>
                     <h1 class="text-xl font-bold text-slate-900">Admin Profile</h1>
@@ -39,7 +42,7 @@
 
                             <!-- Use user's avatar if user profile photo is not null -->
                             <img th:if="${user != null and user.avatarUrl != null}"
-                                 th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                                 th:src="@{'/uploads/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
                                  alt="Profile photo"
                                  class="w-24 h-24 rounded-full object-cover border-2 border-[#D8C3A5]"
                             />
@@ -60,6 +63,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Error message -->
+                    <ul th:if="${errors}"
+                        class=" text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
+                    </ul>
 
                     <!-- Form fields -->
                     <form th:action="@{/fashion-store/users/update-profile/{id}(id=${user.userId})}"
@@ -123,7 +132,6 @@
 
                 </div>
             </div>
-
         </main>
     </div>
 </div>

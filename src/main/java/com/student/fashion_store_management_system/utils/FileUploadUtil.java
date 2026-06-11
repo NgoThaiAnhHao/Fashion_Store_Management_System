@@ -11,24 +11,24 @@ import java.nio.file.StandardCopyOption;
 
 public class FileUploadUtil {
     public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
-        // Get images/users/{userId}
+        // Get uploads/users/{userId}
         Path uploadPath = Paths.get(uploadDir);
 
-        // Check images/users/{userId} is existing
-        // If no, create new images/users/{userId}
+        // Check uploads/users/{userId} is existing
+        // If no, create new uploads/users/{userId}
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
         // Get data (byte) from multipartFile
         try (InputStream inputStream = multipartFile.getInputStream();) {
-            // Merge uploadDir = "images/users/{userId}" and filename = "avatar.jpg" to images/users/{userId}/avatar.jpg
+            // Merge uploadDir = "uploads/users/{userId}" and filename = "avatar.jpg" to uploads/users/{userId}/avatar.jpg
             Path path = uploadPath.resolve(fileName);
 
             System.out.println("File Path: " + path);
             System.out.println("File Name: " + fileName);
 
-            // Copy data (byte) from multipartFile.getInputStream() to images/users/{userId}/avatar.jpg
+            // Copy data (byte) from multipartFile.getInputStream() to uploads/users/{userId}/avatar.jpg
             Files.copy(
                     inputStream,
                     path,

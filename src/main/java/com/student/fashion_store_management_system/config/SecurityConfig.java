@@ -5,6 +5,8 @@ import jakarta.servlet.FilterChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,9 +34,12 @@ public class SecurityConfig {
                     config
                         .requestMatchers(
                                 "/fashion-store/auth/**",
-                                "/fashion-store/dáhboard",
+                                "/fashion-store/dashboard",
                                 "/css/**",
-                                "/images/**"
+                                "/images/**",
+                                "/fashion-store/dashboard/test",
+                                "/fashion-store/products/detail/**",
+                                "/uploads/products/**"
                         ).permitAll().anyRequest().authenticated()
                 )
                 .formLogin(form -> form

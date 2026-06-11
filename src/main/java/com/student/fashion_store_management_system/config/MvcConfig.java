@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    private static final String UPLOAD_DIR = "images";
+    private static final String UPLOAD_DIR = "uploads";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -17,10 +17,10 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     private void exposeDirectory(String uploadDir, ResourceHandlerRegistry registry) {
-        // Get path: /images
+        // Get path: /uploads
         Path path = Paths.get(uploadDir);
 
-        // Sign url pattern /images/**
+        // Sign url pattern /uploads/**
         registry.addResourceHandler("/" + uploadDir + "/**")
 
         // Declare position of file

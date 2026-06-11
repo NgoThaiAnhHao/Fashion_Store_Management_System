@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.service;
 
+import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import com.student.fashion_store_management_system.model.dto.authentication.UserUpdateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
 import com.student.fashion_store_management_system.model.entity.User;
@@ -8,6 +9,8 @@ import java.util.List;
 
 public interface UserService {
     List<UserResponseDto> findAll();
+
+    List<UserResponseDto> findAllByRole(RoleNameEnum roleName);
 
     UserResponseDto findById(long id);
 

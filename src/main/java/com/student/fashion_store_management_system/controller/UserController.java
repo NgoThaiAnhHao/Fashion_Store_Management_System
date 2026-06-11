@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import com.student.fashion_store_management_system.mapper.UserMapper;
 import com.student.fashion_store_management_system.model.dto.authentication.UserUpdateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/fashion-store/users")
+@RequestMapping("/fashion-store")
 public class UserController {
 
     private final AuthenticationService authenticationService;
@@ -32,21 +33,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/my-profile")
+    @GetMapping("/users/my-profile")
     public String getProfile(Model model) {
         User user = authenticationService.getCurrentUser();
         model.addAttribute("user", UserMapper.toResponse(user));
         return "user-profile";
     }
 
-    @GetMapping("/edit/{id}")
-    public String getProfileA(@PathVariable long id, Model model) {
+    @GetMapping("/users/edit/{id}")
+    public String getProfileById(@PathVariable long id, Model model) {
         UserResponseDto user = userService.findById(id);
         model.addAttribute("user", user);
-        return "/admin/edit-user";
+        return "/admin/user/edit-user";
     }
 
-    @PostMapping("/update-profile/{id}")
+    @PostMapping("/users/update-profile/{id}")
     public String updateProfile(@PathVariable long id,
                                 @RequestParam("avatar") MultipartFile multipartFile,
                                 @Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
@@ -58,15 +59,20 @@ public class UserController {
         // Check validation
         if (bindingResult.hasErrors()) {
             User user = authenticationService.getCurrentUser();
-            model.addAttribute("user", user);
+            model.addAttribute("user", UserMapper.toResponse(user));
 
             // Get all errors from validation and render to UI
             List<String> errors = bindingResult.getFieldErrors()
                     .stream()
                     .map(FieldError::getDefaultMessage)
                     .toList();
-
             model.addAttribute("errors", errors);
+
+            // For admin
+            if (isAdmin()) {
+                return "admin/user/edit-user";
+            }
+
             return "user-profile";
         }
 
@@ -88,8 +94,8 @@ public class UserController {
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
             // Create folder for every body
-            // ex: images/users/1000
-            String uploadDir = "images/users/" + savedUser.getUserId();
+            // ex: uploads/users/1000
+            String uploadDir = "uploads/users/" + savedUser.getUserId();
 
             // Save avatar's data
             try {
@@ -103,30 +109,44 @@ public class UserController {
         redirectAttributes.addFlashAttribute("successMessage", "Updated Profile Successfully!");
 
         // For Admin
-        User currentUser = authenticationService.getCurrentUser();
-        if ("ROLE_ADMIN".equals(currentUser.getRoles().getRoleName().toString())) {
+        if (isAdmin()) {
             return "redirect:/fashion-store/users/users-management";
         }
 
         return "redirect:/fashion-store/users/my-profile";
     }
 
-    @GetMapping("/users-management")
+    @GetMapping("/users/users-management")
     public String getAllUsers(Model model) {
         List<UserResponseDto> users = userService.findAll();
         model.addAttribute("users", users);
-        return "admin/user-management";
+        return "admin/user/user-management";
     }
 
-    @PostMapping("/update-status/{id}")
+    @GetMapping("/users/users-management/{roleName}")
+    public String getAllUsersByRole(@PathVariable RoleNameEnum roleName,
+                                    Model model) {
+        List<UserResponseDto> users = userService.findAllByRole(roleName);
+        model.addAttribute("users", users);
+        return "admin/user/user-management";
+    }
+
+    @PostMapping("/users/update-status/{id}")
     public String updateUserStatus(@PathVariable long id) {
         userService.updateStatus(id);
         return "redirect:/fashion-store/users/users-management";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable long id) {
         userService.delete(id);
         return "redirect:/fashion-store/users/users-management";
+    }
+
+    private boolean isAdmin() {
+        User currentUser = authenticationService.getCurrentUser();
+            return "ROLE_ADMIN".equals(
+                    currentUser.getRoles().getRoleName().toString()
+            );
     }
 }

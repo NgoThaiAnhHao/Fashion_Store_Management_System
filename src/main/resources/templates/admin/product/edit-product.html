@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+     style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
+
+    <!-- SideBar -->
+    <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden w-100 ">
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+            <!-- Topbar -->
+            <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+            <div class="p-6 space-y-6 w-full">
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">Edit Product</h1>
+                    <p class="text-sm text-slate-500 mt-0.5">Edit something of product</p>
+                </div>
+
+                <div>
+                    <!-- Error message-->
+                    <ul th:if="${errors}"
+                        class=" text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
+                    </ul>
+
+                    <!-- Form fields -->
+                    <form th:action="@{/fashion-store/products/update/{id}(id=${product.productId})}"
+                          th:object="${product}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          class="bg-[#FDFAF6] border border-[#E5DDD2] rounded-lg relative my-10">
+
+                        <div class="p-6 space-y-6">
+                            <div>
+                                <div class="grid grid-cols-6 gap-6">
+                                    <!-- Product Name -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="product-name" class="text-xs font-medium text-[#8A6B45] block mb-2">Product Name</label>
+                                        <input type="text"
+                                               id="product-name"
+                                               th:field="*{name}"
+                                               placeholder="T-Shirt For Couple.."
+                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               required>
+                                    </div>
+
+                                    <!-- Select Category -->
+                                    <div th:field="*{category.getCategoryId()}" class="col-span-6 sm:col-span-3">
+                                        <label for="categoryId" class="text-xs text-[#8A6B45] font-medium block mb-2">Category</label>
+                                        <select id="categoryId" name="categoryId" class="bg-[#F3EEE8] text-[#8A6B45] sm:text-sm rounded-lg outline-none block w-full p-2.5">
+                                            <option value="">Select Category</option>
+                                            <option class="text-[#8A6B45]"
+                                                    th:each="category : ${categories}"
+                                                    th:value="${category.categoryId}"
+                                                    th:text="${category.name}"
+                                                    th:selected="${category.categoryId == product.getCategory().getCategoryId()}"></option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Stock Quantity -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="stock-quantity" class="text-xs text-[#8A6B45] font-medium block mb-2">Stock Quantity</label>
+                                        <input type="text"
+                                               id="stock-quantity"
+                                               placeholder="0.. 999"
+                                               th:field="*{stockQuantity}"
+                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               required>
+                                    </div>
+
+                                    <!-- Price -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="price" class="text-xs text-[#8A6B45] font-medium block mb-2">Price</label>
+                                        <input type="number"
+                                               id="price"
+                                               th:field="*{price}"
+                                               placeholder="80.00"
+                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               required="">
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-span-full">
+                                        <label for="description" class="text-xs font-medium text-[#8A6B45] block mb-2">Description</label>
+                                        <textarea id="description" th:field="*{description}" rows="6"
+                                                  placeholder="Details..."
+                                                  class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-4">
+                                        </textarea>
+                                    </div>
+
+                                    <!-- Discount -->
+                                    <div class="col-span-full">
+                                        <label for="discount" class="text-xs font-medium text-[#8A6B45] block mb-2">Discount</label>
+                                        <input
+                                                type="number"
+                                                id="discount"
+                                                th:field="*{discountPercent}"
+                                                placeholder="0.. 99%"
+                                                min="0"
+                                                max="99"
+                                                class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-gray-200 rounded-b">
+                            <button type="submit" class="text-[#8A6B45] bg-[#D8C3A5]/60 hover:bg-[#D8C3A5]/80 border border-[#D8C3A5]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D8C3A5]/90 active:bg-[#D8C3A5]/90 font-medium rounded-lg text-sm px-10 py-2.5 text-center">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

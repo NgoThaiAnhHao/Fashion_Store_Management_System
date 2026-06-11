@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-background" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- NAV BAR -->
+    <header  th:fragment="topbar" class="top-0 left-0 right-0 z-50 bg-[#E5DDD2]/50 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-18" style="height: 60px">
+                <!-- Center logo -->
+                <div class="flex flex-col items-center gap-0.5 group absolute left-1/2 -translate-x-1/2">
+                </div>
+                <!-- End center logo -->
+
+                <!-- Right actions -->
+                <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
+
+                    <!-- Menu Profile -->
+                    <div sec:authorize="isAuthenticated()" class="relative group">
+                        <!-- Profile Button -->
+                        <button class="flex items-center gap-3  px-3 py-2 rounded-full transition-all duration-200">
+
+                            <!-- Avatar -->
+                            <div class="w-8 h-8 rounded-full border border-[#D8C3A5] overflow-hidden flex items-center justify-center bg-white">
+                                <!-- Use default avatar if user profile photo is null -->
+                                <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
+                                     th:text="${currentUser.getFirstCharOfFullName()}"
+                                     class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                                </div>
+
+                                <!-- Use user's avatar if user profile photo is not null -->
+                                <img th:if="${currentUser != null and currentUser.avatarUrl != null}"
+                                     th:src="@{'/images/users/' + ${currentUser.userId} + '/' + ${currentUser.avatarUrl}}"
+                                     alt="Profile photo"
+                                     class="object-cover"
+                                />
+                            </div>
+
+                            <!-- User info -->
+                            <div class="hidden md:flex flex-col items-start leading-tight">
+                                <span th:text="${currentUser.fullName}" class="text-sm font-medium text-[#222222]"></span>
+                            </div>
+
+                            <!-- Arrow -->
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-4 h-4 text-[#777777]"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div class="absolute right-0 mt-3 w-60 bg-white border border-[#E8DDD0] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                            <form th:action="@{/fashion-store/auth/logout}" method="post">
+                                <button type="submit"
+                                        class="w-full text-left px-4 py-3 text-xs text-red-500 hover:bg-red-50 transition-colors duration-150 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                         class="lucide lucide-log-out-icon lucide-log-out pr-2">
+                                        <path d="m16 17 5-5-5-5"/>
+                                        <path d="M21 12H9"/>
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    </svg>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End right actions -->
+
+            </div>
+
+        </div>
+    </header>
+    <!-- END NAV BAR -->
+
+</div>

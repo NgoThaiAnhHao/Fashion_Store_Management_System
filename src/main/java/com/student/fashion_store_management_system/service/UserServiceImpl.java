@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.service;
 
+import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import com.student.fashion_store_management_system.mapper.UserMapper;
 import com.student.fashion_store_management_system.model.dto.authentication.UserUpdateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
@@ -7,6 +8,7 @@ import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +32,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserResponseDto> findAllByRole(RoleNameEnum roleName) {
+        return userRepository
+                .findAllByRole(roleName)
+                .stream()
+                .map(UserMapper::toResponse)
+                .toList();
+    }
+
+    @Override
     public UserResponseDto findById(long id) {
         return UserMapper.toResponse(
                 userRepository
@@ -40,6 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponseDto updateProfile(UserUpdateDto userUpdateDto) {
         User user = userRepository
                 .findById(userUpdateDto.getUserId())
@@ -57,6 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updateStatus(long id) {
         User user = userRepository
                 .findById(id)
@@ -68,6 +81,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         User user = userRepository
                 .findById(id)

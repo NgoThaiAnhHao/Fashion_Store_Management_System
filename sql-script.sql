@@ -191,37 +191,133 @@ CREATE TABLE [Review] (
 
 
 -- ========================================= SEED =========================================
-INSERT INTO [Roles] ([role_name]) VALUES
-	('ROLE_CUSTOMER'),
-	('ROLE_MANAGER'),
-	('ROLE_ADMIN');
+INSERT INTO [Roles] ([role_name])
+    VALUES
+        ('ROLE_CUSTOMER'),
+        ('ROLE_MANAGER'),
+        ('ROLE_ADMIN');
 
-INSERT INTO [Users] ([email], [password], [full_name], [phone], [home_address], [role_id]) VALUES
-    ('admin@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'ADMINISTRATOR', '0123123123', 'Ho Chi Minh City', 3);
+INSERT INTO [Users] ([email], [password], [full_name], [phone], [home_address], [role_id])
+    VALUES
+        ('admin@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'ADMINISTRATOR', '0123123123', 'Ho Chi Minh City', 3);
 
-	INSERT INTO [Users]
-([email], [password], [full_name], [phone], [home_address], [role_id])
+INSERT INTO [Users]([email], [password], [full_name], [phone], [home_address], [role_id])
+    VALUES
+        ('nguyenvana@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen Van A', '0901000001', 'Ho Chi Minh City', 1),
+        ('tranthib@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Tran Thi B', '0901000002', 'Ha Noi', 1),
+        ('leminhc@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Le Minh C', '0901000003', 'Da Nang', 1),
+        ('phamthid@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Pham Thi D', '0901000004', 'Can Tho', 1),
+        ('hoange@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Hoang E', '0901000005', 'Hai Phong', 1),
+
+        ('vuf@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vu F', '0901000006', 'Hue', 1),
+        ('dangg@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Dang G', '0901000007', 'Quang Nam', 1),
+        ('buih@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Bui H', '0901000008', 'Binh Duong', 1),
+        ('doti@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Do Thi I', '0901000009', 'Dong Nai', 1),
+        ('ngoj@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ngo J', '0901000010', 'Vung Tau', 1),
+
+        ('phank@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Phan K', '0901000011', 'Nha Trang', 1),
+        ('truongl@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Truong L', '0901000012', 'Da Lat', 1),
+        ('lym@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ly M', '0901000013', 'Quy Nhon', 2),
+        ('mainguyen@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Mai Nguyen', '0901000014', 'Ben Tre', 1),
+        ('voo@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vo O', '0901000015', 'Long An', 2),
+
+        ('huynhp@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Huynh P', '0901000016', 'Tien Giang', 1),
+        ('caoq@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Cao Q', '0901000017', 'Soc Trang', 1),
+        ('luur@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Luu R', '0901000018', 'Bac Lieu', 2),
+        ('tons@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ton S', '0901000019', 'Ca Mau', 2),
+        ('nguyent@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen T', '0901000020', 'An Giang', 1);
+
+INSERT INTO [Category] ([name], [description])
+    VALUES
+        ('Couple T-Shirts','Matching t-shirts designed for couples with romantic and trendy styles.'),
+        ('Family Matching','Coordinated shirts for families, perfect for vacations, gatherings, and special occasions.'),
+        ('Best Friend Shirts','Fun and stylish matching shirts for best friends and close companions.'),
+        ('Oversized Collection','Modern oversized matching t-shirts featuring a comfortable and fashionable fit.'),
+        ('Seasonal Collection','Matching shirts designed for holidays and special events such as Valentine''s Day, Christmas, and New Year.');
+
+INSERT INTO [Product]([name], [description], [price], [image_url], [category_id], [stock_quantity], [discount_percent], [created_by])
 VALUES
-('nguyenvana@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen Van A', '0901000001', 'Ho Chi Minh City', 1),
-('tranthib@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Tran Thi B', '0901000002', 'Ha Noi', 1),
-('leminhc@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Le Minh C', '0901000003', 'Da Nang', 1),
-('phamthid@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Pham Thi D', '0901000004', 'Can Tho', 1),
-('hoange@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Hoang E', '0901000005', 'Hai Phong', 1),
+-- Couple T-Shirts (Category 1)
+    ('Forever Together Couple Tee',
+    'Romantic matching t-shirt set for couples with a minimalist heart design.',
+    24.99, 'images/products/couple-01.jpg', 1, 120, 10, 1000013),
 
-('vuf@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vu F', '0901000006', 'Hue', 1),
-('dangg@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Dang G', '0901000007', 'Quang Nam', 1),
-('buih@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Bui H', '0901000008', 'Binh Duong', 1),
-('doti@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Do Thi I', '0901000009', 'Dong Nai', 1),
-('ngoj@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ngo J', '0901000010', 'Vung Tau', 1),
+    ('King & Queen Matching Shirt',
+    'Stylish matching shirts featuring King and Queen prints.',
+    29.99, 'images/products/couple-02.jpg', 1, 85, 15, 1000013),
 
-('phank@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Phan K', '0901000011', 'Nha Trang', 1),
-('truongl@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Truong L', '0901000012', 'Da Lat', 1),
-('lym@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ly M', '0901000013', 'Quy Nhon', 2),
-('mainguyen@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Mai Nguyen', '0901000014', 'Ben Tre', 1),
-('voo@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Vo O', '0901000015', 'Long An', 2),
+    ('Love Story Couple T-Shirt',
+    'Comfortable cotton couple shirt perfect for everyday wear.',
+    22.50, 'images/products/couple-03.jpg', 1, 140, 5, 1000015),
 
-('huynhp@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Huynh P', '0901000016', 'Tien Giang', 1),
-('caoq@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Cao Q', '0901000017', 'Soc Trang', 1),
-('luur@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Luu R', '0901000018', 'Bac Lieu', 2),
-('tons@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Ton S', '0901000019', 'Ca Mau', 2),
-('nguyent@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'Nguyen T', '0901000020', 'An Giang', 1);
+    ('Soulmate Matching Tee',
+    'Modern matching t-shirts designed for couples who love simplicity.',
+    26.99, 'images/products/couple-04.jpg', 1, 95, 0, 1000015),
+
+-- Family Matching (Category 2)
+    ('Happy Family Vacation Shirt',
+    'Matching family shirts ideal for vacations and family trips.',
+    34.99, 'images/products/family-01.jpg', 2, 75, 20, 1000018),
+
+    ('Family Squad T-Shirt',
+    'Fun family matching shirt collection with squad-inspired design.',
+    32.50, 'images/products/family-02.jpg', 2, 60, 10, 1000018),
+
+    ('Family Day Matching Tee',
+    'Soft cotton family t-shirts perfect for weekend gatherings.',
+    28.99, 'images/products/family-03.jpg', 2, 90, 0, 1000019),
+
+    ('Together We Shine Family Shirt',
+    'Coordinated family shirt featuring a cheerful and modern look.',
+    31.99, 'images/products/family-04.jpg', 2, 55, 12, 1000019),
+
+-- Best Friend Shirts (Category 3)
+    ('Besties Forever Shirt',
+    'Matching best friend t-shirts designed for lifelong friendships.',
+    21.99, 'images/products/bff-01.jpg', 3, 130, 10, 1000013),
+
+    ('Partner In Crime Tee',
+    'Fun matching shirt set for best friends with playful graphics.',
+    23.99, 'images/products/bff-02.jpg', 3, 100, 5, 1000013),
+
+    ('Friendship Goals T-Shirt',
+    'Trendy matching shirt celebrating friendship and memories.',
+    24.50, 'images/products/bff-03.jpg', 3, 115, 0, 1000015),
+
+    ('Dynamic Duo Shirt',
+    'Matching t-shirt for inseparable best friends.',
+    22.99, 'images/products/bff-04.jpg', 3, 90, 8, 1000015),
+
+-- Oversized Collection (Category 4)
+    ('Urban Oversized Tee',
+    'Premium oversized t-shirt with a modern streetwear design.',
+    35.99, 'images/products/oversized-01.jpg', 4, 150, 15, 1000018),
+
+    ('Minimalist Oversized Shirt',
+    'Simple oversized t-shirt crafted for comfort and style.',
+    33.99, 'images/products/oversized-02.jpg', 4, 110, 10, 1000018),
+
+    ('Vintage Street Oversized Tee',
+    'Fashionable oversized shirt featuring a retro-inspired print.',
+    38.50, 'images/products/oversized-03.jpg', 4, 70, 20, 1000019),
+
+    ('Classic Oversized Cotton Shirt',
+    'Comfortable oversized cotton t-shirt suitable for all seasons.',
+    30.99, 'images/products/oversized-04.jpg', 4, 140, 0, 1000019),
+
+-- Seasonal Collection (Category 5)
+    ('Valentine Love Matching Tee',
+    'Special edition matching shirt designed for Valentine''s Day.',
+    27.99, 'images/products/seasonal-01.jpg', 5, 80, 25, 1000013),
+
+    ('Christmas Family Shirt',
+    'Festive family matching shirt featuring Christmas-themed graphics.',
+    36.99, 'images/products/seasonal-02.jpg', 5, 65, 30, 1000015),
+
+    ('Happy New Year Matching Tee',
+    'Celebrate the new year with coordinated matching shirts.',
+    29.50, 'images/products/seasonal-03.jpg', 5, 100, 18, 1000018),
+
+    ('Summer Beach Matching Shirt',
+    'Lightweight matching shirt perfect for beach vacations and summer events.',
+    28.99, 'images/products/seasonal-04.jpg', 5, 125, 10, 1000019);

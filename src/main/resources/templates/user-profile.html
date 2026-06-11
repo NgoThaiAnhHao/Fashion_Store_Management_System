@@ -154,9 +154,9 @@
 
                         <!-- Use user's avatar if user profile photo is not null -->
                         <img th:if="${user != null and user.avatarUrl != null}"
-                             th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                             th:src="@{'/uploads/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
                              alt="Profile photo"
-                             class="object-cover"
+                             class="w-24 h-24 rounded-full object-cover border-2 border-[#D8C3A5] object-cover"
                         />
 
                         <!-- Online dot -->

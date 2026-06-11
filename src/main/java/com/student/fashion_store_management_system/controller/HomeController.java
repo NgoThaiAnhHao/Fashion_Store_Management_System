@@ -1,11 +1,15 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.model.entity.Product;
 import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.service.AuthenticationService;
+import com.student.fashion_store_management_system.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * TODO: FIX PROFILE PHOTO,
@@ -16,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/fashion-store/dashboard")
 public class HomeController {
 
+    private final ProductService productService;
     private final AuthenticationService authenticationService;
 
-    public HomeController(AuthenticationService authenticationService) {
+    public HomeController(ProductService productService, AuthenticationService authenticationService) {
+        this.productService = productService;
         this.authenticationService = authenticationService;
     }
 
@@ -39,11 +45,13 @@ public class HomeController {
             return "/admin/admin-dashboard";
         }
 
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
         return "dashboard";
     }
 
     @GetMapping("/test")
     public String test() {
-        return "/admin/edit-user";
+        return "/admin/category/add-new-category";
     }
 }

@@ -165,20 +165,47 @@
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-                <a class="group">
-                    <div class="relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"/>
-                        <span class="absolute top-3 left-3 bg-[#1F1F1F] text-[#F5F1EB] px-2.5 py-1 text-[9px] tracking-[0.2em] uppercase"
-                                style="font-family: 'Josefin Sans', sans-serif;">
+                <a th:href="@{/fashion-store/products/detail/{id}(id=${product.productId})}" th:each="product : ${products}" class="group">
+                    <div class="relative aspect-[4/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
+                        <!-- If product was added before -->
+                        <img th:if="${#strings.startsWith(product.imageUrl, 'images')}"
+                             th:src="@{'/' + ${product.imageUrl}}"
+                             alt="Product Image"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                        />
+
+                        <!-- If product was uploaded by user -->
+                        <img th:if="${!#strings.startsWith(product.imageUrl, 'images')}"
+                             th:src="@{'/uploads/products/' + ${product.productId} + '/' + ${product.imageUrl}}"
+                             alt="Product Image"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                        />
+
+                        <span th:if="${product.discountPercent != 0}"
+                                class="absolute top-3 left-3 text-xs bg-red-100 text-red-600 font-semibold px-3 py-1">
+                            -<span th:text="${product.discountPercent}"></span>%
                         </span>
-                        <div class="absolute inset-0 bg-[#D8C3A5]/0 group-hover:bg-[#D8C3A5]/10 transition-colors duration-400"></div>
+
+                        <div class="absolute inset-0 bg-[#D8C3A5]/0 group-hover:bg-[#D8C3A5]/10 transition-colors duration-400">
+                        </div>
                     </div>
 
                     <div>
-                        <h3 class="text-sm tracking-[0.06em] text-[#222222] mb-1.5 group-hover:text-[#777777] transition-colors duration-200">
+                        <h3 th:text="${product.name}"
+                            class="font-bold text-sm tracking-[0.06em] text-[#222222] mb-1.5 group-hover:text-[#777777] transition-colors duration-200">
                         </h3>
-                        <p class="text-sm text-[#777777] font-light">
-                        </p>
+                        <div class="flex items-center gap-2">
+                            <!-- Sale Price -->
+                            <p class="text-sm text-red-600 font-bold">
+                                $<span th:text="${product.salePrice}"></span>
+                            </p>
+
+                            <!-- Original Price -->
+                            <p class="text-xs text-[#777777] font-light line-through">
+                                $<span th:text="${product.price}"></span>
+                            </p>
+                        </div>
+
                     </div>
                 </a>
             </div>

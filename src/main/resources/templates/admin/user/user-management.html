@@ -21,6 +21,8 @@
     <div class="flex-1 flex flex-col overflow-hidden w-100">
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+            <!-- Topbar -->
+            <div th:replace="~{fragments/topbar :: topbar}"></div>
 
             <div class="p-6 space-y-5 bg-[#F5F1EB] min-h-full">
                 <div class="flex items-center justify-between">
@@ -62,8 +64,15 @@
                     <span class="text-sm text-[#8A6B45]">12 results</span>
                 </div>
 
+                <!-- Error message when categories empty -->
+                <div class="flex justify-center items-center">
+                    <ul th:if="${users.isEmpty()}" class="text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        <li class="block">No data for users</li>
+                    </ul>
+                </div>
+
                 <!-- Table -->
-                <div class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] overflow-hidden">
+                <div th:if="${!users.isEmpty()}" class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead>
@@ -124,7 +133,7 @@
 
                                             <!-- Use user's avatar if user profile photo is not null -->
                                             <img th:if="${user != null and user.avatarUrl != null}"
-                                                 th:src="@{'/images/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
+                                                 th:src="@{'/uploads/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
                                                  alt="Profile photo"
                                                  class="object-cover"
                                             />
@@ -205,6 +214,5 @@
 </div>
 
 
-<script th:src="@{/script/admin/user-management.js}"></script>
 </body>
 </html>
