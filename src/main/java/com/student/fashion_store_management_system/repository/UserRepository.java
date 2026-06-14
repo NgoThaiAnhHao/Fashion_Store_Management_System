@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
         WHERE U.roles.roleName = :roleName
     """)
     List<User> findAllByRole(RoleNameEnum roleName);
+
+    List<User> findByFullNameContainingIgnoreCase(String fullName);
 }

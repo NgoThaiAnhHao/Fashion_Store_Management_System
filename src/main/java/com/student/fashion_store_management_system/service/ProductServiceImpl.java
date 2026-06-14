@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByProductName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
     public Product findById(long id) {
         return productRepository
                 .findById(id)
@@ -70,5 +75,16 @@ public class ProductServiceImpl implements ProductService {
     public void delete(long id) {
         productRepository
                 .deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void degreeStockQuantity(long id, int quantity) {
+        Product product = findById(id);
+        product.setStockQuantity(
+                product.getStockQuantity() - quantity
+        );
+
+        productRepository.save(product);
     }
 }

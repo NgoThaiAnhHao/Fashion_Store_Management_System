@@ -20,7 +20,7 @@
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100 ">
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[#F5F1EB] ">
+        <main class="flex-1 overflow-y-auto bg-gray-50 ">
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 
@@ -31,7 +31,7 @@
                 </div>
 
                 <!-- Avatar & basic -->
-                <div class="bg-white rounded-xl border border-slate-200 p-6">
+                <div class="bg-white border border-slate-200 p-6">
                     <div class="flex items-center gap-5 mb-6">
                         <div class="relative">
                             <!-- Use default avatar if user profile photo is null -->
@@ -66,7 +66,7 @@
 
                     <!-- Error message -->
                     <ul th:if="${errors}"
-                        class=" text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        class=" text-center uppercase text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
                         <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
                     </ul>
 
@@ -82,14 +82,14 @@
                                 Full Name
                             </label>
                             <input th:field="*{fullName}"
-                                   class="w-full border rounded-xl px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-indigo-300 focus:border-indigo-500 bg-white"/>
+                                   class="w-full border px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-gray-400 focus:border-gray-600 bg-white"/>
                         </div>
 
                         <div>
                             <label  class="block text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1.5">
                                 Phone Number
                             </label>
-                            <input th:field="*{phone}" class="w-full border rounded-xl px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-indigo-300 focus:border-indigo-500 bg-white"/>
+                            <input th:field="*{phone}" class="w-full border px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-gray-400 focus:border-gray-600 bg-white"/>
                         </div>
 
                         <div>
@@ -97,14 +97,14 @@
                                 Home Address
                             </label>
                             <input th:field="*{homeAddress}"
-                                   class="w-full border rounded-xl px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-indigo-300 focus:border-indigo-500 bg-white"/>
+                                   class="w-full border px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-gray-400 focus:border-gray-600 bg-white"/>
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1.5">
                                 Role
                             </label>
-                            <select id="role" class="block rounded-xl w-full px-3 py-2.5 bg-neutral-secondary-medium border border-indigo-300 text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body">-->
+                            <select id="role" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-gray-400 text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body">-->
                                 <option value="customer" th:selected="${user.getRole().getSeparatedRoleName() == 'CUSTOMER'}">Customer</option>
                                 <option value="manager" th:selected="${user.getRole().getSeparatedRoleName() == 'MANAGER'}">Manager</option>
                                 <option value="admin" th:selected="${user.getRole().getSeparatedRoleName() == 'ADMIN'}">Admin</option>
@@ -120,11 +120,12 @@
                                     id="profile-photo"
                                     name="avatar"
                                     accept="image/png, image/jpeg, image/jpg"
-                                    class="px-3 py-2.5 rounded-xl cursor-pointer bg-neutral-secondary-medium border border-indigo-300 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body">
+                                    class="px-2 py-2 cursor-pointer bg-neutral-secondary-medium border border-gray-400 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body">
                         </div>
 
                         <div class="col-span-full">
-                            <button class="mt-4 flex items-center gap-2 px-5 py-2.5 bg-indigo-500 text-white text-sm font-semibold rounded-xl hover:bg-indigo-600 transition-colors">
+                            <button type="submit"
+                                    class="mt-5 px-6 flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
                                 Save Changes
                             </button>
                         </div>

@@ -134,7 +134,7 @@
     <!-- End Section 2 -->
 
     <!-- Section 3 -->
-    <section class="py-24 bg-[#F5F1EB]">
+    <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-end justify-between mb-14">
                 <div>
@@ -166,7 +166,7 @@
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
                 <a th:href="@{/fashion-store/products/detail/{id}(id=${product.productId})}" th:each="product : ${products}" class="group">
-                    <div class="relative aspect-[4/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
+                    <div class="relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
                         <!-- If product was added before -->
                         <img th:if="${#strings.startsWith(product.imageUrl, 'images')}"
                              th:src="@{'/' + ${product.imageUrl}}"
@@ -182,7 +182,7 @@
                         />
 
                         <span th:if="${product.discountPercent != 0}"
-                                class="absolute top-3 left-3 text-xs bg-red-100 text-red-600 font-semibold px-3 py-1">
+                                class="absolute top-3 left-0 text-xs bg-white/90 text-red-600 font-light tracking-widest px-2 py-1">
                             -<span th:text="${product.discountPercent}"></span>%
                         </span>
 
@@ -254,7 +254,7 @@
     <!-- End Section 4 -->
 
     <!-- Section 5 -->
-    <section class="py-16 bg-[#F5F1EB] overflow-hidden">
+    <section class="py-16 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-8">
             <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777]">
                 Lookbook SS26

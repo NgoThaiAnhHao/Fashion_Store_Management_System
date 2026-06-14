@@ -41,6 +41,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserResponseDto> findAllByFullName(String keyword) {
+        return userRepository
+                .findByFullNameContainingIgnoreCase(keyword)
+                .stream()
+                .map(UserMapper::toResponse)
+                .toList();
+    }
+
+    @Override
     public UserResponseDto findById(long id) {
         return UserMapper.toResponse(
                 userRepository
@@ -82,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(long id) {
+    public void delete(long id) throws Exception {
         User user = userRepository
                 .findById(id)
                 .orElseThrow(() ->
@@ -90,12 +99,12 @@ public class UserServiceImpl implements UserService {
 
         // No delete current user
         if (user.getUserId() == authenticationService.getCurrentUser().getUserId()) {
-            return;
+            throw new Exception("Cannot delete current user");
         }
 
         // No delete user who is admin
         if ("ROLE_ADMIN".equals(user.getRoles().getRoleName().toString())) {
-            return;
+            throw new Exception("Cannot delete admin user");
         }
 
         userRepository.deleteById(id);

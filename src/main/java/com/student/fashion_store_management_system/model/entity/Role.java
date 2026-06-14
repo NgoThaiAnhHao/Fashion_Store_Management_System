@@ -4,7 +4,7 @@ import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "Roles")
 public class Role {
 
     @Id

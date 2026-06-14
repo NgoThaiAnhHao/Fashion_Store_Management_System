@@ -138,9 +138,22 @@ public class UserController {
     }
 
     @PostMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable long id) {
-        userService.delete(id);
+    public String deleteUser(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            userService.delete(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Deleted Success!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Cannot delete current user, or user is admin, or user have FK!");
+        }
+
         return "redirect:/fashion-store/users/users-management";
+    }
+
+    @GetMapping("/users/search-by-name")
+    public String searchByName(@RequestParam String keyword, Model model) {
+        List<UserResponseDto> users = userService.findAllByFullName(keyword);
+        model.addAttribute("users", users);
+        return "admin/user/user-management";
     }
 
     private boolean isAdmin() {

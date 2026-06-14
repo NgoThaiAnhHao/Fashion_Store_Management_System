@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -162,18 +162,9 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-
-//    public String getFormattedCreatedAt() {
-//        return createdAt.format(
-//                DateTimeFormatter.ofPattern("dd/MM/yyyy ----- HH:mm")
-//        );
-//    }
-//
-//    public String getFormattedUpdatedAt() {
-//        return updatedAt.format(
-//                DateTimeFormatter.ofPattern("dd/MM/yyyy ----- HH:mm")
-//        );
-//    }
+    public String getFirstCharOfFullName() {
+        return this.fullName.substring(0, 1);
+    }
 
     @Override
     public String toString() {

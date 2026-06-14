@@ -41,19 +41,34 @@
 
                 <!-- Filters -->
                 <div class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] p-4 flex flex-wrap gap-3 items-center">
-                    <div class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
+                    <form th:action="@{/fashion-store/products/search-by-name}"
+                          method="GET"
+                          class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A6B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
                         <input type="text"
-                               placeholder="Search products..."
+                               name="keyword"
+                               placeholder="Search products name..."
                                class="bg-transparent text-sm text-[#222222] placeholder:text-[#8A6B45]/70 outline-none w-full">
-                    </div>
+                    </form>
                 </div>
 
-                <!-- Error message when categories empty -->
+                <!-- Error message when products empty -->
                 <div class="flex justify-center items-center">
-                    <ul th:if="${products.isEmpty()}" class="text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                    <ul th:if="${products.isEmpty()}" class="text-xs text-center uppercase bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
                         <li class="block">No data for products</li>
                     </ul>
+                </div>
+
+                <!-- Error message -->
+                <div th:if="${error}"
+                     class="text-xs text-center uppercase bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative " role="alert">
+                    <span th:text="${error}" class="block sm:inline"></span>
+                </div>
+
+                <!-- Success message after register -->
+                <div th:if="${successMessage}"
+                     class="text-xs text-center uppercase bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
+                    <span th:text="${successMessage}" class="block sm:inline"></span>
                 </div>
 
                 <!-- Table -->

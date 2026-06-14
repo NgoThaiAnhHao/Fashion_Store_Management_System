@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class CategoryController {
     @GetMapping("/categories")
     public String findAll(Model model) {
         List<Category> categories = categoryService.findAll();
-        categories.forEach(System.out::println);
         model.addAttribute("categories", categories);
         return "/admin/category/category-management";
     }
@@ -54,8 +54,14 @@ public class CategoryController {
     }
 
     @PostMapping("/categories/delete/{id}")
-    public String delete(@PathVariable long id) {
-        categoryService.delete(id);
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.delete(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Deleted Success !");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Cannot deleted for this category because its have FK.");
+        }
+
         return "redirect:/fashion-store/categories";
     }
 

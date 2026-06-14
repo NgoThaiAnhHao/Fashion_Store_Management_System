@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="h-[72px]"></div>
+
+<div class="max-w-6xl mx-auto px-6 lg:px-8 py-10">
+    <a href="#"
+       class="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-gray-400 hover:text-black transition-colors mb-10">
+        Back to Bag
+    </a>
+
+    <!-- Progress steps -->
+    <div class="flex items-center justify-center mb-14">
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>                    </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                    Cart
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-black"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    2
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                    Shipping
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-gray-200"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-gray-100 text-gray-400" >
+                    3
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                    Payment
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-gray-200"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-gray-100 text-gray-400" >
+                    4
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                    Confirmed
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-gray-200"> </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <!-- Form -->
+        <div class="lg:col-span-3">
+            <h2 class="text-xs tracking-[0.2em] uppercase text-gray-400 mb-6">Shipping Information</h2>
+
+            <!-- Error message if no enough stock quantity -->
+            <div th:if="${error}"
+                 class="text-xs bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-1" role="alert">
+                <span class="block sm:inline" th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/fashion-store/checkout}"
+                  th:object="${order}"
+                  method="POST"
+                    class="space-y-5">
+                <div>
+                    <label class="block text-xs tracking-[0.1em] uppercase text-gray-500 mb-2">
+                        Receiver Name <span class="text-black">*</span>
+                    </label>
+                    <input
+                            th:field="*{receiverName}"
+                            type="text"
+                            required
+                            placeholder="Full name"
+                            class="w-full px-4 py-3 border border-gray-200 focus:border-black focus:outline-none text-sm transition-colors"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-xs tracking-[0.1em] uppercase text-gray-500 mb-2">
+                        Phone Number <span class="text-black">*</span>
+                    </label>
+                    <input
+                            th:field="*{receiverPhone}"
+                            type="tel"
+                            required
+                            placeholder="+1 (555) 000-0000"
+                            class="w-full px-4 py-3 border border-gray-200 focus:border-black focus:outline-none text-sm transition-colors"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-xs tracking-[0.1em] uppercase text-gray-500 mb-2">
+                        Street Address <span class="text-black">*</span>
+                    </label>
+                    <input
+                            th:field="*{shippingAddress}"
+                            type="text"
+                            required
+                            placeholder="123 Main Street, Apt 4B"
+                            class="w-full px-4 py-3 border border-gray-200 focus:border-black focus:outline-none text-sm transition-colors"
+                    />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs tracking-[0.1em] uppercase text-gray-500 mb-2">
+                            City <span class="text-black">*</span>
+                        </label>
+                        <input
+                                th:field="*{city}"
+                                type="text"
+                                required
+                                placeholder="New York"
+                                class="w-full px-4 py-3 border border-gray-200 focus:border-black focus:outline-none text-sm transition-colors"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-xs tracking-[0.1em] uppercase text-gray-500 mb-2">
+                            ZIP Code <span class="text-black">*</span>
+                        </label>
+                        <input
+                                th:field="*{zipcode}"
+                                type="text"
+                                required
+                                placeholder="10001"
+                                class="w-full px-4 py-3 border border-gray-200 focus:border-black focus:outline-none text-sm transition-colors"
+                        />
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button
+                       class="w-full flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
+                        Continue to Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Order summary -->
+        <div class="lg:col-span-2">
+            <div class="bg-gray-50 p-6 sticky top-24">
+                <h3 class="text-xs tracking-[0.15em] uppercase mb-6">Order Summary</h3>
+
+                <div th:if="${session.cart != null && !session.cart.items.isEmpty()}" class="space-y-4 mb-6">
+                    <div th:each="cartItem : ${session.cart.items}" class="flex gap-3 pb-4 border-b border-gray-200 last:border-0">
+                        <div class="w-12 h-14 bg-gray-200 flex-shrink-0">
+                            <!-- If product was added before -->
+                            <img th:if="${#strings.startsWith(cartItem.product.imageUrl, 'images')}"
+                                 th:src="@{'/' + ${cartItem.product.imageUrl}}"
+                                 alt="Product Image"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                            />
+
+                            <!-- If product was uploaded by user -->
+                            <img th:if="${!#strings.startsWith(cartItem.product.imageUrl, 'images')}"
+                                 th:src="@{'/uploads/products/' + ${cartItem.product.productId} + '/' + ${cartItem.product.imageUrl}}"
+                                 alt="Product Image"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                            />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p th:text="${cartItem.product.name}" class="text-sm truncate"></p>
+                            <p class="w-full text-xs text-gray-400">
+                                <span>
+                                    His <span th:text="${cartItem.maleSize}" ></span>
+                                </span>
+                                /
+                                <span>
+                                    Her <span th:text="${cartItem.femaleSize}" ></span>
+                                </span>
+                            </p>
+                            <p th:text="${cartItem.customLogoText}" class="text-xs text-gray-400 italic"></p>
+                            <p class="text-xs text-gray-400 italic">
+                                P.QTY: <span th:text="${cartItem.pairQuantity}" ></span>
+                            </p>
+                        </div>
+                        <p class="text-sm flex-shrink-0">
+                            <span>
+                                $<span th:text="${cartItem.getTotalSalePriceByPairQuantity()}"></span>
+                            </span>
+                            <span th:if="${cartItem.product.discountPercent != 0}"
+                                  class="text-xs font-light line-through">
+                                $<span th:text="${cartItem.getTotalOriginPriceByPairQuantity()}"></span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-2 text-sm mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Subtotal</span>
+                        <span>$<span th:text="${session.cart.getTotalOriginAmount()}"></span></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Saving</span>
+                        <span class="text-green-600">
+                            $<span th:text="${session.cart.getTotalOriginAmount() - session.cart.getTotalAmount()}">
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between">
+                        <span class="text-sm">Total</span>
+                        <span class="text-lg">
+                            $<span th:text="${session.cart.getTotalAmount()}"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

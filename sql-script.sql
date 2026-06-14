@@ -88,16 +88,17 @@ CREATE TABLE [Product] (
 
 
 -- ORDER
-CREATE TABLE [Order] (
+CREATE TABLE [Orders] (
 	[order_id] BIGINT IDENTITY(1,1) NOT NULL,
-	[order_date] DATETIME NOT NULL DEFAULT GETDATE(),
+	[ordered_date] DATETIME NOT NULL DEFAULT GETDATE(),
 	[total_amount] DECIMAL(10, 2) NOT NULL,
 	[shipping_address] VARCHAR(255) NOT NULL,
 	[receiver_name] VARCHAR(50) NOT NULL,
 	[receiver_phone] VARCHAR(50) NOT NULL,
+    [city] VARCHAR(50) NOT NULL,
+    [zipcode] VARCHAR(50) NOT NULL,
 	[status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
 	[ordered_by] BIGINT NOT NULL,
-	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
 
 	CHECK ([total_amount] >= 0.0),
 	CHECK (
@@ -113,52 +114,48 @@ CREATE TABLE [Order] (
 
 
 -- ORDER_DETAILS
-CREATE TABLE [OrderDetails] (
+CREATE TABLE [Order_Details] (
 	[order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,
 	[order_id] BIGINT NOT NULL,
 	[product_id] BIGINT NOT NULL,
 	[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',
 	[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',
 	[logo_text] VARCHAR(50),
-	[logo_image] VARCHAR(255),
-	[quantity] INT NOT NULL DEFAULT 1,
-	[unit_price] DECIMAL(10, 2) NOT NULL,
+	[pair_quantity] INT NOT NULL DEFAULT 1,
+	[sub_total] DECIMAL(10, 2) NOT NULL,
 
-	CHECK ([quantity] > 0),
-	CHECK ([unit_price] >= 0.0),
+	CHECK ([pair_quantity] > 0),
+	CHECK ([sub_total] >= 0.0),
 	CHECK (
 		[female_size] IN (
-			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+			'S', 'M', 'L' , 'XL', '2XL', '3XL' 
 		)
 	),
 
 	CHECK (
 		[male_size] IN (
-			'XS', 'S', 'M', 'L' , 'XL', '2XL', '3XL' 
+			'S', 'M', 'L' , 'XL', '2XL', '3XL' 
 		)
 	),
 
 	PRIMARY KEY ([order_detail_id]),
-	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id]) ON DELETE CASCADE,
 	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id])
 );
-
-
 
 -- PAYMENT
 CREATE TABLE [Payment] (
 	[payment_id] BIGINT IDENTITY(1,1) NOT NULL,
 	[order_id] BIGINT NOT NULL,
-	[amount] DECIMAL(10, 2) NOT NULL,
+	[total_amount] DECIMAL(10, 2) NOT NULL,
 	[payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',
 	[payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
-	[payment_date] DATETIME,
 	[created_at] DATETIME NOT NULL DEFAULT GETDATE(),
 
-	CHECK ([amount] >= 0.0),
+	CHECK ([total_amount] >= 0.0),
 	CHECK (
 		[payment_method] IN 
-			('COD', 'BANKING')
+			('COD', 'CARD')
 	),
 	CHECK (
 		[payment_status] IN
@@ -166,7 +163,7 @@ CREATE TABLE [Payment] (
 	),
 	
 	PRIMARY KEY ([payment_id]),
-	FOREIGN KEY ([order_id]) REFERENCES [Order]([order_id]) ON DELETE CASCADE,
+	FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id]) ON DELETE CASCADE,
 	UNIQUE ([order_id])
 );
 
@@ -185,7 +182,7 @@ CREATE TABLE [Review] (
 	PRIMARY KEY ([rating_id]),
 	FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),
 	FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),
-	FOREIGN KEY ([order_detail_id]) REFERENCES [OrderDetails]([order_detail_id]),
+	FOREIGN KEY ([order_detail_id]) REFERENCES [Order_Details]([order_detail_id]),
 	UNIQUE ([order_detail_id])
 ) 
 
@@ -199,7 +196,9 @@ INSERT INTO [Roles] ([role_name])
 
 INSERT INTO [Users] ([email], [password], [full_name], [phone], [home_address], [role_id])
     VALUES
-        ('admin@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'ADMINISTRATOR', '0123123123', 'Ho Chi Minh City', 3);
+        ('admin@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'ADMINISTRATOR', '0123123123', 'Ho Chi Minh City', 3),
+		('manager@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'MANAGER', '0123123123', 'Ho Chi Minh City', 2),
+		('customer@gmail.com', '$2a$12$E2Is0z.gnHBYvE2OkohFQOkLZjLi5piuy3ZDzV2wmQF8A6ubH0fcO', 'CUSTOMER', '0123123123', 'Ho Chi Minh City', 1);
 
 INSERT INTO [Users]([email], [password], [full_name], [phone], [home_address], [role_id])
     VALUES
@@ -240,11 +239,11 @@ VALUES
 -- Couple T-Shirts (Category 1)
     ('Forever Together Couple Tee',
     'Romantic matching t-shirt set for couples with a minimalist heart design.',
-    24.99, 'images/products/couple-01.jpg', 1, 120, 10, 1000013),
+    24.99, 'images/products/couple-01.jpg', 1, 2, 10, 1000013),
 
     ('King & Queen Matching Shirt',
     'Stylish matching shirts featuring King and Queen prints.',
-    29.99, 'images/products/couple-02.jpg', 1, 85, 15, 1000013),
+    29.99, 'images/products/couple-02.jpg', 1, 10, 15, 1000013),
 
     ('Love Story Couple T-Shirt',
     'Comfortable cotton couple shirt perfect for everyday wear.',

@@ -85,7 +85,7 @@
 
                         <!-- Dropdown -->
                         <div class="absolute right-0 mt-3 w-60 bg-white border border-[#E8DDD0] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
-                            <a th:href="@{/orders}"
+                            <a th:href="@{/fashion-store/my-orders}"
                                class="flex items-center px-4 py-3 text-xs text-[#222222] hover:bg-[#F5F1EB] transition-colors duration-150">
 
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@
                     </a>
 
                     <!-- Cart Items -->
-                    <a href="#"
+                    <a th:href="@{/fashion-store/cart}"
                        class="relative group">
 
                         <!-- Shopping-Bag Icon -->
@@ -150,9 +150,10 @@
                         </svg>
 
                         <!-- Cart Items Quantity -->
-                        <span class="absolute -top-2 -right-2 w-4 h-4 bg-[#1F1F1F] text-[#F5F1EB] rounded-full flex items-center justify-center text-[9px] font-bold">
-                            2
+                        <span th:if="${session.cart != null && !session.cart.items.isEmpty()}"
+                              th:text="${session.cart.items.size()}" class="absolute -top-2 -right-2 w-4 h-4 bg-[#1F1F1F] text-[#F5F1EB] rounded-full flex items-center justify-center text-[9px] font-bold">
                         </span>
+
                     </a>
                 </div>
                 <!-- End right actions -->

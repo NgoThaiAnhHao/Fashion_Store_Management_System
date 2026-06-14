@@ -67,19 +67,32 @@
 <!--                        </div>-->
 <!--                    </div>-->
 
-                     <div class="space-y-10">
+                    <!-- Success message after register -->
+                    <div th:if="${successMessage}"
+                         class="text-xs bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
+                        <span th:text="${successMessage}" class="block sm:inline"></span>
+                    </div>
+
+                     <form th:action="@{/fashion-store/cart/add-to-cart/{productId}(productId=${product.productId})}"
+                           th:object="${cartItem}"
+                           class="space-y-10"
+                           method="POST">
+                         <input type="hidden"
+                                th:field="*{pairQuantity}"
+                                id="pairQuantity"
+                                value="1">
+
                         <!-- Male size -->
                         <div>
                             <div class="flex items-center justify-between mb-5">
                                 <label class="text-xs font-bold tracking-[0.2em] uppercase">HIS SIZE</label>
                             </div>
                             <div class="flex flex-wrap gap-3">
-                                <select id="hisSize" name="hisSize" class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
-                                    <option value="">Select Size</option>
+                                <select th:field="*{maleSize}" id="hisSize" name="hisSize" class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
                                     <option value="S">S</option>
                                     <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL" selected>XL</option>
+                                    <option value="L" selected>L</option>
+                                    <option value="XL">XL</option>
                                     <option value="2XL">2XL</option>
                                     <option value="3XL">3XL</option>
                                 </select>
@@ -92,10 +105,10 @@
                                 <label class="text-xs font-bold tracking-[0.2em] uppercase">HER SIZE</label>
                             </div>
                             <div class="flex flex-wrap gap-3">
-                                <select id="herSize" name="herSize" class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
-                                    <option value="S" selected>S</option>
+                                <select th:field="*{femaleSize}" id="herSize" name="herSize" class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                                    <option value="S">S</option>
                                     <option value="M">M</option>
-                                    <option value="L">L</option>
+                                    <option value="L" selected>L</option>
                                     <option value="XL">XL</option>
                                     <option value="2XL">2XL</option>
                                     <option value="3XL">3XL</option>
@@ -110,7 +123,9 @@
                                 <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
                             </label>
                             <input
+                                    th:field="*{customLogoText}"
                                     id="logoText"
+                                    name="logoText"
                                     type="text"
                                     placeholder="YOUR TEXT HERE"
                                     maxLength="40"
@@ -142,7 +157,10 @@
                                 Add To Cart
                             </button>
                         </div>
-                    </div>
+                         <p class="text-sm text-gray-500 font-medium">
+                             Stock QTY: <span th:text="${product.stockQuantity}"></span>
+                         </p>
+                    </form>
 
                     <!-- Product info -->
                     <div class="mt-16 pt-10 border-t border-gray-200 grid grid-cols-2 gap-8">
@@ -167,21 +185,21 @@
         const minusBtn = document.getElementById("minusBtn");
         const plusBtn = document.getElementById("plusBtn");
         const quantityDisplay = document.getElementById("quantityDisplay");
-        const quantityInput = document.getElementById("quantityInput");
+        const pairQuantityInput  = document.getElementById("pairQuantity");
 
         let quantity = 1;
 
         plusBtn.addEventListener("click", function () {
             quantity++;
             quantityDisplay.textContent = quantity;
-            quantityInput.value = quantity;
+            pairQuantityInput.value = quantity;
         });
 
         minusBtn.addEventListener("click", function () {
             if (quantity > 1) {
                 quantity--;
                 quantityDisplay.textContent = quantity;
-                quantityInput.value = quantity;
+                pairQuantityInput.value = quantity;
             }
         });
     </script>

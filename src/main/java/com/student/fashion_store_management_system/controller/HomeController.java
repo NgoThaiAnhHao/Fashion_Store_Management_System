@@ -1,14 +1,16 @@
 package com.student.fashion_store_management_system.controller;
 
-import com.student.fashion_store_management_system.model.entity.Product;
-import com.student.fashion_store_management_system.model.entity.User;
-import com.student.fashion_store_management_system.service.AuthenticationService;
-import com.student.fashion_store_management_system.service.ProductService;
+import com.student.fashion_store_management_system.enums.RoleNameEnum;
+import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
+import com.student.fashion_store_management_system.model.entity.*;
+import com.student.fashion_store_management_system.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -17,31 +19,62 @@ import java.util.List;
  * Check user.avatar
  */
 @Controller
-@RequestMapping("/fashion-store/dashboard")
+@RequestMapping("/fashion-store")
 public class HomeController {
 
     private final ProductService productService;
     private final AuthenticationService authenticationService;
+    private final UserService userService;
+    private final OrderService orderService;
+    private final PaymentService paymentService;
+    private final CategoryService categoryService;
 
-    public HomeController(ProductService productService, AuthenticationService authenticationService) {
+    public HomeController(ProductService productService, AuthenticationService authenticationService, UserService userService, OrderService orderService, PaymentService paymentService, CategoryService categoryService) {
         this.productService = productService;
         this.authenticationService = authenticationService;
+        this.userService = userService;
+        this.orderService = orderService;
+        this.paymentService = paymentService;
+        this.categoryService = categoryService;
     }
 
-    @GetMapping
-    public String home(Model model) {
+    @GetMapping("/dashboard")
+    public String home(Model model, HttpSession session) {
         // Log current user for debug
         User user = authenticationService.getCurrentUser();
 
-        if (user != null) {
-            System.out.println("CURRENT USER EMAIL: " + user.getEmail());
-            System.out.println("USER INFO: " + user.toString());
-            System.out.println("USER IMG: " + user.getAvatarUrl());
-        } else {
-            System.out.println("CURRENT USER EMAIL: Anonymous");
-        }
+        // Process for Admin Or Manager
+        if (user != null &&
+                ("ROLE_ADMIN".equals(user.getRoles().getRoleName().toString()) ||
+                "ROLE_MANAGER".equals(user.getRoles().getRoleName().toString()))
+        ) {
+            session.setAttribute("currentUser", user);
 
-        if (user != null && "ROLE_ADMIN".equals(user.getRoles().getRoleName().toString())) {
+            // Find all objects
+            List<UserResponseDto> users = userService.findAll();
+            List<UserResponseDto> managers = userService.findAllByRole(RoleNameEnum.ROLE_MANAGER);
+            List<UserResponseDto> customers = userService.findAllByRole(RoleNameEnum.ROLE_CUSTOMER);
+            List<Product> products = productService.findAll();
+            List<Payment> payments = paymentService.findAll();
+            List<Category> categories = categoryService.findAll();
+            List<Order> orders = orderService.findAll();
+
+            // Get revenue
+            BigDecimal revenue = BigDecimal.ZERO;
+            for (var order : orders) {
+                revenue = revenue.add(order.getTotalAmount());
+            }
+
+            // Set attribute
+            model.addAttribute("totalUsers", users.size());
+            model.addAttribute("totalManagers", managers.size());
+            model.addAttribute("totalCustomers", customers.size());
+            model.addAttribute("totalProducts", products.size());
+            model.addAttribute("totalPayments", payments.size());
+            model.addAttribute("totalCategories", categories.size());
+            model.addAttribute("totalOrders", orders.size());
+            model.addAttribute("revenue", revenue);
+
             return "/admin/admin-dashboard";
         }
 
@@ -50,8 +83,9 @@ public class HomeController {
         return "dashboard";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "/admin/category/add-new-category";
+    @GetMapping("/denied-page")
+    public String deniedPage() {
+        return "denied-page";
     }
+
 }

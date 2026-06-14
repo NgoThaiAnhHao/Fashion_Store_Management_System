@@ -12,11 +12,13 @@ public interface UserService {
 
     List<UserResponseDto> findAllByRole(RoleNameEnum roleName);
 
+    List<UserResponseDto> findAllByFullName(String keyword);
+
     UserResponseDto findById(long id);
 
     UserResponseDto updateProfile(UserUpdateDto userUpdateDto);
 
     void updateStatus(long id);
 
-    void delete(long id);
+    void delete(long id) throws Exception;
 }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="h-[72px]"></div>
+
+<div class="max-w-6xl mx-auto px-6 lg:px-8 py-10">
+    <a href="#"
+       class="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-gray-400 hover:text-black transition-colors mb-10">
+        Back to Shipping
+    </a>
+
+    <!-- Progress -->
+    <div class="flex items-center justify-center">
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                        Cart
+                    </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-black"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                        Shipping
+                    </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-black"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                        Payment
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-black"> </div>
+        </div>
+
+        <div class="flex items-center">
+            <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
+                    4
+                </div>
+                <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
+                        Confirmed
+                </span>
+            </div>
+            <div class="w-16 sm:w-24 h-px mx-3 mb-5 bg-gray-200"> </div>
+        </div>
+    </div>
+</div>
+
+<div class="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center bg-gray-50">
+    <div class="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h1 class="text-3xl tracking-tight mb-3">Order Confirmed!</h1>
+    <p class="text-gray-500 mb-2">Thank you for your purchase.</p>
+    <p class="text-sm text-gray-400 mb-8">
+        Your couple set is being prepared. You'll receive a confirmation email shortly.
+    </p>
+    <a href="#" class="text-xs text-gray-400 hover:text-black">Redirecting you home...
+
+    </a>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

@@ -39,8 +39,15 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/fashion-store/dashboard/test",
                                 "/fashion-store/products/detail/**",
+                                "/fashion-store/products",
                                 "/uploads/products/**"
-                        ).permitAll().anyRequest().authenticated()
+                        ).permitAll()
+                        .requestMatchers("/fashion-store/users/users-management/**").hasRole("ADMIN")
+                        .requestMatchers("/fashion-store/categories/**",
+                                "/fashion-store/orders/**",
+                                "/fashion-store/payment/**",
+                                "/fashion-store/products/**").hasAnyRole("ADMIN", "MANAGER")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/fashion-store/auth/login")
@@ -52,6 +59,9 @@ public class SecurityConfig {
                         .logoutUrl("/fashion-store/auth/logout")
                         .logoutSuccessUrl("/fashion-store/auth/login?logout")
                         .permitAll()
+                )
+                .exceptionHandling(config -> config
+                        .accessDeniedPage("/fashion-store/denied-page")
                 );
 
         return httpSecurity.build();

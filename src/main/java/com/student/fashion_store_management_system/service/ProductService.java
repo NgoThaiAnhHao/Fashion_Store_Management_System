@@ -8,6 +8,8 @@ import java.util.List;
 public interface ProductService {
     List<Product> findAll();
 
+    List<Product> findByProductName(String name);
+
     Product findById(long id);
 
     Product addNew(ProductCreateDto productCreateDto);
@@ -15,4 +17,6 @@ public interface ProductService {
     Product update(ProductCreateDto productCreateDto, long id);
 
     void delete(long id);
+
+    void degreeStockQuantity(long id, int quantity);
 }

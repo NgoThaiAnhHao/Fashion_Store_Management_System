@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="bg-gray-100">
+    <div class="h-screen flex flex-col justify-center items-center">
+        <h1 class="text-8xl font-bold text-gray-800">403</h1>
+        <p class="text-4xl font-medium text-gray-800 mt-5">Forbidden</p>
+        <p class="text-xl font-medium text-gray-500 mt-2">You are not authorized to view this page</p>
+        <a th:href="@{/fashion-store/dashboard}" class="mt-12 text-xl text-blue-600 hover:underline">Go back home</a>
+    </div>
+</div>
+</body>
+</html>

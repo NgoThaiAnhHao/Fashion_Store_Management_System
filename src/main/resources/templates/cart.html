@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+
+    <div class="h-[72px]"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+        <a href="/"
+           class="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-gray-400 hover:text-black transition-colors mb-10">
+            Continue Shopping
+        </a>
+
+        <div class="flex items-baseline justify-between mb-10">
+            <h1 class="text-3xl tracking-tight">Your Bag</h1>
+            <span class="text-sm text-gray-400">
+                <span th:if="${session.cart != null}"
+                      th:text="${session.cart.items.size()}"></span>
+
+                <span th:if="${session.cart == null}">0</span>
+                items
+            </span>
+        </div>
+
+        <!-- Empty Item -->
+        <div th:if="${session.cart == null or session.cart.items.isEmpty()}" class="text-center py-24">
+            <p class="text-gray-500 mb-2">Your bag is empty</p>
+            <p class="text-sm text-gray-400 mb-8">Add some couple sets to get started</p>
+            <a th:href="@{/fashion-store/dashboard}"
+               class="inline-flex items-center gap-2 bg-black text-white px-8 py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
+                Shop Collection
+            </a>
+        </div>
+
+        <div th:if="${session.cart != null && !session.cart.items.isEmpty()}"
+             class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Items -->
+            <div class="lg:col-span-2">
+                <!-- Header -->
+                <div class="hidden sm:grid grid-cols-12 text-xs tracking-[0.1em] uppercase text-gray-400 pb-4 border-b border-gray-100 mb-2">
+                    <span class="col-span-6">Product</span>
+                    <span class="col-span-2 text-center">Size</span>
+                    <span class="col-span-2 text-center">Qty</span>
+                    <span class="col-span-2 text-right">Total</span>
+                </div>
+
+                <!-- Items Detail -->
+                <div th:each="cartItem : ${session.cart.items}"  class="divide-y divide-gray-100">
+                    <div class="py-6 grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-12 sm:col-span-6 flex gap-4">
+                            <div class="w-20 h-24 bg-gray-100 flex-shrink-0 overflow-hidden">
+                                <!-- If product was added before -->
+                                <img th:if="${#strings.startsWith(cartItem.product.imageUrl, 'images')}"
+                                     th:src="@{'/' + ${cartItem.product.imageUrl}}"
+                                     alt="Product Image"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                                />
+
+                                <!-- If product was uploaded by user -->
+                                <img th:if="${!#strings.startsWith(cartItem.product.imageUrl, 'images')}"
+                                     th:src="@{'/uploads/products/' + ${cartItem.product.productId} + '/' + ${cartItem.product.imageUrl}}"
+                                     alt="Product Image"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+                                />
+                            </div>
+
+                            <div>
+                                <h3 th:text="${cartItem.product.name}" class="text-sm tracking-wide mb-1"></h3>
+                                <p class="text-xs text-gray-400 mb-0.5">Set · $<span th:text="${cartItem.product.price}"></span></p>
+
+                                <p th:if="${cartItem.customLogoText != null and !cartItem.customLogoText.isEmpty()}"
+                                    class="text-xs text-gray-400 italic">
+                                    "<span th:text="${cartItem.customLogoText}"></span>"
+                                </p>
+
+                                <form th:action="@{/fashion-store/cart/delete/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                                        method="POST">
+                                    <button class="mt-2 flex items-center gap-1 text-xs text-gray-400 hover:text-black transition-colors uppercase ">
+                                        Remove
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Size -->
+                        <div class="col-span-4 sm:col-span-2 text-center">
+                            <p class="text-xs text-gray-400 sm:hidden mb-1">Sizes</p>
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="text-xs">His:
+                                    <span th:text="${cartItem.maleSize}"></span>
+                                </span>
+                                <span class="text-xs">Her:
+                                    <span th:text="${cartItem.femaleSize}"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-span-4 sm:col-span-2 flex justify-center">
+                            <div class="flex items-center border border-gray-200">
+                                <form th:action="@{/fashion-store/cart/decrease-pair-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                                method="POST">
+                                    <button class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                                        −
+                                    </button>
+                                </form>
+
+                                <span th:text="${cartItem.pairQuantity}" class="w-8 h-8 flex items-center justify-center border-x border-gray-200 text-sm"></span>
+
+                                <form th:action="@{/fashion-store/cart/increase-pair-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                                    method="POST">
+                                    <button class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                                        +
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="col-span-4 sm:col-span-2 text-right">
+                            <p class="text-sm">
+                                $<span th:text="${cartItem.getTotalSalePriceByPairQuantity()}"></span>
+                            </p>
+
+                            <p th:if="${cartItem.product.discountPercent != 0}" class="text-xs font-light line-through">
+                                $<span th:text="${cartItem.getTotalOriginPriceByPairQuantity()}"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div>
+                <div class="bg-gray-50 p-8 sticky top-24">
+                    <h2 class="text-sm tracking-[0.15em] uppercase mb-8">Order Summary</h2>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Subtotal</span>
+                            <span>$<span th:text="${session.cart.getTotalOriginAmount()}"></span></span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Saving</span>
+                            <span class="text-green-600">
+                                $<span th:text="${session.cart.getTotalOriginAmount() - session.cart.getTotalAmount()}">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-4 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-sm">Total</span>
+                            <span class="text-lg">
+                                $<span th:text="${session.cart.getTotalAmount()}"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <a th:href="@{/fashion-store/checkout}"
+                       class="w-full flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
+                        Checkout
+                    </a>
+
+                    <p class="text-xs text-center text-gray-400">
+                        Secure checkout · SSL encrypted
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

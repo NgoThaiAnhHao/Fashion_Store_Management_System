@@ -1,6 +1,8 @@
 package com.student.fashion_store_management_system.controller;
 
 import com.student.fashion_store_management_system.model.dto.product.ProductCreateDto;
+import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
+import com.student.fashion_store_management_system.model.entity.CartItem;
 import com.student.fashion_store_management_system.model.entity.Category;
 import com.student.fashion_store_management_system.model.entity.Product;
 import com.student.fashion_store_management_system.service.CategoryService;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +35,13 @@ public class ProductController {
     @GetMapping("/products")
     public String findAll(Model model) {
         List<Product> products = productService.findAll();
-        products.forEach(System.out::println);
+        model.addAttribute("products", products);
+        return "/admin/product/product-management";
+    }
+
+    @GetMapping("/products/search-by-name")
+    public String searchByName(@RequestParam String keyword, Model model) {
+        List<Product> products = productService.findByProductName(keyword);
         model.addAttribute("products", products);
         return "/admin/product/product-management";
     }
@@ -94,8 +103,15 @@ public class ProductController {
 
     @PostMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable long id,
-                                Model model) {
-        productService.delete(id);
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            productService.delete(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Deleted Success!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Cannot deleted for this product because its have FK for Order.");
+        }
+
         return "redirect:/fashion-store/products";
     }
 
@@ -132,6 +148,7 @@ public class ProductController {
     @GetMapping("/products/detail/{id}")
     public String showDetailForm(@PathVariable long id,
                                  Model model) {
+        model.addAttribute("cartItem", new CartItem());
         model.addAttribute("product", productService.findById(id));
         return "product-detail";
     }

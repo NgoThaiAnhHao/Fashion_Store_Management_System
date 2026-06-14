@@ -27,9 +27,9 @@
 
     <!-- Role badge -->
     <div class="px-4 py-3 border-b border-[#D8C3A5]/15 flex-shrink-0">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#D8C3A5]/15 text-[#D8C3A5] text-[10px] font-bold tracking-widest uppercase rounded-md">
+                  <span th:text="${session.currentUser.getRoles().getRoleName().toString()}"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#D8C3A5]/15 text-[#D8C3A5] text-[10px] font-bold tracking-widest uppercase rounded-md">
                       <span class="w-1.5 h-1.5 rounded-full bg-[#D8C3A5] animate-pulse"></span>
-                    ROLE_ADMIN
                   </span>
     </div>
 
@@ -52,7 +52,7 @@
         </div>
 
         <!-- User & Access -->
-        <div>
+        <div th:if="${session.currentUser.getRoles().getSeparatedRoleName() == 'ADMIN'}">
             <div class="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase text-[#D8C3A5]/55">
                 User & Access
             </div>
@@ -61,16 +61,6 @@
                 <a th:href="@{/fashion-store/users/users-management}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
                     <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">User Management</span>
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
-                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Manager Accounts</span>
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
-                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Role Management</span>
                 </a>
             </div>
         </div>
@@ -101,14 +91,9 @@
             </div>
 
             <div class="space-y-0.5">
-                <a href="#"
+                <a th:href="@{/fashion-store/orders}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
                     <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Order Management</span>
-                </a>
-
-                <a href="#"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group text-[#F5F1EB]/60 hover:bg-[#F5F1EB]/10 hover:text-[#F5F1EB]">
-                    <span class="truncate text-[#F5F1EB]/45 group-hover:text-[#F5F1EB]/80">Payment Management</span>
                 </a>
             </div>
         </div>
@@ -137,14 +122,14 @@
             <div class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
                 <div class="w-7 h-7 rounded-full overflow-hidden flex items-center justify-center bg-white">
                     <!-- Use default avatar if user profile photo is null -->
-                    <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
-                         th:text="${currentUser.getFirstCharOfFullName()}"
+                    <div th:if="${session.currentUser != null and session.currentUser.avatarUrl == null}"
+                         th:text="${session.currentUser.getFirstCharOfFullName()}"
                          class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
                     </div>
 
                     <!-- Use user's avatar if user profile photo is not null -->
-                    <img th:if="${currentUser != null and currentUser.avatarUrl != null}"
-                         th:src="@{'/images/users/' + ${currentUser.userId} + '/' + ${currentUser.avatarUrl}}"
+                    <img th:if="${session.currentUser != null and session.currentUser.avatarUrl != null}"
+                         th:src="@{'/images/users/' + ${session.currentUser.userId} + '/' + ${session.currentUser.avatarUrl}}"
                          alt="Profile photo"
                          class="object-cover"
                     />
@@ -152,10 +137,10 @@
             </div>
 
             <div class="min-w-0">
-                <div th:if="${currentUser != null}" th:text="${currentUser.fullName}" class="text-xs font-semibold text-[#F5F1EB] truncate">
+                <div th:if="${session.currentUser != null}" th:text="${session.currentUser.fullName}" class="text-xs font-semibold text-[#F5F1EB] truncate">
                 </div>
 
-                <div th:if="${currentUser != null}" th:text="${currentUser.email}" class="text-[10px] text-[#D8C3A5]/60 truncate font-normal">
+                <div th:if="${session.currentUser != null}" th:text="${session.currentUser.email}" class="text-[10px] text-[#D8C3A5]/60 truncate font-normal">
                 </div>
             </div>
         </div>
