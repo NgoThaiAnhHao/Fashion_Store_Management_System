@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.service;
 
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.mapper.ProductMapper;
 import com.student.fashion_store_management_system.model.dto.product.ProductCreateDto;
 import com.student.fashion_store_management_system.model.entity.Category;
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository
                 .findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("PRODUCT NOT FOUND")
+                        new ResourceNotFoundException("PRODUCT NOT FOUND")
                 );
     }
 

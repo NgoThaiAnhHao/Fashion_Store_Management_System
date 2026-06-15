@@ -1,10 +1,7 @@
 package com.student.fashion_store_management_system.controller;
 
 import com.student.fashion_store_management_system.enums.OrderStatusEnum;
-import com.student.fashion_store_management_system.model.entity.Order;
-import com.student.fashion_store_management_system.model.entity.OrderDetail;
-import com.student.fashion_store_management_system.model.entity.Payment;
-import com.student.fashion_store_management_system.model.entity.User;
+import com.student.fashion_store_management_system.model.entity.*;
 import com.student.fashion_store_management_system.service.AuthenticationService;
 import com.student.fashion_store_management_system.service.OrderDetailService;
 import com.student.fashion_store_management_system.service.OrderService;
@@ -76,5 +73,12 @@ public class OrderController {
         }
 
         return "my-order-details";
+    }
+
+    @GetMapping("/orders/search-by-user-fullname")
+    public String searchByName(@RequestParam String keyword, Model model) {
+        List<Order> orders = orderService.findByUserFullName(keyword);
+        model.addAttribute("orders", orders);
+        return "/admin/order/order-management";
     }
 }

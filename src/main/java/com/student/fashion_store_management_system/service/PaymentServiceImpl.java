@@ -2,6 +2,7 @@ package com.student.fashion_store_management_system.service;
 
 import com.student.fashion_store_management_system.enums.PaymentMethodEnum;
 import com.student.fashion_store_management_system.enums.PaymentStatusEnum;
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.model.entity.Order;
 import com.student.fashion_store_management_system.model.entity.Payment;
 import com.student.fashion_store_management_system.repository.PaymentRepository;
@@ -44,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment findByOrder(Order order) {
         return paymentRepository.findByOrder(order)
                 .orElseThrow(() ->
-                        new RuntimeException("PAYMENT NOT FOUND")
+                        new ResourceNotFoundException("PAYMENT NOT FOUND")
                 );
     }
 
@@ -52,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment findById(long paymentId) {
         return paymentRepository.findById(paymentId)
                 .orElseThrow(() ->
-                        new RuntimeException("PAYMENT NOT FOUND")
+                        new ResourceNotFoundException("PAYMENT NOT FOUND")
                 );
     }
 

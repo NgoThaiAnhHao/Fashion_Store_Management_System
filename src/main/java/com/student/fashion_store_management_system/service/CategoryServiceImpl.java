@@ -1,6 +1,7 @@
 package com.student.fashion_store_management_system.service;
 
 import com.student.fashion_store_management_system.exception.common.DuplicateCategoryException;
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.mapper.CategoryMapper;
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
 import com.student.fashion_store_management_system.model.entity.Category;
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() ->
-                    new RuntimeException("CATEGORY NOT FOUND")
+                    new ResourceNotFoundException("CATEGORY NOT FOUND")
                 );
     }
 

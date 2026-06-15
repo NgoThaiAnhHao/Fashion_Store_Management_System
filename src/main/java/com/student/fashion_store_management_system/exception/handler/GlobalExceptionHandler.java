@@ -2,6 +2,7 @@ package com.student.fashion_store_management_system.exception.handler;
 
 import com.student.fashion_store_management_system.exception.common.DuplicateCategoryException;
 import com.student.fashion_store_management_system.exception.common.DuplicateEmailException;
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.model.dto.authentication.UserRegistrationDto;
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
 import com.student.fashion_store_management_system.model.entity.User;
@@ -26,5 +27,11 @@ public class GlobalExceptionHandler {
         model.addAttribute("errors", List.of(e.getMessage()));
         model.addAttribute("category", new CategoryCreateDto());
         return "/admin/add-new-category";
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFound(ResourceNotFoundException e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "page-not-found";
     }
 }

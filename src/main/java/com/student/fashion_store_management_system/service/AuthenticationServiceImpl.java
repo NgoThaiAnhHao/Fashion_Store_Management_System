@@ -2,6 +2,7 @@ package com.student.fashion_store_management_system.service;
 
 import com.student.fashion_store_management_system.enums.RoleNameEnum;
 import com.student.fashion_store_management_system.exception.common.DuplicateEmailException;
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.mapper.UserMapper;
 import com.student.fashion_store_management_system.model.dto.authentication.UserRegistrationDto;
 import com.student.fashion_store_management_system.model.entity.Role;
@@ -44,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Role role = roleRepository
                 .findByRoleName(RoleNameEnum.ROLE_CUSTOMER)
                 .orElseThrow(
-                    () -> new RuntimeException("ROLE NOT FOUND")
+                    () -> new ResourceNotFoundException("ROLE NOT FOUND")
                  );
 
         // Set ROLE_CUSTOMER for user

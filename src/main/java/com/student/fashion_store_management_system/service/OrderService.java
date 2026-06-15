@@ -18,4 +18,6 @@ public interface OrderService {
     Order addNew(OrderCreateDto orderCreateDto, BigDecimal totalAmount);
 
     void updateStatus(long id, OrderStatusEnum status);
+
+    List<Order> findByUserFullName(String fullName);
 }

@@ -42,8 +42,12 @@ public class SecurityConfig {
                                 "/fashion-store/products",
                                 "/uploads/products/**"
                         ).permitAll()
+                        .requestMatchers(
+                                "/fashion-store/checkout",
+                                "/fashion-store/payment").hasRole("CUSTOMER")
                         .requestMatchers("/fashion-store/users/users-management/**").hasRole("ADMIN")
-                        .requestMatchers("/fashion-store/categories/**",
+                        .requestMatchers(
+                                "/fashion-store/categories/**",
                                 "/fashion-store/orders/**",
                                 "/fashion-store/payment/**",
                                 "/fashion-store/products/**").hasAnyRole("ADMIN", "MANAGER")
