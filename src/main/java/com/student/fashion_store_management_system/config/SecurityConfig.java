@@ -37,7 +37,6 @@ public class SecurityConfig {
                                 "/fashion-store/dashboard",
                                 "/css/**",
                                 "/images/**",
-                                "/fashion-store/dashboard/test",
                                 "/fashion-store/products/detail/**",
                                 "/fashion-store/products",
                                 "/uploads/products/**"
