@@ -9,6 +9,7 @@ import com.student.fashion_store_management_system.service.PaymentService;
 import com.student.fashion_store_management_system.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,17 +21,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class CheckoutController {
 
     private final OrderService orderService;
     private final OrderDetailService orderDetailService;
     private final ProductService productService;
-
-    public CheckoutController(OrderService orderService, OrderDetailService orderDetailService, ProductService productService) {
-        this.orderService = orderService;
-        this.orderDetailService = orderDetailService;
-        this.productService = productService;
-    }
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
@@ -39,7 +35,7 @@ public class CheckoutController {
     }
 
     @PostMapping("/checkout")
-    public String payment(@Valid @ModelAttribute("order") OrderCreateDto orderCreateDto,
+    public String createOrderDetail(@Valid @ModelAttribute("order") OrderCreateDto orderCreateDto,
                           BindingResult bindingResult,
                           HttpSession session,
                           RedirectAttributes redirectAttributes,

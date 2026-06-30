@@ -4,6 +4,7 @@ import com.student.fashion_store_management_system.model.dto.category.CategoryCr
 import com.student.fashion_store_management_system.model.entity.Category;
 import com.student.fashion_store_management_system.service.CategoryService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +16,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("/categories")
     public String findAll(Model model) {

@@ -1,7 +1,16 @@
 package com.student.fashion_store_management_system.model.entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItem {
 
     private int cartItemId;
@@ -16,62 +25,11 @@ public class CartItem {
 
     private Product product;
 
-    public CartItem() {
-    }
-
     public CartItem(String maleSize, String femaleSize, String customLogoText, int pairQuantity, Product product) {
         this.maleSize = maleSize;
         this.femaleSize = femaleSize;
         this.customLogoText = customLogoText;
         this.pairQuantity = pairQuantity;
-        this.product = product;
-    }
-
-    public int getCartItemId() {
-        return cartItemId;
-    }
-
-    public void setCartItemId(int cartItemId) {
-        this.cartItemId = cartItemId;
-    }
-
-    public String getMaleSize() {
-        return maleSize;
-    }
-
-    public void setMaleSize(String maleSize) {
-        this.maleSize = maleSize;
-    }
-
-    public String getFemaleSize() {
-        return femaleSize;
-    }
-
-    public void setFemaleSize(String femaleSize) {
-        this.femaleSize = femaleSize;
-    }
-
-    public String getCustomLogoText() {
-        return customLogoText;
-    }
-
-    public void setCustomLogoText(String customLogoText) {
-        this.customLogoText = customLogoText;
-    }
-
-    public int getPairQuantity() {
-        return pairQuantity;
-    }
-
-    public void setPairQuantity(int pairQuantity) {
-        this.pairQuantity = pairQuantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -85,16 +43,5 @@ public class CartItem {
         return product.getSalePrice().multiply(
                 BigDecimal.valueOf(pairQuantity)
         );
-    }
-
-    @Override
-    public String toString() {
-        return "CartItem{" +
-                "maleSize='" + maleSize + '\'' +
-                ", femaleSize='" + femaleSize + '\'' +
-                ", customLogoText='" + customLogoText + '\'' +
-                ", pairQuantity=" + pairQuantity +
-                ", product=" + product +
-                '}';
     }
 }

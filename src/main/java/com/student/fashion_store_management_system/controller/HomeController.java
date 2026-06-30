@@ -5,6 +5,7 @@ import com.student.fashion_store_management_system.model.dto.user.UserResponseDt
 import com.student.fashion_store_management_system.model.entity.*;
 import com.student.fashion_store_management_system.service.*;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class HomeController {
 
     private final ProductService productService;
@@ -29,26 +31,19 @@ public class HomeController {
     private final PaymentService paymentService;
     private final CategoryService categoryService;
 
-    public HomeController(ProductService productService, AuthenticationService authenticationService, UserService userService, OrderService orderService, PaymentService paymentService, CategoryService categoryService) {
-        this.productService = productService;
-        this.authenticationService = authenticationService;
-        this.userService = userService;
-        this.orderService = orderService;
-        this.paymentService = paymentService;
-        this.categoryService = categoryService;
-    }
-
     @GetMapping("/dashboard")
     public String home(Model model, HttpSession session) {
         // Log current user for debug
         User user = authenticationService.getCurrentUser();
+
+        session.setAttribute("currentUser", user);
+
 
         // Process for Admin Or Manager
         if (user != null &&
                 ("ROLE_ADMIN".equals(user.getRoles().getRoleName().toString()) ||
                 "ROLE_MANAGER".equals(user.getRoles().getRoleName().toString()))
         ) {
-            session.setAttribute("currentUser", user);
 
             // Find all objects
             List<UserResponseDto> users = userService.findAll();

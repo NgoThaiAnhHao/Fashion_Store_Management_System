@@ -1,11 +1,15 @@
 package com.student.fashion_store_management_system.service;
 
 import com.student.fashion_store_management_system.enums.RoleNameEnum;
+import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.mapper.UserMapper;
 import com.student.fashion_store_management_system.model.dto.authentication.UserUpdateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
+import com.student.fashion_store_management_system.model.entity.Role;
 import com.student.fashion_store_management_system.model.entity.User;
+import com.student.fashion_store_management_system.repository.RoleRepository;
 import com.student.fashion_store_management_system.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,14 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthenticationService authenticationService;
-
-    public UserServiceImpl(UserRepository userRepository, AuthenticationService authenticationService) {
-        this.userRepository = userRepository;
-        this.authenticationService = authenticationService;
-    }
+    private final RoleRepository roleRepository;
 
     @Override
     public List<UserResponseDto> findAll() {
@@ -50,6 +51,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponseDto findByEmail(String email) {
+        return UserMapper.toResponse(
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow(() ->
+                                new UsernameNotFoundException("USER NOT FOUND")
+                        )
+        );
+    }
+
+    @Override
     public UserResponseDto findById(long id) {
         return UserMapper.toResponse(
                 userRepository
@@ -61,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponseDto updateProfile(UserUpdateDto userUpdateDto) {
+    public UserResponseDto updateProfile(UserUpdateDto userUpdateDto, RoleNameEnum roleName) {
         User user = userRepository
                 .findById(userUpdateDto.getUserId())
                 .orElseThrow(() ->
@@ -71,6 +83,16 @@ public class UserServiceImpl implements UserService {
         user.setFullName(userUpdateDto.getFullName());
         user.setAvatarUrl(userUpdateDto.getAvatarUrl());
         user.setHomeAddress(userUpdateDto.getHomeAddress());
+
+
+        // Find role and set for user
+        Role role = roleRepository
+                .findByRoleName(roleName)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("ROLE NOT FOUND")
+                );
+
+        user.setRoles(role);
 
         userRepository.save(user);
 

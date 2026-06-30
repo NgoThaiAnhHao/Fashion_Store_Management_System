@@ -7,23 +7,19 @@ import com.student.fashion_store_management_system.model.entity.Category;
 import com.student.fashion_store_management_system.model.entity.Product;
 import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
     private final AuthenticationService authenticationService;
-
-    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService, AuthenticationService authenticationService) {
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-        this.authenticationService = authenticationService;
-    }
 
     @Override
     public List<Product> findAll() {

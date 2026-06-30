@@ -9,6 +9,7 @@ import com.student.fashion_store_management_system.service.CategoryService;
 import com.student.fashion_store_management_system.service.ProductService;
 import com.student.fashion_store_management_system.utils.FileUploadUtil;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -23,14 +24,10 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
-
-    public ProductController(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("/products")
     public String findAll(Model model) {

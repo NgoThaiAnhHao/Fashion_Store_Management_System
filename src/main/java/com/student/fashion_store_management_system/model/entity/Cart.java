@@ -1,14 +1,18 @@
 package com.student.fashion_store_management_system.model.entity;
 
-import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Setter
+@Getter
 public class Cart {
     private int nextId = 1;
+
     private List<CartItem> items = new ArrayList<>();
 
     public void addItem(CartItem cartItem) {
@@ -34,14 +38,6 @@ public class Cart {
 
         cartItem.setCartItemId(nextId++);
         items.add(cartItem);
-    }
-
-    public List<CartItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<CartItem> items) {
-        this.items = items;
     }
 
     public void deleteItem(int cartItemId) {
@@ -97,5 +93,10 @@ public class Cart {
         }
 
         return total;
+    }
+
+    public void clear() {
+        items.clear();
+        nextId = 1;
     }
 }

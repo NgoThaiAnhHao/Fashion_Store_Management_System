@@ -3,6 +3,10 @@ package com.student.fashion_store_management_system.model.entity;
 import com.student.fashion_store_management_system.enums.PaymentMethodEnum;
 import com.student.fashion_store_management_system.enums.PaymentStatusEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -11,6 +15,10 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "payment")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,68 +49,8 @@ public class Payment {
         this.paymentStatus = PaymentStatusEnum.PENDING;
     }
 
-    public Payment() {
-    }
-
     public Payment(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
-    }
-
-    public Payment(long paymentId, BigDecimal totalAmount, PaymentMethodEnum paymentMethod, PaymentStatusEnum paymentStatus, LocalDateTime createdAt, Order order) {
-        this.paymentId = paymentId;
-        this.totalAmount = totalAmount;
-        this.paymentMethod = paymentMethod;
-        this.paymentStatus = paymentStatus;
-        this.createdAt = createdAt;
-        this.order = order;
-    }
-
-    public long getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(long paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public PaymentMethodEnum getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public PaymentStatusEnum getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(PaymentStatusEnum paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public String getFormattedCreatedAt() {

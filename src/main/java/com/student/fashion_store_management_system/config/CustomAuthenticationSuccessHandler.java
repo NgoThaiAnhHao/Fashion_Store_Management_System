@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.config;
 
+import com.student.fashion_store_management_system.utils.CustomUserDetail;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +16,6 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        // Get current user who logging
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         response.sendRedirect("/fashion-store/dashboard");
     }
 

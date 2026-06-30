@@ -6,6 +6,7 @@ import com.student.fashion_store_management_system.exception.common.ResourceNotF
 import com.student.fashion_store_management_system.model.entity.Order;
 import com.student.fashion_store_management_system.model.entity.Payment;
 import com.student.fashion_store_management_system.repository.PaymentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,15 +14,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final OrderService orderService;
-
-    public PaymentServiceImpl(PaymentRepository paymentRepository, OrderService orderService) {
-        this.paymentRepository = paymentRepository;
-        this.orderService = orderService;
-    }
 
     @Override
     public List<Payment> findAll() {

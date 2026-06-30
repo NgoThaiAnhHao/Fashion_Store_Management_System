@@ -9,6 +9,7 @@ import com.student.fashion_store_management_system.service.AuthenticationService
 import com.student.fashion_store_management_system.service.UserService;
 import com.student.fashion_store_management_system.utils.FileUploadUtil;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -23,15 +24,11 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class UserController {
 
     private final AuthenticationService authenticationService;
     private final UserService userService;
-
-    public UserController(AuthenticationService authenticationService, UserService userService) {
-        this.authenticationService = authenticationService;
-        this.userService = userService;
-    }
 
     @GetMapping("/users/my-profile")
     public String getProfile(Model model) {
@@ -50,6 +47,7 @@ public class UserController {
     @PostMapping("/users/update-profile/{id}")
     public String updateProfile(@PathVariable long id,
                                 @RequestParam("avatar") MultipartFile multipartFile,
+                                @RequestParam(required = false) RoleNameEnum role,
                                 @Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
@@ -89,8 +87,15 @@ public class UserController {
             userUpdateDto.setAvatarUrl(fileName);
         }
 
-        // Update user profile to database
-        UserResponseDto savedUser = userService.updateProfile(userUpdateDto);
+        UserResponseDto savedUser;
+
+        // Processing for role (User updated by admin)
+        if (isAdmin()) {
+            savedUser = userService.updateProfile(userUpdateDto, role);
+        } else {
+            // Update user profile to database
+            savedUser = userService.updateProfile(userUpdateDto, RoleNameEnum.ROLE_CUSTOMER);
+        }
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
             // Create folder for every body

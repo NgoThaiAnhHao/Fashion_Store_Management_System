@@ -6,6 +6,7 @@ import com.student.fashion_store_management_system.service.AuthenticationService
 import com.student.fashion_store_management_system.service.OrderDetailService;
 import com.student.fashion_store_management_system.service.OrderService;
 import com.student.fashion_store_management_system.service.PaymentService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
     private final PaymentService paymentService;
     private final OrderDetailService orderDetailService;
     private final AuthenticationService authenticationService;
-
-    public OrderController(OrderService orderService, PaymentService paymentService, OrderDetailService orderDetailService, AuthenticationService authenticationService) {
-        this.orderService = orderService;
-        this.paymentService = paymentService;
-        this.orderDetailService = orderDetailService;
-        this.authenticationService = authenticationService;
-    }
 
     @GetMapping("/orders")
     public String findAll(Model model) {

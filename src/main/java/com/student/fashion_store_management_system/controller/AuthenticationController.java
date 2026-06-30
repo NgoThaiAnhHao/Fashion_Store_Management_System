@@ -4,6 +4,7 @@ import com.student.fashion_store_management_system.model.dto.authentication.User
 import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.service.AuthenticationService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/fashion-store/auth/")
+@AllArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
 
     // GET: REGISTER
     @GetMapping("/register")

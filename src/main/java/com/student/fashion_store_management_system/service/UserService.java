@@ -14,9 +14,11 @@ public interface UserService {
 
     List<UserResponseDto> findAllByFullName(String keyword);
 
+    UserResponseDto findByEmail(String email);
+
     UserResponseDto findById(long id);
 
-    UserResponseDto updateProfile(UserUpdateDto userUpdateDto);
+    UserResponseDto updateProfile(UserUpdateDto userUpdateDto, RoleNameEnum roleName);
 
     void updateStatus(long id);
 

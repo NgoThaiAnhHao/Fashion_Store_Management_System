@@ -10,6 +10,7 @@ import com.student.fashion_store_management_system.service.OrderService;
 import com.student.fashion_store_management_system.service.PaymentService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,13 +20,10 @@ import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/fashion-store")
+@AllArgsConstructor
 public class PaymentController {
 
     private final PaymentService paymentService;
-
-    public PaymentController(PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
 
     @GetMapping("/payment")
     public String payment(@ModelAttribute("orderId") long orderId,

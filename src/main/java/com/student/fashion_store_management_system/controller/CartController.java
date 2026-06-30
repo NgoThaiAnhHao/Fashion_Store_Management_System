@@ -4,23 +4,17 @@ import com.student.fashion_store_management_system.model.entity.CartItem;
 import com.student.fashion_store_management_system.service.CartService;
 import com.student.fashion_store_management_system.service.ProductService;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/fashion-store")
-/**
- * TODO: Config for cart.html, method: addToCart
- */
+@AllArgsConstructor
 public class CartController {
     private final ProductService productService;
     private final CartService cartService;
-
-    public CartController(ProductService productService, CartService cartService) {
-        this.productService = productService;
-        this.cartService = cartService;
-    }
 
     @GetMapping("/cart")
     public String showCart() {

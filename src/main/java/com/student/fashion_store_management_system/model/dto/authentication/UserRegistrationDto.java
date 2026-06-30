@@ -3,7 +3,15 @@ package com.student.fashion_store_management_system.model.dto.authentication;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRegistrationDto {
 
     @NotBlank(message = "* Your full name is mandatory!")
@@ -17,37 +25,4 @@ public class UserRegistrationDto {
     @NotBlank(message = "* Password is mandatory!")
     @Size(min = 5, max = 30, message = "* Password must be at least 5 characters long!")
     private String password;
-
-    public UserRegistrationDto() {
-    }
-
-    public UserRegistrationDto(String fullName, String email, String password) {
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

@@ -7,6 +7,7 @@ import com.student.fashion_store_management_system.model.dto.order.OrderCreateDt
 import com.student.fashion_store_management_system.model.entity.Order;
 import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.repository.OrderRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final AuthenticationService authenticationService;
-
-    public OrderServiceImpl(OrderRepository orderRepository, AuthenticationService authenticationService) {
-        this.orderRepository = orderRepository;
-        this.authenticationService = authenticationService;
-    }
 
     @Override
     public List<Order> findAll() {

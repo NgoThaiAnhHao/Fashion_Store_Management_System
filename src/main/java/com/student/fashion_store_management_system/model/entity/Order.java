@@ -2,6 +2,10 @@ package com.student.fashion_store_management_system.model.entity;
 
 import com.student.fashion_store_management_system.enums.OrderStatusEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -10,6 +14,10 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,9 +58,6 @@ public class Order {
         this.status = OrderStatusEnum.PENDING;
     }
 
-    public Order() {
-    }
-
     public Order(BigDecimal totalAmount, String shippingAddress, String receiverName, String receiverPhone, String city, String zipcode, User orderedBy) {
         this.totalAmount = totalAmount;
         this.shippingAddress = shippingAddress;
@@ -60,86 +65,6 @@ public class Order {
         this.receiverPhone = receiverPhone;
         this.city = city;
         this.zipcode = zipcode;
-        this.orderedBy = orderedBy;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public LocalDateTime getOrderedDate() {
-        return orderedDate;
-    }
-
-    public void setOrderedDate(LocalDateTime orderedDate) {
-        this.orderedDate = orderedDate;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public String getReceiverPhone() {
-        return receiverPhone;
-    }
-
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public OrderStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatusEnum status) {
-        this.status = status;
-    }
-
-    public User getOrderedBy() {
-        return orderedBy;
-    }
-
-    public void setOrderedBy(User orderedBy) {
         this.orderedBy = orderedBy;
     }
 

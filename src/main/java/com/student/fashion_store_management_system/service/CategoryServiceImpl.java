@@ -6,18 +6,16 @@ import com.student.fashion_store_management_system.mapper.CategoryMapper;
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
 import com.student.fashion_store_management_system.model.entity.Category;
 import com.student.fashion_store_management_system.repository.CategoryRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public List<Category> findAll() {

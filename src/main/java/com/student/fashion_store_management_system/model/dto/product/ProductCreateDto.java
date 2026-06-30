@@ -3,10 +3,18 @@ package com.student.fashion_store_management_system.model.dto.product;
 import com.student.fashion_store_management_system.model.entity.Category;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductCreateDto {
 
     @NotBlank(message = "* Product name is mandatory!")
@@ -32,86 +40,4 @@ public class ProductCreateDto {
 
     @NotNull(message = "* Category is mandatory!")
     private long categoryId;
-
-    public ProductCreateDto() {
-    }
-
-    public ProductCreateDto(String name, String description, BigDecimal price, String imageUrl, Integer  stockQuantity, Integer  discountPercent, long categoryId) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.stockQuantity = stockQuantity;
-        this.discountPercent = discountPercent;
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Integer  getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public Integer  getDiscountPercent() {
-        return discountPercent;
-    }
-
-    public void setDiscountPercent(int discountPercent) {
-        this.discountPercent = discountPercent;
-    }
-
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductCreateDto{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", stockQuantity=" + stockQuantity +
-                ", discountPercent=" + discountPercent +
-                ", categoryId=" + categoryId +
-                '}';
-    }
 }
