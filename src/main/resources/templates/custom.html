@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Your Tee | Fashion Store</title>
+    <link rel="shortcut icon" href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
+    <link th:href="@{/css/globals.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="h-[72px]"></div>
+
+<div class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-20">
+
+        <a th:href="@{/fashion-store/dashboard}"
+           class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase text-gray-600 hover:text-black transition-colors mb-12">
+            BACK TO SHOP
+        </a>
+
+        <div class="mb-14">
+            <p class="text-xs font-bold tracking-[0.3em] uppercase text-gray-500 mb-5">
+                CUSTOM STUDIO
+            </p>
+
+            <h1 class="text-4xl lg:text-6xl font-black tracking-tight uppercase">
+                DESIGN YOUR OWN TEE
+            </h1>
+
+            <p class="mt-5 text-gray-600 font-light max-w-2xl">
+                Choose a shirt, upload your logo, add custom text and select couple sizes.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-14">
+
+            <!-- Preview -->
+            <div>
+                <div class="border-2 border-black bg-gray-50 p-8 sticky top-24">
+                    <p class="text-xs font-bold tracking-[0.2em] uppercase text-gray-500 mb-6">
+                        Preview
+                    </p>
+
+                    <div class="relative bg-white border border-gray-200 overflow-hidden">
+                        <img id="productPreview"
+                             src=""
+                             alt="Product Preview"
+                             class="w-full h-auto object-cover">
+
+                        <img id="shirtLogoPreview"
+                             src=""
+                             alt="Logo Preview"
+                             class="hidden absolute top-[38%] left-[38%] w-28 h-28 object-contain opacity-90 pointer-events-none">
+
+                        <div id="textPreview"
+                             class="hidden absolute top-[58%] left-1/2 -translate-x-1/2 text-black text-lg font-bold tracking-wide text-center max-w-[70%] break-words">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div>
+                <form id="customForm"
+                      th:action="@{/fashion-store/cart/add-to-cart/0}"
+                      th:object="${cartItem}"
+                      method="POST"
+                      enctype="multipart/form-data"
+                      class="space-y-10">
+
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="hidden" name="redirectToCart" value="true">
+
+                    <!-- Choose product -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            CHOOSE SHIRT
+                        </label>
+
+                        <select id="productSelect"
+                                class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                            <option th:each="product : ${products}"
+                                    th:value="${product.productId}"
+                                    th:text="${product.name}"
+                                    th:data-image-url="${product.imageUrl}"
+                                    th:data-product-id="${product.productId}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Male size -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            HIS SIZE
+                        </label>
+
+                        <select th:field="*{maleSize}"
+                                class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L" selected>L</option>
+                            <option value="XL">XL</option>
+                            <option value="2XL">2XL</option>
+                            <option value="3XL">3XL</option>
+                        </select>
+                    </div>
+
+                    <!-- Female size -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            HER SIZE
+                        </label>
+
+                        <select th:field="*{femaleSize}"
+                                class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L" selected>L</option>
+                            <option value="XL">XL</option>
+                            <option value="2XL">2XL</option>
+                            <option value="3XL">3XL</option>
+                        </select>
+                    </div>
+
+                    <!-- Custom text -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            CUSTOM TEXT
+                            <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
+                        </label>
+
+                        <input th:field="*{customLogoText}"
+                               id="logoText"
+                               type="text"
+                               placeholder="YOUR TEXT HERE"
+                               maxlength="40"
+                               class="w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                    </div>
+
+                    <!-- Upload logo -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            UPLOAD LOGO
+                            <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
+                        </label>
+
+                        <div class="border-2 border-dashed border-gray-300 p-8 text-center hover:border-black transition-colors">
+                            <input id="customLogoImage"
+                                   name="customLogoImage"
+                                   type="file"
+                                   accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
+                                   class="hidden">
+
+                            <label for="customLogoImage" class="cursor-pointer block">
+                                <div class="text-gray-400 text-sm tracking-[0.15em] uppercase font-bold">
+                                    Click to upload
+                                </div>
+
+                                <p class="mt-2 text-xs text-gray-400">
+                                    PNG, JPG, SVG, WEBP - Max 5MB
+                                </p>
+                            </label>
+
+                            <img id="logoPreview"
+                                 src=""
+                                 alt="Logo Preview"
+                                 class="hidden mx-auto mt-6 max-h-32 object-contain border border-gray-200 p-2">
+                        </div>
+                    </div>
+
+                    <!-- Pair quantity -->
+                    <input type="hidden"
+                           th:field="*{pairQuantity}"
+                           id="pairQuantity"
+                           value="1">
+
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            PAIR QUANTITY
+                        </label>
+
+                        <div class="flex items-center border-2 border-gray-300 bg-white w-fit">
+                            <button type="button"
+                                    id="minusBtn"
+                                    class="w-12 h-12 flex items-center justify-center text-xl font-bold transition-colors hover:bg-gray-100">
+                                −
+                            </button>
+
+                            <span id="quantityDisplay"
+                                  class="w-12 h-12 flex items-center justify-center border-x-2 border-gray-300 text-xl font-bold">
+                                1
+                            </span>
+
+                            <button type="button"
+                                    id="plusBtn"
+                                    class="w-12 h-12 flex items-center justify-center text-xl font-bold transition-colors hover:bg-gray-100">
+                                +
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full flex items-center justify-center gap-3 py-4 text-sm font-bold tracking-[0.2em] uppercase transition-all bg-black text-white hover:bg-gray-900">
+                        Add Custom Tee To Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+<script>
+    const productSelect = document.getElementById("productSelect");
+    const productPreview = document.getElementById("productPreview");
+    const customForm = document.getElementById("customForm");
+
+    const logoInput = document.getElementById("customLogoImage");
+    const logoPreview = document.getElementById("logoPreview");
+    const shirtLogoPreview = document.getElementById("shirtLogoPreview");
+
+    const logoText = document.getElementById("logoText");
+    const textPreview = document.getElementById("textPreview");
+
+    const minusBtn = document.getElementById("minusBtn");
+    const plusBtn = document.getElementById("plusBtn");
+    const quantityDisplay = document.getElementById("quantityDisplay");
+    const pairQuantityInput = document.getElementById("pairQuantity");
+
+    function buildProductImageUrl(productId, imageUrl) {
+        if (!imageUrl) {
+            return "";
+        }
+
+        if (imageUrl.startsWith("images")) {
+            return "/" + imageUrl;
+        }
+
+        return "/uploads/products/" + productId + "/" + imageUrl;
+    }
+
+    function updateSelectedProduct() {
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+
+        if (!selectedOption) {
+            return;
+        }
+
+        const productId = selectedOption.value;
+        const imageUrl = selectedOption.getAttribute("data-image-url");
+
+        productPreview.src = buildProductImageUrl(productId, imageUrl);
+
+        customForm.setAttribute(
+            "action",
+            "/fashion-store/cart/add-to-cart/" + productId
+        );
+    }
+
+    productSelect.addEventListener("change", updateSelectedProduct);
+    updateSelectedProduct();
+
+    logoInput.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) {
+            logoPreview.classList.add("hidden");
+            logoPreview.src = "";
+
+            shirtLogoPreview.classList.add("hidden");
+            shirtLogoPreview.src = "";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("File must be less than 5MB");
+            this.value = "";
+
+            logoPreview.classList.add("hidden");
+            logoPreview.src = "";
+
+            shirtLogoPreview.classList.add("hidden");
+            shirtLogoPreview.src = "";
+            return;
+        }
+
+        const previewUrl = URL.createObjectURL(file);
+
+        logoPreview.src = previewUrl;
+        logoPreview.classList.remove("hidden");
+
+        shirtLogoPreview.src = previewUrl;
+        shirtLogoPreview.classList.remove("hidden");
+    });
+
+    logoText.addEventListener("input", function () {
+        const text = this.value.trim();
+
+        if (!text) {
+            textPreview.classList.add("hidden");
+            textPreview.textContent = "";
+            return;
+        }
+
+        textPreview.textContent = text;
+        textPreview.classList.remove("hidden");
+    });
+
+    let quantity = 1;
+
+    plusBtn.addEventListener("click", function () {
+        quantity++;
+        quantityDisplay.textContent = quantity;
+        pairQuantityInput.value = quantity;
+    });
+
+    minusBtn.addEventListener("click", function () {
+        if (quantity > 1) {
+            quantity--;
+            quantityDisplay.textContent = quantity;
+            pairQuantityInput.value = quantity;
+        }
+    });
+</script>
+
+</body>
+</html>

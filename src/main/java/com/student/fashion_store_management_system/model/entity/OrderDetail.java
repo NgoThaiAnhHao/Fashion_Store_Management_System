@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_detail_id")
@@ -26,7 +27,11 @@ public class OrderDetail {
     @Column(name = "female_size", nullable = false)
     private String femaleSize;
 
+    @Column(name = "logo_text")
     private String logoText;
+
+    @Column(name = "logo_image_url")
+    private String logoImageUrl;
 
     @Column(name = "pair_quantity", nullable = false)
     private int pairQuantity;
@@ -42,10 +47,18 @@ public class OrderDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderDetail(String maleSize, String femaleSize, String logoText, int pairQuantity, BigDecimal subTotal, Order order, Product product) {
+    public OrderDetail(String maleSize,
+                       String femaleSize,
+                       String logoText,
+                       String logoImageUrl,
+                       int pairQuantity,
+                       BigDecimal subTotal,
+                       Order order,
+                       Product product) {
         this.maleSize = maleSize;
         this.femaleSize = femaleSize;
         this.logoText = logoText;
+        this.logoImageUrl = logoImageUrl;
         this.pairQuantity = pairQuantity;
         this.subTotal = subTotal;
         this.order = order;

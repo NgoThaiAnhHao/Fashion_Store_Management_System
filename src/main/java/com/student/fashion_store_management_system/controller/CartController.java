@@ -1,36 +1,71 @@
 package com.student.fashion_store_management_system.controller;
-import com.student.fashion_store_management_system.model.entity.Cart;
+
 import com.student.fashion_store_management_system.model.entity.CartItem;
 import com.student.fashion_store_management_system.service.CartService;
 import com.student.fashion_store_management_system.service.ProductService;
+import com.student.fashion_store_management_system.utils.FileUploadUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.Set;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/fashion-store")
 @AllArgsConstructor
 public class CartController {
+
     private final ProductService productService;
     private final CartService cartService;
 
     @GetMapping("/cart")
     public String showCart() {
-
         return "cart";
     }
 
     @PostMapping("/cart/add-to-cart/{productId}")
     public String addToCart(@ModelAttribute("cartItem") CartItem cartItem,
+                            @RequestParam(value = "customLogoImage", required = false) MultipartFile customLogoImage,
+                            @RequestParam(value = "redirectToCart", required = false) String redirectToCart,
                             @PathVariable long productId,
                             HttpSession session,
-                            RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes) throws IOException {
+
         cartItem.setProduct(productService.findById(productId));
+
+        if (customLogoImage != null && !customLogoImage.isEmpty()) {
+            validateCustomLogo(customLogoImage);
+
+            String originalFileName = StringUtils.cleanPath(customLogoImage.getOriginalFilename());
+            String extension = "";
+
+            int dotIndex = originalFileName.lastIndexOf(".");
+            if (dotIndex >= 0) {
+                extension = originalFileName.substring(dotIndex);
+            }
+
+            String fileName = UUID.randomUUID() + extension;
+            String uploadDir = "uploads/custom-logos";
+
+            FileUploadUtil.saveFile(uploadDir, fileName, customLogoImage);
+
+            cartItem.setCustomLogoImageUrl(fileName);
+        }
+
         cartService.addToCart(session, cartItem);
 
         redirectAttributes.addFlashAttribute("successMessage", "Add to cart success!");
+
+        if ("true".equals(redirectToCart)) {
+            return "redirect:/fashion-store/cart";
+        }
+
         return "redirect:/fashion-store/products/detail/" + productId;
     }
 
@@ -43,7 +78,7 @@ public class CartController {
 
     @PostMapping("/cart/increase-pair-quantity/{cartItemId}")
     public String increasePairQuantity(@PathVariable int cartItemId,
-                                   HttpSession session) {
+                                       HttpSession session) {
         cartService.increasePairQuantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
@@ -53,5 +88,25 @@ public class CartController {
                                        HttpSession session) {
         cartService.decreasePairQuantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
+    }
+
+    private void validateCustomLogo(MultipartFile file) {
+        long maxSize = 5 * 1024 * 1024;
+
+        if (file.getSize() > maxSize) {
+            throw new IllegalArgumentException("Logo image must be less than 5MB");
+        }
+
+        Set<String> allowedTypes = Set.of(
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+                "image/svg+xml",
+                "image/webp"
+        );
+
+        if (!allowedTypes.contains(file.getContentType())) {
+            throw new IllegalArgumentException("Only PNG, JPG, SVG, WEBP files are allowed");
+        }
     }
 }

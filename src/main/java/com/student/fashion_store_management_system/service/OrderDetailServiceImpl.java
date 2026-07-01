@@ -1,6 +1,8 @@
 package com.student.fashion_store_management_system.service;
 
-import com.student.fashion_store_management_system.model.entity.*;
+import com.student.fashion_store_management_system.model.entity.CartItem;
+import com.student.fashion_store_management_system.model.entity.Order;
+import com.student.fashion_store_management_system.model.entity.OrderDetail;
 import com.student.fashion_store_management_system.repository.OrderDetailRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class OrderDetailServiceImpl implements OrderDetailService {
+
     private final OrderDetailRepository orderDetailRepository;
     private final ProductService productService;
 
@@ -18,15 +21,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Transactional
     public void addNew(List<CartItem> cartItems, Order order) {
         cartItems.forEach(item -> {
-            // Decrease stock quantity of product in db
-            productService.degreeStockQuantity(item.getProduct().getProductId(), item.getPairQuantity() * 2);
+            productService.degreeStockQuantity(
+                    item.getProduct().getProductId(),
+                    item.getPairQuantity() * 2
+            );
 
-            // Saving to db
             orderDetailRepository.save(
                     new OrderDetail(
                             item.getMaleSize(),
                             item.getFemaleSize(),
                             item.getCustomLogoText(),
+                            item.getCustomLogoImageUrl(),
                             item.getPairQuantity(),
                             item.getTotalSalePriceByPairQuantity(),
                             order,
@@ -40,6 +45,4 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public List<OrderDetail> findAllByOrder(Order order) {
         return orderDetailRepository.findAllByOrder(order);
     }
-
-
 }
