@@ -12,15 +12,16 @@
                 <nav class="hidden md:flex items-center gap-10 flex-1">
 
                     <!-- New In -->
-                    <a th:href="@{/fashion-store/dashboard/test}"
+                    <a href="#"
                        class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
                         New In
                     </a>
 
-                    <!-- Collection: bỏ href để không nhảy đầu trang -->
-                    <span class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] cursor-default">
+                    <!-- Collection-->
+                    <a href="#"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
                         Collection
-                    </span>
+                    </a>
 
                 </nav>
                 <!-- End left Navbar -->
@@ -52,7 +53,6 @@
 
                             <!-- Avatar -->
                             <div class="w-8 h-8 rounded-full border border-[#D8C3A5] overflow-hidden flex items-center justify-center bg-white">
-
                                 <!-- Use default avatar if user profile photo is null -->
                                 <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
                                      th:text="${currentUser.getFirstCharOfFullName()}"
@@ -63,7 +63,8 @@
                                 <img th:if="${currentUser != null and currentUser.avatarUrl != null}"
                                      th:src="@{'/uploads/users/' + ${currentUser.userId} + '/' + ${currentUser.avatarUrl}}"
                                      alt="Profile photo"
-                                     class="w-full h-full object-cover"/>
+                                     class="object-cover"
+                                />
                             </div>
 
                             <!-- User info -->

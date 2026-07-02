@@ -8,6 +8,7 @@ import com.student.fashion_store_management_system.model.entity.User;
 import com.student.fashion_store_management_system.service.AuthenticationService;
 import com.student.fashion_store_management_system.service.UserService;
 import com.student.fashion_store_management_system.utils.FileUploadUtil;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,8 @@ public class UserController {
                                 @Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
-                                Model model) {
+                                Model model,
+                                HttpSession session) {
         userUpdateDto.setUserId(id);
 
         // Check validation
@@ -109,6 +111,10 @@ public class UserController {
                 e.printStackTrace();
             }
         }
+
+        // Update session attribute
+        session.removeAttribute("currentUser");
+        session.setAttribute("currentUser", userService.findEntityById(savedUser.getUserId()));
 
         // Return message after update successfully
         redirectAttributes.addFlashAttribute("successMessage", "Updated Profile Successfully!");

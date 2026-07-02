@@ -18,6 +18,8 @@ public interface UserService {
 
     UserResponseDto findById(long id);
 
+    User findEntityById(long id);
+
     UserResponseDto updateProfile(UserUpdateDto userUpdateDto, RoleNameEnum roleName);
 
     void updateStatus(long id);

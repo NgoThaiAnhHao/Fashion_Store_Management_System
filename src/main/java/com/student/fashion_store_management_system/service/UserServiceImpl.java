@@ -64,11 +64,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto findById(long id) {
         return UserMapper.toResponse(
-                userRepository
-                        .findById(id)
-                        .orElseThrow(() ->
-                                new UsernameNotFoundException("USER NOT FOUND"))
+                findEntityById(id)
         );
+    }
+
+    @Override
+    public User findEntityById(long id) {
+        return userRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("USER NOT FOUND"));
     }
 
     @Override
