@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Fashion Store | Shop For Couple Fashion</title>
-    <link rel="shortcut icon" href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538" type="image/png">    <script src="https://cdn.tailwindcss.com"></script>
-    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/css/globals.css}" rel="stylesheet" />
-    <link th:href="@{/css/index.css}" rel="stylesheet" />
-    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Fashion Store | Shop For Couple Fashion</title>
+
+    <link rel="shortcut icon"
+          href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538"
+          type="image/png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link th:href="@{/css/fonts.css}" rel="stylesheet"/>
+    <link th:href="@{/css/globals.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/theme.css}" rel="stylesheet"/>
 </head>
+
 <body>
 <!-- Navbar -->
 <div th:replace="~{fragments/layout :: navbar}"></div>
@@ -21,8 +28,8 @@
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1739809006763-49663591bdcd?w=600&h=800&fit=crop&auto=format"
                  alt="Couple fashion editorial"
-                 class="w-full h-full object-cover"
-            />
+                 class="w-full h-full object-cover"/>
+
             <div class="absolute inset-0 bg-gradient-to-r from-[#1F1F1F]/55 via-[#1F1F1F]/20 to-transparent"></div>
         </div>
 
@@ -35,7 +42,7 @@
 
                     <h1 class="text-5xl md:text-7xl font-semibold tracking-[0.06em] uppercase text-white leading-[1.05] mb-8"
                         style="font-family: 'Josefin Sans', sans-serif;">
-                            Made<br/>for Two
+                        Made<br/>for Two
                     </h1>
 
                     <p class="text-base md:text-lg text-white/75 mb-12 leading-relaxed font-light max-w-sm">
@@ -44,12 +51,14 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#" class="inline-flex items-center justify-center gap-3 bg-[#D8C3A5] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#E8DDD0] transition-colors duration-300"
+                        <a href="#latest-drops"
+                           class="inline-flex items-center justify-center gap-3 bg-[#D8C3A5] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#E8DDD0] transition-colors duration-300"
                            style="font-family: 'Josefin Sans', sans-serif;">
                             Shop the Collection
                         </a>
 
-                        <a href="#" class="inline-flex items-center justify-center border border-white/40 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:border-white hover:bg-white/10 transition-all duration-300"
+                        <a href="#lookbook"
+                           class="inline-flex items-center justify-center border border-white/40 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:border-white hover:bg-white/10 transition-all duration-300"
                            style="font-family: 'Josefin Sans', sans-serif;">
                             View Lookbook
                         </a>
@@ -64,7 +73,6 @@
                 Scroll
             </span>
         </div>
-
     </section>
     <!-- End Section 1 -->
 
@@ -72,62 +80,66 @@
     <section class="py-20 bg-[#F5F1EB]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
                 <!-- Product 1 -->
-                <a href="#"
-                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <div class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm cursor-default">
                     <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                          src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
                          alt="photo"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
-                    </div>
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400"></div>
+
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
                             Spring 2026
                         </p>
+
                         <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
                             style="font-family: 'Josefin Sans', sans-serif;">
                             NEW ARRIVALS
                         </h3>
                     </div>
-                </a>
+                </div>
 
                 <!-- Product 2 -->
-                <a href="#"
-                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <div class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm cursor-default">
                     <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                          src="https://images.unsplash.com/photo-1692178574181-7a47d4225278?w=600&h=800&fit=crop&auto=format"
                          alt="photo"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
-                    </div>
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400"></div>
+
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
                             MATCH TOGETHER
                         </p>
+
                         <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
                             style="font-family: 'Josefin Sans', sans-serif;">
                             COUPLE SETS
                         </h3>
                     </div>
-                </a>
+                </div>
 
                 <!-- Product 3 -->
-                <a href="#"
-                   class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
+                <div class="group relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm cursor-default">
                     <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                          src="https://images.unsplash.com/photo-1623869111118-0d09e74fe9a7?w=600&h=800&fit=crop&auto=format"
                          alt="photo"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400">
-                    </div>
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/60 via-transparent to-transparent group-hover:from-[#1F1F1F]/70 transition-all duration-400"></div>
+
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <p class="text-[9px] tracking-[0.3em] uppercase text-[#D8C3A5] mb-2">
                             UP TO 40% OFF
                         </p>
+
                         <h3 class="text-2xl font-semibold tracking-[0.1em] uppercase text-white"
                             style="font-family: 'Josefin Sans', sans-serif;">
                             SALE
                         </h3>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
@@ -136,6 +148,8 @@
     <!-- Section 3 -->
     <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <!-- Custom Studio -->
             <section class="bg-white py-16">
                 <div class="max-w-7xl mx-auto px-6 lg:px-8">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-[#F5F1EB] border border-gray-200 p-10 lg:p-16">
@@ -178,76 +192,85 @@
                     </div>
                 </div>
             </section>
-            <div class="flex items-end justify-between mb-14">
+
+            <!-- Latest Drops Header -->
+            <div id="latest-drops" class="flex items-end justify-between mb-14 scroll-mt-24">
                 <div>
                     <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777] mb-3">
                         Just dropped
                     </p>
+
                     <h2 class="text-4xl md:text-5xl font-semibold tracking-[0.06em] uppercase text-[#222222]"
                         style="font-family: 'Josefin Sans', sans-serif;">
-                    Latest Drops
+                        Latest Drops
                     </h2>
                 </div>
 
                 <!-- View All Products -->
-                <a href="#"
-                   class="hidden md:inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200"
-                   style="font-family: 'Josefin Sans', sans-serif;">
+                <button type="button"
+                        onclick="document.getElementById('latest-drops').scrollIntoView({behavior: 'smooth'});"
+                        class="hidden md:inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200"
+                        style="font-family: 'Josefin Sans', sans-serif;">
                     View All
 
-                    <!-- Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg"
-                         width="20" height="20" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         width="20"
+                         height="20"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
                          class="lucide lucide-arrow-right-icon lucide-arrow-right">
                         <path d="M5 12h14"/>
                         <path d="m12 5 7 7-7 7"/>
                     </svg>
-                </a>
+                </button>
             </div>
 
+            <!-- Products -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-                <a th:href="@{/fashion-store/products/detail/{id}(id=${product.productId})}" th:each="product : ${products}" class="group">
+                <a th:href="@{/fashion-store/products/detail/{id}(id=${product.productId})}"
+                   th:each="product : ${products}"
+                   class="group">
+
                     <div class="relative aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm mb-4">
+
                         <!-- If product was added before -->
                         <img th:if="${#strings.startsWith(product.imageUrl, 'images')}"
                              th:src="@{'/' + ${product.imageUrl}}"
                              alt="Product Image"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                        />
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"/>
 
                         <!-- If product was uploaded by user -->
                         <img th:if="${!#strings.startsWith(product.imageUrl, 'images')}"
                              th:src="@{'/uploads/products/' + ${product.productId} + '/' + ${product.imageUrl}}"
                              alt="Product Image"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                        />
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"/>
 
                         <span th:if="${product.discountPercent != 0}"
-                                class="absolute top-3 left-0 text-xs bg-white/90 text-red-600 font-light tracking-widest px-2 py-1">
+                              class="absolute top-3 left-0 text-xs bg-white/90 text-red-600 font-light tracking-widest px-2 py-1">
                             -<span th:text="${product.discountPercent}"></span>%
                         </span>
 
-                        <div class="absolute inset-0 bg-[#D8C3A5]/0 group-hover:bg-[#D8C3A5]/10 transition-colors duration-400">
-                        </div>
+                        <div class="absolute inset-0 bg-[#D8C3A5]/0 group-hover:bg-[#D8C3A5]/10 transition-colors duration-400"></div>
                     </div>
 
                     <div>
                         <h3 th:text="${product.name}"
                             class="font-bold text-sm tracking-[0.06em] text-[#222222] mb-1.5 group-hover:text-[#777777] transition-colors duration-200">
                         </h3>
+
                         <div class="flex items-center gap-2">
-                            <!-- Sale Price -->
                             <p class="text-sm text-red-600 font-bold">
                                 $<span th:text="${product.salePrice}"></span>
                             </p>
 
-                            <!-- Original Price -->
                             <p class="text-xs text-[#777777] font-light line-through">
                                 $<span th:text="${product.price}"></span>
                             </p>
                         </div>
-
                     </div>
                 </a>
             </div>
@@ -259,36 +282,41 @@
     <section class="py-32 bg-[#E8DDD0]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
                 <div>
                     <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777] mb-5">
                         Our philosophy
                     </p>
+
                     <h2 class="text-4xl md:text-6xl font-semibold tracking-[0.05em] uppercase text-[#222222] leading-[1.1] mb-8"
                         style="font-family: 'Josefin Sans', sans-serif;">
                         Crafted<br/>for Two
                     </h2>
+
                     <p class="text-base text-[#777777] leading-relaxed mb-6 font-light max-w-md">
                         Fashion Store was born from a simple idea — that
                         the most intimate form of style is sharing it
                         with someone you love. Every piece is designed
                         to complement, not match.
                     </p>
+
                     <p class="text-base text-[#777777] leading-relaxed mb-10 font-light max-w-md">
                         We source premium fabrics, cut with precision,
                         and finish with care. Vietnamese craftsmanship
                         at its quietest and most considered.
                     </p>
-                    <a href="#"
-                       class="inline-flex items-center gap-3 border border-[#1F1F1F] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#D8C3A5] hover:border-[#D8C3A5] transition-all duration-300"
-                       style="font-family: 'Josefin Sans', sans-serif;">
-                    Our Story
-                    </a>
+
+                    <button type="button"
+                            class="inline-flex items-center gap-3 border border-[#1F1F1F] text-[#1F1F1F] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#D8C3A5] hover:border-[#D8C3A5] transition-all duration-300"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                        Our Story
+                    </button>
                 </div>
+
                 <div class="aspect-[4/5] bg-[#D8C3A5] overflow-hidden rounded-sm">
                     <img src="https://images.unsplash.com/photo-1739809006763-49663591bdcd?w=800&h=1000&fit=crop&auto=format"
                          alt="Couple wearing matching outfits"
-                         class="w-full h-full object-cover"
-                    />
+                         class="w-full h-full object-cover"/>
                 </div>
             </div>
         </div>
@@ -296,7 +324,7 @@
     <!-- End Section 4 -->
 
     <!-- Section 5 -->
-    <section class="py-16 bg-white overflow-hidden">
+    <section id="lookbook" class="py-16 bg-white overflow-hidden scroll-mt-24">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-8">
             <p class="text-[9px] tracking-[0.35em] uppercase text-[#777777]">
                 Lookbook SS26
@@ -306,27 +334,32 @@
         <div class="flex gap-4 px-6 lg:px-8 overflow-x-auto pb-2 hide-scrollbar">
             <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
                 <img src="https://images.unsplash.com/photo-1777917677061-7471ce48388d?w=600&h=800&fit=crop&auto=format"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                     alt="photo"/>
             </div>
 
             <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
                 <img src="https://images.unsplash.com/photo-1695438370903-6d24c554a614?w=600&h=800&fit=crop&auto=format"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                     alt="photo"/>
             </div>
 
             <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
                 <img src="https://images.unsplash.com/photo-1569286390753-4c884438d49c?w=600&h=800&fit=crop&auto=format"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                     alt="photo"/>
             </div>
 
             <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
                 <img src="https://images.unsplash.com/photo-1623869111118-0d09e74fe9a7?w=600&h=800&fit=crop&auto=format"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                     alt="photo"/>
             </div>
 
             <div class="flex-shrink-0 w-56 md:w-72 aspect-[3/4] bg-[#E8DDD0] overflow-hidden rounded-sm">
                 <img src="https://images.unsplash.com/photo-1692178574181-7a47d4225278?w=600&h=800&fit=crop&auto=format"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="photo"/>
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                     alt="photo"/>
             </div>
         </div>
     </section>
@@ -334,13 +367,12 @@
 
     <!-- Section 6 -->
     <section class="flex min-h-[560px] md:min-h-[620px]"
-        style="background: linear-gradient(135deg, #1F1B18 0%, #2A2421 100%)">
+             style="background: linear-gradient(135deg, #1F1B18 0%, #2A2421 100%)">
+
         <div class="hidden md:block w-[42%] relative overflow-hidden">
-            <img
-                    src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
-                    alt="Couple in matching outfits"
-                    class="absolute inset-0 w-full h-full object-cover object-center"
-            />
+            <img src="https://images.unsplash.com/photo-1692178575211-be3c0a47e8ae?w=600&h=800&fit=crop&auto=format"
+                 alt="Couple in matching outfits"
+                 class="absolute inset-0 w-full h-full object-cover object-center"/>
 
             <div class="absolute inset-0"
                  style="background: linear-gradient(to right, transparent 60%, #1F1B18 100%)">
@@ -359,6 +391,7 @@
             <div class="max-w-[420px] w-full">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-px w-10 bg-[#D8C3A5]/50"></div>
+
                     <p class="text-[9px] tracking-[0.5em] uppercase text-[#D8C3A5]">
                         Exclusive Access
                     </p>
@@ -374,13 +407,16 @@
                     exclusive styling guides, and members-only offers.
                 </p>
 
-                <form class="flex gap-0">
-                    <label for="email"></label>
+                <!-- Subscribe form -->
+                <form id="heroSubscribeForm" class="flex gap-0">
+                    <label for="hero-email" class="sr-only">Email</label>
+
                     <input
                             type="email"
-                            id="email"
+                            id="hero-email"
                             placeholder="your@email.com"
-                            class="flex-1 min-w-0 px-5 py-4 bg-white/[0.04] border border-white/10 border-r-0 text-white placeholder-white/50 text-[13px] ..."
+                            required
+                            class="flex-1 min-w-0 px-5 py-4 bg-white/[0.04] border border-white/10 border-r-0 text-white placeholder-white/50 text-[13px] focus:outline-none focus:border-[#D8C3A5]"
                     />
 
                     <button type="submit"
@@ -397,11 +433,108 @@
         </div>
     </section>
     <!-- End Section 6 -->
+
 </div>
 <!-- END MAIN CONTENT -->
+
+<!-- Success Popup -->
+<div id="heroSubscribeSuccessBox"
+     class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 px-4">
+
+    <div class="relative bg-white text-[#1F1B18] w-full max-w-sm p-8 text-center shadow-2xl border border-[#D8C3A5]">
+
+        <button type="button"
+                onclick="closeHeroSubscribeSuccess()"
+                class="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl leading-none">
+            ×
+        </button>
+
+        <div class="mx-auto mb-5 w-14 h-14 rounded-full bg-[#D8C3A5] flex items-center justify-center">
+            <span class="text-2xl font-bold text-[#1F1B18]">✓</span>
+        </div>
+
+        <h3 class="text-xl font-bold tracking-[0.12em] uppercase mb-3"
+            style="font-family: 'Josefin Sans', sans-serif">
+            Registration successful!
+        </h3>
+
+        <p class="text-sm text-gray-500 leading-relaxed mb-6">
+            Thank you for signing up to receive the latest updates from Fashion Store.
+        </p>
+
+        <button type="button"
+                onclick="closeHeroSubscribeSuccess()"
+                class="w-full py-3 bg-black text-white text-xs tracking-[0.2em] uppercase hover:bg-gray-900 transition-colors">
+            Close
+        </button>
+    </div>
+</div>
+<!-- End Success Popup -->
 
 <!-- Footer -->
 <div th:replace="~{fragments/layout :: footer}"></div>
 
+<script>
+    function showHeroSubscribeSuccess(event) {
+        event.preventDefault();
+
+        const emailInput = document.getElementById("hero-email");
+        const successBox = document.getElementById("heroSubscribeSuccessBox");
+
+        if (!emailInput.value.trim()) {
+            return;
+        }
+
+        successBox.classList.remove("hidden");
+        emailInput.value = "";
+    }
+
+    function closeHeroSubscribeSuccess() {
+        const successBox = document.getElementById("heroSubscribeSuccessBox");
+        successBox.classList.add("hidden");
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("heroSubscribeForm");
+        const emailInput = document.getElementById("hero-email");
+        const successBox = document.getElementById("heroSubscribeSuccessBox");
+        const closeBtn = document.getElementById("closeHeroSubscribeBtn");
+        const closeBtn2 = document.getElementById("closeHeroSubscribeBtn2");
+
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                if (!emailInput.value.trim()) {
+                    return;
+                }
+
+                successBox.classList.remove("hidden");
+                emailInput.value = "";
+            });
+        }
+
+        function closePopup() {
+            successBox.classList.add("hidden");
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", closePopup);
+        }
+
+        if (closeBtn2) {
+            closeBtn2.addEventListener("click", closePopup);
+        }
+
+        if (successBox) {
+            successBox.addEventListener("click", function (event) {
+                if (event.target === successBox) {
+                    closePopup();
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

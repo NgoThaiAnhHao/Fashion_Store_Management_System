@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Setter
@@ -16,23 +17,20 @@ public class Cart {
     private List<CartItem> items = new ArrayList<>();
 
     public void addItem(CartItem cartItem) {
-        // Find existing cart item
         Optional<CartItem> existingItem =
                 items.stream()
                         .filter(item ->
                                 item.getProduct().getProductId() == cartItem.getProduct().getProductId()
-                                        && item.getMaleSize().equals(cartItem.getMaleSize())
-                                        && item.getFemaleSize().equals(cartItem.getFemaleSize())
+                                        && Objects.equals(item.getMaleSize(), cartItem.getMaleSize())
+                                        && Objects.equals(item.getFemaleSize(), cartItem.getFemaleSize())
+                                        && Objects.equals(normalize(item.getCustomLogoText()), normalize(cartItem.getCustomLogoText()))
+                                        && Objects.equals(normalize(item.getCustomLogoImageUrl()), normalize(cartItem.getCustomLogoImageUrl()))
                         )
                         .findFirst();
 
-        // If existing cart item, plus the pair quantity
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
-            item.setPairQuantity(
-                    item.getPairQuantity()
-                            + cartItem.getPairQuantity()
-            );
+            item.setPairQuantity(item.getPairQuantity() + cartItem.getPairQuantity());
             return;
         }
 
@@ -49,12 +47,10 @@ public class Cart {
                 .filter(item -> item.getCartItemId() == cartItemId)
                 .findFirst()
                 .ifPresent(item -> {
-                        if (item.getPairQuantity() <= 100) {
-                            item.setPairQuantity(
-                                    item.getPairQuantity() + 1
-                            );                        }
+                    if (item.getPairQuantity() <= 100) {
+                        item.setPairQuantity(item.getPairQuantity() + 1);
                     }
-                );
+                });
     }
 
     public void decreasePairQuantity(int cartItemId) {
@@ -62,22 +58,17 @@ public class Cart {
                 .filter(item -> item.getCartItemId() == cartItemId)
                 .findFirst()
                 .ifPresent(item -> {
-                            if (item.getPairQuantity() > 1) {
-                                item.setPairQuantity(
-                                        item.getPairQuantity() - 1
-                                );
-                            }
-                        }
-                );
+                    if (item.getPairQuantity() > 1) {
+                        item.setPairQuantity(item.getPairQuantity() - 1);
+                    }
+                });
     }
 
     public BigDecimal getTotalOriginAmount() {
         BigDecimal total = BigDecimal.ZERO;
 
         for (CartItem item : items) {
-            total = total.add(
-                    item.getTotalOriginPriceByPairQuantity()
-            );
+            total = total.add(item.getTotalOriginPriceByPairQuantity());
         }
 
         return total;
@@ -87,9 +78,7 @@ public class Cart {
         BigDecimal total = BigDecimal.ZERO;
 
         for (CartItem item : items) {
-            total = total.add(
-                    item.getTotalSalePriceByPairQuantity()
-            );
+            total = total.add(item.getTotalSalePriceByPairQuantity());
         }
 
         return total;
@@ -98,5 +87,9 @@ public class Cart {
     public void clear() {
         items.clear();
         nextId = 1;
+    }
+
+    private String normalize(String value) {
+        return value == null ? "" : value.trim();
     }
 }
