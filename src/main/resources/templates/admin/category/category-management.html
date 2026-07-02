@@ -41,12 +41,15 @@
 
                 <!-- Filters -->
                 <div class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] p-4 flex flex-wrap gap-3 items-center">
-                    <div class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
+                    <form th:action="@{/fashion-store/categories/search-by-name}"
+                          method="GET"
+                          class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A6B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
                         <input type="text"
-                               placeholder="Search by category name..."
+                               name="keyword"
+                               placeholder="Search categories name..."
                                class="bg-transparent text-sm text-[#222222] placeholder:text-[#8A6B45]/70 outline-none w-full">
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Error message when categories empty -->

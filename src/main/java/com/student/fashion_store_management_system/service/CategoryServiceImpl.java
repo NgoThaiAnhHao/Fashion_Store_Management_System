@@ -23,6 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findByName(String name) {
+        return categoryRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
     public Category findById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() ->
@@ -46,7 +51,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Category update(CategoryCreateDto categoryCreateDto, long id) {
         // Check duplicate category name
-        if (isCategoryExist(categoryCreateDto.getName())) {
+        if (isCategoryExist(categoryCreateDto.getName())
+                && !categoryCreateDto.getName().equals(findById(id).getName())) {
             throw new DuplicateCategoryException("CATEGORY ALREADY EXISTS");
         }
 

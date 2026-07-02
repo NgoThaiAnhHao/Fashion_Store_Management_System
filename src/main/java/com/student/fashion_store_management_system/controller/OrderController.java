@@ -63,7 +63,8 @@ public class OrderController {
 
         // Get current user
         User currentUser = authenticationService.getCurrentUser();
-        if (currentUser != null && "ROLE_ADMIN".equals(currentUser.getRoles().getRoleName().toString())) {
+        if (currentUser != null && "ROLE_ADMIN".equals(currentUser.getRoles().getRoleName().toString())
+        || "ROLE_MANAGER".equals(currentUser.getRoles().getRoleName().toString())) {
             return "/admin/order-detail/order-detail-management";
         }
 

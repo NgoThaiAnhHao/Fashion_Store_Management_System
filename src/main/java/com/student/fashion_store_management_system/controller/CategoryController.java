@@ -2,6 +2,7 @@ package com.student.fashion_store_management_system.controller;
 
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
 import com.student.fashion_store_management_system.model.entity.Category;
+import com.student.fashion_store_management_system.model.entity.Product;
 import com.student.fashion_store_management_system.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,13 @@ public class CategoryController {
     @GetMapping("/categories")
     public String findAll(Model model) {
         List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+        return "/admin/category/category-management";
+    }
+
+    @GetMapping("/categories/search-by-name")
+    public String searchByName(@RequestParam String keyword, Model model) {
+        List<Category> categories = categoryService.findByName(keyword);
         model.addAttribute("categories", categories);
         return "/admin/category/category-management";
     }

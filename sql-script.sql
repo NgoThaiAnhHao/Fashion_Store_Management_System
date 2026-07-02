@@ -60,8 +60,6 @@ CREATE TABLE [Category] (
 	UNIQUE ([name])
 );
 
-
-
 -- PRODUCT
 CREATE TABLE [Product] (
 	[product_id] BIGINT IDENTITY(1,1) NOT NULL,
@@ -121,6 +119,7 @@ CREATE TABLE [Order_Details] (
 	[male_size] VARCHAR(10) NOT NULL DEFAULT 'L',
 	[female_size] VARCHAR(10) NOT NULL DEFAULT 'L',
 	[logo_text] VARCHAR(50),
+    [logo_image_url] VARCHAR(100),
 	[pair_quantity] INT NOT NULL DEFAULT 1,
 	[sub_total] DECIMAL(10, 2) NOT NULL,
 
