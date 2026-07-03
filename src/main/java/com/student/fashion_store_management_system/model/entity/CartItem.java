@@ -62,4 +62,21 @@ public class CartItem {
         int totalQuantity = this.member1Quantity + this.member2Quantity;
         return product.getSalePrice().multiply(BigDecimal.valueOf(totalQuantity));
     }
+
+    // New methods for individual member quantities
+    public BigDecimal getTotalOriginPriceMember1() {
+        return product.getPrice().multiply(BigDecimal.valueOf(member1Quantity));
+    }
+
+    public BigDecimal getTotalSalePriceMember1() {
+        return product.getSalePrice().multiply(BigDecimal.valueOf(member1Quantity));
+    }
+
+    public BigDecimal getTotalOriginPriceMember2() {
+        return product.getPrice().multiply(BigDecimal.valueOf(member2Quantity));
+    }
+
+    public BigDecimal getTotalSalePriceMember2() {
+        return product.getSalePrice().multiply(BigDecimal.valueOf(member2Quantity));
+    }
 }

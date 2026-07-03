@@ -79,6 +79,11 @@
                            id="member1Quantity"
                            value="1">
 
+                    <input type="hidden"
+                           th:field="*{member2Quantity}"
+                           id="member2Quantity"
+                           value="1">
+
                     <!-- Male size -->
                     <div>
                         <div class="flex items-center justify-between mb-5">
@@ -294,13 +299,7 @@
     const member2MinusBtn = document.getElementById("member2MinusBtn");
     const member2PlusBtn = document.getElementById("member2PlusBtn");
     const member2QuantityDisplay = document.getElementById("member2QuantityDisplay");
-    // Create a new hidden input for member2Quantity, as the original was for pairQuantity
-    const member2QuantityInput = document.createElement('input');
-    member2QuantityInput.type = 'hidden';
-    member2QuantityInput.name = 'member2Quantity';
-    member2QuantityInput.id = 'member2Quantity';
-    member2QuantityInput.value = '1'; // Default value
-    document.querySelector('form').appendChild(member2QuantityInput);
+    const member2QuantityInput = document.getElementById("member2Quantity"); // Get the existing hidden input
 
     let member2Quantity = parseInt(member2QuantityInput.value);
 

@@ -82,29 +82,29 @@ public class CartController {
     }
 
     // New methods for increasing/decreasing individual member quantities
-    @PostMapping("/cart/increase-member1-quantity/{cartItemId}")
-    public String increaseMember1Quantity(@PathVariable int cartItemId,
+    @PostMapping("/cart/increase-member1-quantity")
+    public String increaseMember1Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
         cartService.increaseMember1Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
 
-    @PostMapping("/cart/decrease-member1-quantity/{cartItemId}")
-    public String decreaseMember1Quantity(@PathVariable int cartItemId,
+    @PostMapping("/cart/decrease-member1-quantity")
+    public String decreaseMember1Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
         cartService.decreaseMember1Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
 
-    @PostMapping("/cart/increase-member2-quantity/{cartItemId}")
-    public String increaseMember2Quantity(@PathVariable int cartItemId,
+    @PostMapping("/cart/increase-member2-quantity")
+    public String increaseMember2Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
         cartService.increaseMember2Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
 
-    @PostMapping("/cart/decrease-member2-quantity/{cartItemId}")
-    public String decreaseMember2Quantity(@PathVariable int cartItemId,
+    @PostMapping("/cart/decrease-member2-quantity")
+    public String decreaseMember2Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
         cartService.decreaseMember2Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
