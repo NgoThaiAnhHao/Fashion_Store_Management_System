@@ -189,17 +189,19 @@
                         <div class="flex-1 min-w-0">
                             <p th:text="${cartItem.product.name}" class="text-sm truncate"></p>
                             <p class="w-full text-xs text-gray-400">
-                                <span>
-                                    His <span th:text="${cartItem.maleSize}" ></span>
-                                </span>
+                                <span>Member 1 Size: <span th:text="${cartItem.member1Size}" ></span></span>
                                 /
-                                <span>
-                                    Her <span th:text="${cartItem.femaleSize}" ></span>
-                                </span>
+                                <span>Member 1 Gender: <span th:text="${cartItem.member1Gender}" ></span></span>
+                            </p>
+                            <p class="w-full text-xs text-gray-400">
+                                <span>Member 2 Size: <span th:text="${cartItem.member2Size}" ></span></span>
+                                /
+                                <span>Member 2 Gender: <span th:text="${cartItem.member2Gender}" ></span></span>
                             </p>
                             <p th:text="${cartItem.customLogoText}" class="text-xs text-gray-400 italic"></p>
                             <p class="text-xs text-gray-400 italic">
-                                P.QTY: <span th:text="${cartItem.pairQuantity}" ></span>
+                                Member 1 QTY: <span th:text="${cartItem.member1Quantity}" ></span>
+                                / Member 2 QTY: <span th:text="${cartItem.member2Quantity}" ></span>
                             </p>
                         </div>
                         <p class="text-sm flex-shrink-0">

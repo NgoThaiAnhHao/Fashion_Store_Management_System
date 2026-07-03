@@ -21,19 +21,27 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Transactional
     public void addNew(List<CartItem> cartItems, Order order) {
         cartItems.forEach(item -> {
+            // Calculate total quantity for this cart item
+            int totalQuantity = item.getMember1Quantity() + item.getMember2Quantity();
+
+            // Decrease stock quantity for the product
             productService.degreeStockQuantity(
                     item.getProduct().getProductId(),
-                    item.getPairQuantity() * 2
+                    totalQuantity
             );
 
+            // Save new OrderDetail
             orderDetailRepository.save(
                     new OrderDetail(
-                            item.getMaleSize(),
-                            item.getFemaleSize(),
+                            item.getMember1Size(), // Updated field name
+                            item.getMember2Size(), // Updated field name
+                            item.getMember1Gender(), // New field
+                            item.getMember2Gender(), // New field
                             item.getCustomLogoText(),
                             item.getCustomLogoImageUrl(),
-                            item.getPairQuantity(),
-                            item.getTotalSalePriceByPairQuantity(),
+                            item.getMember1Quantity(), // Updated field name
+                            item.getMember2Quantity(), // New field
+                            item.getTotalSalePriceByPairQuantity(), // This method now calculates based on totalQuantity
                             order,
                             item.getProduct()
                     )

@@ -88,7 +88,7 @@
                                             <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
                                                  alt="Custom Logo"
                                                  class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
-                                        </div>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -96,12 +96,17 @@
                                 <div class="col-span-4 sm:col-span-2 text-center">
                                     <p class="text-xs text-gray-400 sm:hidden mb-1">Sizes</p>
                                     <div class="flex flex-col items-center gap-1">
-                                        <span class="text-xs">His:
-                                            <span th:text="${orderDetail.maleSize}"></span>
+                                        <span class="text-xs">Member 1 Size:
+                                            <span th:text="${orderDetail.member1Size}"></span>
                                         </span>
-
-                                        <span class="text-xs">Her:
-                                            <span th:text="${orderDetail.femaleSize}"></span>
+                                        <span class="text-xs">Member 1 Gender:
+                                            <span th:text="${orderDetail.member1Gender}"></span>
+                                        </span>
+                                        <span class="text-xs">Member 2 Size:
+                                            <span th:text="${orderDetail.member2Size}"></span>
+                                        </span>
+                                        <span class="text-xs">Member 2 Gender:
+                                            <span th:text="${orderDetail.member2Gender}"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -109,8 +114,12 @@
                                 <!-- Pair Quantity -->
                                 <div class="col-span-4 sm:col-span-2 flex justify-center">
                                     <div class="flex items-center">
-                                        <span th:text="${orderDetail.pairQuantity}"
-                                              class="w-8 h-8 flex items-center justify-center text-sm">1</span>
+                                        <span class="text-xs">Member 1 QTY:
+                                            <span th:text="${orderDetail.member1Quantity}"></span>
+                                        </span>
+                                        <span class="text-xs">Member 2 QTY:
+                                            <span th:text="${orderDetail.member2Quantity}"></span>
+                                        </span>
                                     </div>
                                 </div>
 

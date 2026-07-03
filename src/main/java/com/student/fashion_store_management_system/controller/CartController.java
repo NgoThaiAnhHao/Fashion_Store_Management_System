@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.enums.Gender; // Import Gender enum
 import com.student.fashion_store_management_system.model.entity.CartItem;
 import com.student.fashion_store_management_system.service.CartService;
 import com.student.fashion_store_management_system.service.ProductService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Objects; // Import Objects for Objects.requireNonNull
 
 @Controller
 @RequestMapping("/fashion-store")
@@ -42,7 +44,10 @@ public class CartController {
         if (customLogoImage != null && !customLogoImage.isEmpty()) {
             validateCustomLogo(customLogoImage);
 
-            String originalFileName = StringUtils.cleanPath(customLogoImage.getOriginalFilename());
+            String originalFileName = StringUtils.cleanPath(
+                    Objects.requireNonNull(customLogoImage.getOriginalFilename())
+            );
+
             String extension = "";
 
             int dotIndex = originalFileName.lastIndexOf(".");
@@ -76,17 +81,32 @@ public class CartController {
         return "redirect:/fashion-store/cart";
     }
 
-    @PostMapping("/cart/increase-pair-quantity/{cartItemId}")
-    public String increasePairQuantity(@PathVariable int cartItemId,
-                                       HttpSession session) {
-        cartService.increasePairQuantity(session, cartItemId);
+    // New methods for increasing/decreasing individual member quantities
+    @PostMapping("/cart/increase-member1-quantity/{cartItemId}")
+    public String increaseMember1Quantity(@PathVariable int cartItemId,
+                                          HttpSession session) {
+        cartService.increaseMember1Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
 
-    @PostMapping("/cart/decrease-pair-quantity/{cartItemId}")
-    public String decreasePairQuantity(@PathVariable int cartItemId,
-                                       HttpSession session) {
-        cartService.decreasePairQuantity(session, cartItemId);
+    @PostMapping("/cart/decrease-member1-quantity/{cartItemId}")
+    public String decreaseMember1Quantity(@PathVariable int cartItemId,
+                                          HttpSession session) {
+        cartService.decreaseMember1Quantity(session, cartItemId);
+        return "redirect:/fashion-store/cart";
+    }
+
+    @PostMapping("/cart/increase-member2-quantity/{cartItemId}")
+    public String increaseMember2Quantity(@PathVariable int cartItemId,
+                                          HttpSession session) {
+        cartService.increaseMember2Quantity(session, cartItemId);
+        return "redirect:/fashion-store/cart";
+    }
+
+    @PostMapping("/cart/decrease-member2-quantity/{cartItemId}")
+    public String decreaseMember2Quantity(@PathVariable int cartItemId,
+                                          HttpSession session) {
+        cartService.decreaseMember2Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
 

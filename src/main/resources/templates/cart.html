@@ -137,13 +137,23 @@
 
                         <div class="flex flex-col items-center gap-1">
                             <span class="text-xs">
-                                His:
-                                <span th:text="${cartItem.maleSize}"></span>
+                                Member 1 Size:
+                                <span th:text="${cartItem.member1Size}"></span>
                             </span>
 
                             <span class="text-xs">
-                                Her:
-                                <span th:text="${cartItem.femaleSize}"></span>
+                                Member 1 Gender:
+                                <span th:text="${cartItem.member1Gender}"></span>
+                            </span>
+
+                            <span class="text-xs">
+                                Member 2 Size:
+                                <span th:text="${cartItem.member2Size}"></span>
+                            </span>
+
+                            <span class="text-xs">
+                                Member 2 Gender:
+                                <span th:text="${cartItem.member2Gender}"></span>
                             </span>
                         </div>
                     </div>
@@ -151,8 +161,8 @@
                     <!-- Quantity -->
                     <div class="col-span-4 sm:col-span-2 flex justify-center">
                         <div class="flex items-center border border-gray-200">
-
-                            <form th:action="@{/fashion-store/cart/decrease-pair-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                            <!-- Member 1 Quantity Controls -->
+                            <form th:action="@{/fashion-store/cart/decrease-member1-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
                                   method="POST">
 
                                 <button type="submit"
@@ -160,14 +170,31 @@
                                     −
                                 </button>
                             </form>
-
-                            <span th:text="${cartItem.pairQuantity}"
+                            <span th:text="${cartItem.member1Quantity}"
                                   class="w-8 h-8 flex items-center justify-center border-x border-gray-200 text-sm">
                             </span>
-
-                            <form th:action="@{/fashion-store/cart/increase-pair-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                            <form th:action="@{/fashion-store/cart/increase-member1-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
                                   method="POST">
-
+                                <button type="submit"
+                                        class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                                    +
+                                </button>
+                            </form>
+                        </div>
+                        <div class="flex items-center border border-gray-200 ml-2">
+                            <!-- Member 2 Quantity Controls -->
+                            <form th:action="@{/fashion-store/cart/decrease-member2-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                                  method="POST">
+                                <button type="submit"
+                                        class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                                    −
+                                </button>
+                            </form>
+                            <span th:text="${cartItem.member2Quantity}"
+                                  class="w-8 h-8 flex items-center justify-center border-x border-gray-200 text-sm">
+                            </span>
+                            <form th:action="@{/fashion-store/cart/increase-member2-quantity/{cartItemId}(cartItemId=${cartItem.getCartItemId()})}"
+                                  method="POST">
                                 <button type="submit"
                                         class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 transition-colors">
                                     +

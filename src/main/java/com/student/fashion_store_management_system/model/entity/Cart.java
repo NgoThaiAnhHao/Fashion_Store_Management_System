@@ -21,8 +21,10 @@ public class Cart {
                 items.stream()
                         .filter(item ->
                                 item.getProduct().getProductId() == cartItem.getProduct().getProductId()
-                                        && Objects.equals(item.getMaleSize(), cartItem.getMaleSize())
-                                        && Objects.equals(item.getFemaleSize(), cartItem.getFemaleSize())
+                                        && Objects.equals(item.getMember1Size(), cartItem.getMember1Size()) // Updated field name
+                                        && Objects.equals(item.getMember2Size(), cartItem.getMember2Size()) // Updated field name
+                                        && Objects.equals(item.getMember1Gender(), cartItem.getMember1Gender()) // New field
+                                        && Objects.equals(item.getMember2Gender(), cartItem.getMember2Gender()) // New field
                                         && Objects.equals(normalize(item.getCustomLogoText()), normalize(cartItem.getCustomLogoText()))
                                         && Objects.equals(normalize(item.getCustomLogoImageUrl()), normalize(cartItem.getCustomLogoImageUrl()))
                         )
@@ -30,7 +32,8 @@ public class Cart {
 
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
-            item.setPairQuantity(item.getPairQuantity() + cartItem.getPairQuantity());
+            item.setMember1Quantity(item.getMember1Quantity() + cartItem.getMember1Quantity()); // Updated quantity field
+            item.setMember2Quantity(item.getMember2Quantity() + cartItem.getMember2Quantity()); // New quantity field
             return;
         }
 
@@ -42,24 +45,47 @@ public class Cart {
         items.removeIf(item -> item.getCartItemId() == cartItemId);
     }
 
-    public void increasePairQuantity(int cartItemId) {
+    // New methods for increasing/decreasing individual member quantities
+    public void increaseMember1Quantity(int cartItemId) {
         items.stream()
                 .filter(item -> item.getCartItemId() == cartItemId)
                 .findFirst()
                 .ifPresent(item -> {
-                    if (item.getPairQuantity() <= 100) {
-                        item.setPairQuantity(item.getPairQuantity() + 1);
+                    if (item.getMember1Quantity() < 100) { // Max quantity limit
+                        item.setMember1Quantity(item.getMember1Quantity() + 1);
                     }
                 });
     }
 
-    public void decreasePairQuantity(int cartItemId) {
+    public void decreaseMember1Quantity(int cartItemId) {
         items.stream()
                 .filter(item -> item.getCartItemId() == cartItemId)
                 .findFirst()
                 .ifPresent(item -> {
-                    if (item.getPairQuantity() > 1) {
-                        item.setPairQuantity(item.getPairQuantity() - 1);
+                    if (item.getMember1Quantity() > 0) { // Min quantity limit
+                        item.setMember1Quantity(item.getMember1Quantity() - 1);
+                    }
+                });
+    }
+
+    public void increaseMember2Quantity(int cartItemId) {
+        items.stream()
+                .filter(item -> item.getCartItemId() == cartItemId)
+                .findFirst()
+                .ifPresent(item -> {
+                    if (item.getMember2Quantity() < 100) { // Max quantity limit
+                        item.setMember2Quantity(item.getMember2Quantity() + 1);
+                    }
+                });
+    }
+
+    public void decreaseMember2Quantity(int cartItemId) {
+        items.stream()
+                .filter(item -> item.getCartItemId() == cartItemId)
+                .findFirst()
+                .ifPresent(item -> {
+                    if (item.getMember2Quantity() > 0) { // Min quantity limit
+                        item.setMember2Quantity(item.getMember2Quantity() - 1);
                     }
                 });
     }

@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.enums.Gender; // Import Gender enum
 import com.student.fashion_store_management_system.model.dto.product.ProductCreateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
 import com.student.fashion_store_management_system.model.entity.CartItem;
@@ -145,7 +146,15 @@ public class ProductController {
     @GetMapping("/products/detail/{id}")
     public String showDetailForm(@PathVariable long id,
                                  Model model) {
-        model.addAttribute("cartItem", new CartItem());
+        // Initialize CartItem with default values for new fields
+        CartItem cartItem = new CartItem(
+                "L", "L", // Default sizes
+                Gender.MALE, Gender.FEMALE, // Default genders
+                null, null, // No custom text/image by default
+                1, 1, // Default quantities
+                productService.findById(id) // Product
+        );
+        model.addAttribute("cartItem", cartItem);
         model.addAttribute("product", productService.findById(id));
         return "product-detail";
     }

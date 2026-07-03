@@ -46,7 +46,8 @@ public class CheckoutController {
         for (CartItem item : cart.getItems()) {
                 // Get product from database
                 Product product = productService.findById(item.getProduct().getProductId());
-                if (product.getStockQuantity() < item.getPairQuantity() * 2) {
+                // Updated stock quantity check
+                if (product.getStockQuantity() < (item.getMember1Quantity() + item.getMember2Quantity())) {
                     model.addAttribute("error", String.format("STOCK QUANTITY FOR PRODUCT '%s' NOT ENOUGH", product.getName()));
                     return "checkout";
                 }
@@ -63,7 +64,4 @@ public class CheckoutController {
         redirectAttributes.addFlashAttribute("orderId", savedOrder.getOrderId());
         return "redirect:/fashion-store/payment";
     }
-
-
-
 }

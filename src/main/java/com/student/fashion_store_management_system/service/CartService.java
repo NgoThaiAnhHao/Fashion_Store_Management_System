@@ -19,22 +19,42 @@ public class CartService {
 
     public void deleteItem(HttpSession session, int cartItemId) {
         Cart cart = (Cart) session.getAttribute("cart");
-
-        cart.deleteItem(cartItemId);
-        session.setAttribute("cart", cart);
+        if (cart != null) {
+            cart.deleteItem(cartItemId);
+            session.setAttribute("cart", cart);
+        }
     }
 
-    public void increasePairQuantity(HttpSession session, int cartItemId) {
+    // New methods for increasing/decreasing individual member quantities
+    public void increaseMember1Quantity(HttpSession session, int cartItemId) {
         Cart cart = (Cart) session.getAttribute("cart");
-
-        cart.increasePairQuantity(cartItemId);
-        session.setAttribute("cart", cart);
+        if (cart != null) {
+            cart.increaseMember1Quantity(cartItemId);
+            session.setAttribute("cart", cart);
+        }
     }
 
-    public void decreasePairQuantity(HttpSession session, int cartItemId) {
+    public void decreaseMember1Quantity(HttpSession session, int cartItemId) {
         Cart cart = (Cart) session.getAttribute("cart");
+        if (cart != null) {
+            cart.decreaseMember1Quantity(cartItemId);
+            session.setAttribute("cart", cart);
+        }
+    }
 
-        cart.decreasePairQuantity(cartItemId);
-        session.setAttribute("cart", cart);
+    public void increaseMember2Quantity(HttpSession session, int cartItemId) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart != null) {
+            cart.increaseMember2Quantity(cartItemId);
+            session.setAttribute("cart", cart);
+        }
+    }
+
+    public void decreaseMember2Quantity(HttpSession session, int cartItemId) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart != null) {
+            cart.decreaseMember2Quantity(cartItemId);
+            session.setAttribute("cart", cart);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.model.entity;
 
+import com.student.fashion_store_management_system.enums.Gender; // Import new Gender enum
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +22,19 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private long orderDetailId;
 
-    @Column(name = "male_size", nullable = false)
-    private String maleSize;
+    @Column(name = "member1_size", nullable = false) // Renamed
+    private String member1Size;
 
-    @Column(name = "female_size", nullable = false)
-    private String femaleSize;
+    @Column(name = "member2_size", nullable = false) // Renamed
+    private String member2Size;
+
+    @Enumerated(EnumType.STRING) // New field
+    @Column(name = "member1_gender", nullable = false)
+    private Gender member1Gender;
+
+    @Enumerated(EnumType.STRING) // New field
+    @Column(name = "member2_gender", nullable = false)
+    private Gender member2Gender;
 
     @Column(name = "logo_text")
     private String logoText;
@@ -33,8 +42,11 @@ public class OrderDetail {
     @Column(name = "logo_image_url")
     private String logoImageUrl;
 
-    @Column(name = "pair_quantity", nullable = false)
-    private int pairQuantity;
+    @Column(name = "member1_quantity", nullable = false) // Renamed
+    private int member1Quantity;
+
+    @Column(name = "member2_quantity", nullable = false) // New field
+    private int member2Quantity;
 
     @Column(name = "sub_total", nullable = false)
     private BigDecimal subTotal;
@@ -47,19 +59,26 @@ public class OrderDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderDetail(String maleSize,
-                       String femaleSize,
+    // Updated constructor
+    public OrderDetail(String member1Size,
+                       String member2Size,
+                       Gender member1Gender,
+                       Gender member2Gender,
                        String logoText,
                        String logoImageUrl,
-                       int pairQuantity,
+                       int member1Quantity,
+                       int member2Quantity,
                        BigDecimal subTotal,
                        Order order,
                        Product product) {
-        this.maleSize = maleSize;
-        this.femaleSize = femaleSize;
+        this.member1Size = member1Size;
+        this.member2Size = member2Size;
+        this.member1Gender = member1Gender;
+        this.member2Gender = member2Gender;
         this.logoText = logoText;
         this.logoImageUrl = logoImageUrl;
-        this.pairQuantity = pairQuantity;
+        this.member1Quantity = member1Quantity;
+        this.member2Quantity = member2Quantity;
         this.subTotal = subTotal;
         this.order = order;
         this.product = product;

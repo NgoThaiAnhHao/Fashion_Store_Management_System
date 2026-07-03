@@ -75,17 +75,17 @@
                       enctype="multipart/form-data">
 
                     <input type="hidden"
-                           th:field="*{pairQuantity}"
-                           id="pairQuantity"
+                           th:field="*{member1Quantity}"
+                           id="member1Quantity"
                            value="1">
 
                     <!-- Male size -->
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <label class="text-xs font-bold tracking-[0.2em] uppercase">HIS SIZE</label>
+                            <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 1 SIZE</label>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <select th:field="*{maleSize}"
+                            <select th:field="*{member1Size}"
                                     id="hisSize"
                                     name="hisSize"
                                     class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
@@ -99,13 +99,30 @@
                         </div>
                     </div>
 
+                    <!-- Member 1 Gender -->
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 1 GENDER</label>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <select th:field="*{member1Gender}"
+                                    id="member1Gender"
+                                    name="member1Gender"
+                                    class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <!-- Female size -->
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <label class="text-xs font-bold tracking-[0.2em] uppercase">HER SIZE</label>
+                            <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 2 SIZE</label>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <select th:field="*{femaleSize}"
+                            <select th:field="*{member2Size}"
                                     id="herSize"
                                     name="herSize"
                                     class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
@@ -115,6 +132,23 @@
                                 <option value="XL">XL</option>
                                 <option value="2XL">2XL</option>
                                 <option value="3XL">3XL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Member 2 Gender -->
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 2 GENDER</label>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <select th:field="*{member2Gender}"
+                                    id="member2Gender"
+                                    name="member2Gender"
+                                    class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
+                                <option value="OTHER">OTHER</option>
                             </select>
                         </div>
                     </div>
@@ -177,11 +211,27 @@
                                 −
                             </button>
 
-                            <span id="quantityDisplay"
+                            <span id="member1QuantityDisplay"
                                   class="w-12 h-12 flex items-center justify-center border-x-2 border-gray-300 text-xl font-bold">1</span>
 
                             <button type="button"
                                     id="plusBtn"
+                                    class="w-12 h-12 flex items-center justify-center text-xl font-bold transition-colors hover:bg-gray-100">
+                                +
+                            </button>
+                        </div>
+
+                        <!-- Member 2 Quantity -->
+                        <div class="flex items-center border-2 border-gray-300 bg-white">
+                            <button type="button"
+                                    id="member2MinusBtn"
+                                    class="w-12 h-12 flex items-center justify-center text-xl font-bold transition-colors hover:bg-gray-100">
+                                −
+                            </button>
+                            <span id="member2QuantityDisplay"
+                                  class="w-12 h-12 flex items-center justify-center border-x-2 border-gray-300 text-xl font-bold">1</span>
+                            <button type="button"
+                                    id="member2PlusBtn"
                                     class="w-12 h-12 flex items-center justify-center text-xl font-bold transition-colors hover:bg-gray-100">
                                 +
                             </button>
@@ -218,24 +268,53 @@
 <div th:replace="~{fragments/layout :: footer}"></div>
 
 <script>
-    const minusBtn = document.getElementById("minusBtn");
-    const plusBtn = document.getElementById("plusBtn");
-    const quantityDisplay = document.getElementById("quantityDisplay");
-    const pairQuantityInput = document.getElementById("pairQuantity");
+    // Member 1 Quantity controls
+    const member1MinusBtn = document.getElementById("minusBtn");
+    const member1PlusBtn = document.getElementById("plusBtn");
+    const member1QuantityDisplay = document.getElementById("member1QuantityDisplay");
+    const member1QuantityInput = document.getElementById("member1Quantity");
 
-    let quantity = 1;
+    let member1Quantity = parseInt(member1QuantityInput.value);
 
-    plusBtn.addEventListener("click", function () {
-        quantity++;
-        quantityDisplay.textContent = quantity;
-        pairQuantityInput.value = quantity;
+    member1PlusBtn.addEventListener("click", function () {
+        member1Quantity++;
+        member1QuantityDisplay.textContent = member1Quantity;
+        member1QuantityInput.value = member1Quantity;
     });
 
-    minusBtn.addEventListener("click", function () {
-        if (quantity > 1) {
-            quantity--;
-            quantityDisplay.textContent = quantity;
-            pairQuantityInput.value = quantity;
+    member1MinusBtn.addEventListener("click", function () {
+        if (member1Quantity > 0) { // Allow 0 quantity
+            member1Quantity--;
+            member1QuantityDisplay.textContent = member1Quantity;
+            member1QuantityInput.value = member1Quantity;
+        }
+    });
+
+    // Member 2 Quantity controls
+    const member2MinusBtn = document.getElementById("member2MinusBtn");
+    const member2PlusBtn = document.getElementById("member2PlusBtn");
+    const member2QuantityDisplay = document.getElementById("member2QuantityDisplay");
+    // Create a new hidden input for member2Quantity, as the original was for pairQuantity
+    const member2QuantityInput = document.createElement('input');
+    member2QuantityInput.type = 'hidden';
+    member2QuantityInput.name = 'member2Quantity';
+    member2QuantityInput.id = 'member2Quantity';
+    member2QuantityInput.value = '1'; // Default value
+    document.querySelector('form').appendChild(member2QuantityInput);
+
+    let member2Quantity = parseInt(member2QuantityInput.value);
+
+    member2PlusBtn.addEventListener("click", function () {
+        member2Quantity++;
+        member2QuantityDisplay.textContent = member2Quantity;
+        member2QuantityInput.value = member2Quantity;
+    });
+
+    member2MinusBtn.addEventListener("click", function () {
+        if (member2Quantity > 0) { // Allow 0 quantity
+            member2Quantity--;
+            member2QuantityDisplay.textContent = member2Quantity;
+            member2QuantityInput.value = member2Quantity;
         }
     });
 
