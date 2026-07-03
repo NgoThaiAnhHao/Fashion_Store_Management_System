@@ -24,6 +24,8 @@ public class CartItem {
 
     private String customLogoText;
     private String customLogoImageUrl;
+    private String logoSize; // New field for logo size
+    private String logoPosition; // New field for logo position
 
     private int member1Quantity = 1; // Renamed, default to 1
     private int member2Quantity = 1; // New field, default to 1
@@ -37,6 +39,8 @@ public class CartItem {
                     Gender member2Gender,
                     String customLogoText,
                     String customLogoImageUrl,
+                    String logoSize, // Add logoSize to constructor
+                    String logoPosition, // Add logoPosition to constructor
                     int member1Quantity,
                     int member2Quantity,
                     Product product) {
@@ -46,6 +50,8 @@ public class CartItem {
         this.member2Gender = member2Gender;
         this.customLogoText = customLogoText;
         this.customLogoImageUrl = customLogoImageUrl;
+        this.logoSize = logoSize; // Initialize logoSize
+        this.logoPosition = logoPosition; // Initialize logoPosition
         this.member1Quantity = member1Quantity;
         this.member2Quantity = member2Quantity;
         this.product = product;

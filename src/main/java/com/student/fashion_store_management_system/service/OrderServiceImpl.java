@@ -54,9 +54,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateStatus(long id, OrderStatusEnum status) {
+    public void updateStatus(long id, OrderStatusEnum status, String rejectReason) {
         Order order = findById(id);
         order.setStatus(status);
+        if (status == OrderStatusEnum.LOGO_REJECTED) {
+            order.setRejectReason(rejectReason);
+        } else {
+            order.setRejectReason(null);
+        }
         orderRepository.save(order);
     }
 

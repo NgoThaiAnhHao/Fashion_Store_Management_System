@@ -5,5 +5,6 @@ public enum OrderStatusEnum {
     CONFIRMED,
     SHIPPING,
     COMPLETED,
-    CANCELLED
+    CANCELLED,
+    LOGO_REJECTED
 }

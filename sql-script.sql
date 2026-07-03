@@ -96,12 +96,18 @@ CREATE TABLE [Orders] (
     [city] VARCHAR(50) NOT NULL,
     [zipcode] VARCHAR(50) NOT NULL,
     [status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    [reject_reason] VARCHAR(MAX),
     [ordered_by] BIGINT NOT NULL,
 
     CHECK ([total_amount] >= 0.0),
     CHECK (
     [status] IN (
-     'PENDING', 'CONFIRMED', 'SHIPPING', 'COMPLETED', 'CANCELLED'
+     'PENDING',
+     'LOGO_REJECTED',
+     'CONFIRMED',
+     'SHIPPING',
+     'COMPLETED',
+     'CANCELLED'
                 )
     ),
 
@@ -109,9 +115,6 @@ CREATE TABLE [Orders] (
     FOREIGN KEY ([ordered_by]) REFERENCES [Users]([user_id])
     );
 
-
-
--- ORDER_DETAILS
 -- ORDER_DETAILS
 CREATE TABLE [Order_Details] (
     [order_detail_id] BIGINT IDENTITY(1,1) NOT NULL,
@@ -126,6 +129,8 @@ CREATE TABLE [Order_Details] (
 
     [logo_text] VARCHAR(50),
     [logo_image_url] VARCHAR(100),
+    [logo_size] VARCHAR(50), -- New field for logo size
+    [logo_position] VARCHAR(50), -- New field for logo position
 
     [member1_quantity] INT NOT NULL DEFAULT 1,
     [member2_quantity] INT NOT NULL DEFAULT 1,

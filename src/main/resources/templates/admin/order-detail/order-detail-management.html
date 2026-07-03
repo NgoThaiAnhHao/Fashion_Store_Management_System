@@ -75,20 +75,35 @@
                                             Set · $<span th:text="${orderDetail.product.price}"></span>
                                         </p>
 
-                                        <!-- Custom text -->
-                                        <p th:if="${orderDetail.logoText != null and !orderDetail.logoText.isEmpty()}"
-                                           class="text-xs text-gray-400 italic">
-                                            "<span th:text="${orderDetail.logoText}">Custom</span>"
-                                        </p>
+                                        <!-- Customization Details -->
+                                        <div th:if="${(orderDetail.logoText != null and !orderDetail.logoText.isEmpty()) or (orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty())}">
+                                            <!-- Custom text -->
+                                            <p th:if="${orderDetail.logoText != null and !orderDetail.logoText.isEmpty()}"
+                                               class="text-xs text-gray-400 italic">
+                                                Text: "<span th:text="${orderDetail.logoText}"></span>"
+                                            </p>
 
-                                        <!-- Custom logo image -->
-                                        <div th:if="${orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty()}"
-                                             class="mt-2">
-                                            <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
-                                            <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
-                                                 alt="Custom Logo"
-                                                 class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
+                                            <!-- Custom logo image -->
+                                            <div th:if="${orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty()}"
+                                                 class="mt-2">
+                                                <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
+                                                <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
+                                                     alt="Custom Logo"
+                                                     class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
                                             </div>
+
+                                            <!-- Logo Size -->
+                                            <p th:if="${orderDetail.logoSize != null and !orderDetail.logoSize.isEmpty()}"
+                                               class="text-xs text-gray-400 mt-1">
+                                                Logo Size: <span th:text="${orderDetail.logoSize}"></span>
+                                            </p>
+
+                                            <!-- Logo Position -->
+                                            <p th:if="${orderDetail.logoPosition != null and !orderDetail.logoPosition.isEmpty()}"
+                                               class="text-xs text-gray-400">
+                                                Logo Position: <span th:text="${orderDetail.logoPosition}"></span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 

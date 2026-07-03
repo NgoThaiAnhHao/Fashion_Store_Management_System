@@ -42,6 +42,12 @@ public class OrderDetail {
     @Column(name = "logo_image_url")
     private String logoImageUrl;
 
+    @Column(name = "logo_size") // New field for logo size
+    private String logoSize;
+
+    @Column(name = "logo_position") // New field for logo position
+    private String logoPosition;
+
     @Column(name = "member1_quantity", nullable = false) // Renamed
     private int member1Quantity;
 
@@ -66,6 +72,8 @@ public class OrderDetail {
                        Gender member2Gender,
                        String logoText,
                        String logoImageUrl,
+                       String logoSize, // Add logoSize to constructor
+                       String logoPosition, // Add logoPosition to constructor
                        int member1Quantity,
                        int member2Quantity,
                        BigDecimal subTotal,
@@ -77,6 +85,8 @@ public class OrderDetail {
         this.member2Gender = member2Gender;
         this.logoText = logoText;
         this.logoImageUrl = logoImageUrl;
+        this.logoSize = logoSize; // Initialize logoSize
+        this.logoPosition = logoPosition; // Initialize logoPosition
         this.member1Quantity = member1Quantity;
         this.member2Quantity = member2Quantity;
         this.subTotal = subTotal;

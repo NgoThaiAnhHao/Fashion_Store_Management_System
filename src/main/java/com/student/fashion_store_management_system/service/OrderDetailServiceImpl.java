@@ -33,15 +33,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
             // Save new OrderDetail
             orderDetailRepository.save(
                     new OrderDetail(
-                            item.getMember1Size(), // Updated field name
-                            item.getMember2Size(), // Updated field name
-                            item.getMember1Gender(), // New field
-                            item.getMember2Gender(), // New field
+                            item.getMember1Size(),
+                            item.getMember2Size(),
+                            item.getMember1Gender(),
+                            item.getMember2Gender(),
                             item.getCustomLogoText(),
                             item.getCustomLogoImageUrl(),
-                            item.getMember1Quantity(), // Updated field name
-                            item.getMember2Quantity(), // New field
-                            item.getTotalSalePriceByPairQuantity(), // This method now calculates based on totalQuantity
+                            item.getLogoSize(), // Add logoSize
+                            item.getLogoPosition(), // Add logoPosition
+                            item.getMember1Quantity(),
+                            item.getMember2Quantity(),
+                            item.getTotalSalePriceByPairQuantity(),
                             order,
                             item.getProduct()
                     )

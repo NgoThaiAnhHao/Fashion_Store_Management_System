@@ -49,6 +49,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum status;
 
+    @Column(name = "reject_reason")
+    private String rejectReason;
+
     @ManyToOne
     @JoinColumn(name = "ordered_by")
     private User orderedBy;

@@ -44,7 +44,7 @@
                     <img id="shirtLogoPreview"
                          src=""
                          alt="Logo Preview On Shirt"
-                         class="hidden absolute top-[38%] left-[38%] w-24 h-24 object-contain opacity-90 pointer-events-none">
+                         class="hidden absolute object-contain opacity-90 pointer-events-none">
                 </div>
             </div>
 
@@ -84,15 +84,35 @@
                            id="member2Quantity"
                            value="1">
 
-                    <!-- Male size -->
+                    <!-- Size Details -->
+                    <div class="mb-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <label class="text-xs font-bold tracking-[0.2em] uppercase">SIZE DETAILS</label>
+                            <a href="#" id="sizeChartToggle" class="text-xs text-blue-600 hover:underline">View Size Chart</a>
+                        </div>
+                        <div id="sizeChartContent" class="hidden border p-4 rounded-md bg-gray-50 text-sm text-gray-700">
+                            <p class="font-bold mb-2">Standard T-Shirt Sizes (Unisex)</p>
+                            <ul class="list-disc list-inside">
+                                <li>S: Chest 34-36", Length 26-27"</li>
+                                <li>M: Chest 38-40", Length 27-28"</li>
+                                <li>L: Chest 42-44", Length 28-29"</li>
+                                <li>XL: Chest 46-48", Length 29-30"</li>
+                                <li>2XL: Chest 50-52", Length 30-31"</li>
+                                <li>3XL: Chest 54-56", Length 31-32"</li>
+                            </ul>
+                            <p class="mt-2 text-xs text-gray-500">Measurements are approximate and may vary slightly.</p>
+                        </div>
+                    </div>
+
+                    <!-- Member 1 Size -->
                     <div>
                         <div class="flex items-center justify-between mb-5">
                             <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 1 SIZE</label>
                         </div>
                         <div class="flex flex-wrap gap-3">
                             <select th:field="*{member1Size}"
-                                    id="hisSize"
-                                    name="hisSize"
+                                    id="member1Size"
+                                    name="member1Size"
                                     class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -121,15 +141,15 @@
                         </div>
                     </div>
 
-                    <!-- Female size -->
+                    <!-- Member 2 Size -->
                     <div>
                         <div class="flex items-center justify-between mb-5">
                             <label class="text-xs font-bold tracking-[0.2em] uppercase">MEMBER 2 SIZE</label>
                         </div>
                         <div class="flex flex-wrap gap-3">
                             <select th:field="*{member2Size}"
-                                    id="herSize"
-                                    name="herSize"
+                                    id="member2Size"
+                                    name="member2Size"
                                     class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -158,52 +178,100 @@
                         </div>
                     </div>
 
-                    <!-- Logo text -->
-                    <div>
-                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
-                            CUSTOM TEXT
-                            <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
-                        </label>
-                        <input
-                                th:field="*{customLogoText}"
-                                id="logoText"
-                                name="logoText"
-                                type="text"
-                                placeholder="YOUR TEXT HERE"
-                                maxlength="40"
-                                class="w-full px-6 py-2 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
-
-                        <p class="mt-3 text-xs text-gray-500 font-light">Text Length / 40 characters</p>
-                    </div>
-
-                    <!-- Upload logo image -->
-                    <div>
-                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
-                            UPLOAD LOGO
-                            <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
-                        </label>
-
-                        <div class="border-2 border-dashed border-gray-300 p-8 text-center hover:border-black transition-colors">
+                    <!-- Customization Options Container -->
+                    <div id="customizationOptions" class="space-y-10">
+                        <!-- Logo text -->
+                        <div>
+                            <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                                CUSTOM TEXT
+                                <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
+                            </label>
                             <input
-                                    id="customLogoImage"
-                                    name="customLogoImage"
-                                    type="file"
-                                    accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
-                                    class="hidden">
+                                    th:field="*{customLogoText}"
+                                    id="logoText"
+                                    name="logoText"
+                                    type="text"
+                                    placeholder="YOUR TEXT HERE"
+                                    maxlength="40"
+                                    class="w-full px-6 py-2 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
 
-                            <label for="customLogoImage" class="cursor-pointer block">
-                                <div class="text-gray-400 text-sm tracking-[0.15em] uppercase font-bold">
-                                    Click to upload
-                                </div>
-                                <p class="mt-2 text-xs text-gray-400">
-                                    PNG, JPG, SVG, WEBP - Max 5MB
-                                </p>
+                            <p class="mt-3 text-xs text-gray-500 font-light">Text Length / 40 characters</p>
+                        </div>
+
+                        <!-- Upload logo image -->
+                        <div>
+                            <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                                UPLOAD LOGO
+                                <span class="text-gray-400 normal-case tracking-normal font-light">(Optional)</span>
                             </label>
 
-                            <img id="logoPreview"
-                                 src=""
-                                 alt="Logo Preview"
-                                 class="hidden mx-auto mt-6 max-h-32 object-contain border border-gray-200 p-2">
+                            <div class="border-2 border-dashed border-gray-300 p-8 text-center hover:border-black transition-colors">
+                                <input
+                                        id="customLogoImage"
+                                        name="customLogoImage"
+                                        type="file"
+                                        accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
+                                        class="hidden">
+
+                                <label for="customLogoImage" class="cursor-pointer block">
+                                    <div class="text-gray-400 text-sm tracking-[0.15em] uppercase font-bold">
+                                        Click to upload
+                                    </div>
+                                    <p class="mt-2 text-xs text-gray-400">
+                                        PNG, JPG, SVG, WEBP - Max 5MB
+                                    </p>
+                                </label>
+
+                                <img id="logoPreview"
+                                     src=""
+                                     alt="Logo Preview"
+                                     class="hidden mx-auto mt-6 max-h-32 object-contain border border-gray-200 p-2">
+                            </div>
+                        </div>
+
+                        <!-- Logo Size -->
+                        <div id="logoSizeContainer" class="hidden">
+                            <div class="flex items-center justify-between mb-5">
+                                <label class="text-xs font-bold tracking-[0.2em] uppercase">LOGO SIZE</label>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <select th:field="*{logoSize}"
+                                        id="logoSize"
+                                        name="logoSize"
+                                        class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                                    <option value="">-- Select Logo Size --</option>
+                                    <option value="SMALL">Small (approx. 2x2 inches)</option>
+                                    <option value="MEDIUM">Medium (approx. 4x4 inches)</option>
+                                    <option value="LARGE">Large (approx. 6x6 inches)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Logo Position -->
+                        <div id="logoPositionContainer" class="hidden">
+                            <div class="flex items-center justify-between mb-5">
+                                <label class="text-xs font-bold tracking-[0.2em] uppercase">LOGO POSITION</label>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <select th:field="*{logoPosition}"
+                                        id="logoPosition"
+                                        name="logoPosition"
+                                        class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                                    <option value="">-- Select Logo Position --</option>
+                                    <option value="TOP_LEFT">Top Left</option>
+                                    <option value="TOP_CENTER">Top Center</option>
+                                    <option value="TOP_RIGHT">Top Right</option>
+                                    <option value="LEFT_CHEST">Left Chest</option>
+                                    <option value="CENTER">Center Chest</option>
+                                    <option value="RIGHT_CHEST">Right Chest</option>
+                                    <option value="BOTTOM_LEFT">Bottom Left</option>
+                                    <option value="BOTTOM_CENTER">Bottom Center</option>
+                                    <option value="BOTTOM_RIGHT">Bottom Right</option>
+                                    <option value="BACK_TOP_CENTER">Back Top Center</option>
+                                    <option value="BACK_CENTER">Back Center</option>
+                                    <option value="BACK_BOTTOM_CENTER">Back Bottom Center</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -288,7 +356,7 @@
     });
 
     member1MinusBtn.addEventListener("click", function () {
-        if (member1Quantity > 0) { // Allow 0 quantity
+        if (member1Quantity > 0) {
             member1Quantity--;
             member1QuantityDisplay.textContent = member1Quantity;
             member1QuantityInput.value = member1Quantity;
@@ -299,7 +367,7 @@
     const member2MinusBtn = document.getElementById("member2MinusBtn");
     const member2PlusBtn = document.getElementById("member2PlusBtn");
     const member2QuantityDisplay = document.getElementById("member2QuantityDisplay");
-    const member2QuantityInput = document.getElementById("member2Quantity"); // Get the existing hidden input
+    const member2QuantityInput = document.getElementById("member2Quantity");
 
     let member2Quantity = parseInt(member2QuantityInput.value);
 
@@ -310,16 +378,163 @@
     });
 
     member2MinusBtn.addEventListener("click", function () {
-        if (member2Quantity > 0) { // Allow 0 quantity
+        if (member2Quantity > 0) {
             member2Quantity--;
             member2QuantityDisplay.textContent = member2Quantity;
             member2QuantityInput.value = member2Quantity;
         }
     });
 
+    const logoTextInput = document.getElementById("logoText");
     const logoInput = document.getElementById("customLogoImage");
     const logoPreview = document.getElementById("logoPreview");
     const shirtLogoPreview = document.getElementById("shirtLogoPreview");
+    const logoSizeSelect = document.getElementById("logoSize");
+    const logoPositionSelect = document.getElementById("logoPosition");
+    const logoSizeContainer = document.getElementById("logoSizeContainer");
+    const logoPositionContainer = document.getElementById("logoPositionContainer");
+
+    function updateCustomizationVisibility() {
+        const hasCustomText = logoTextInput.value.trim().length > 0;
+        const hasCustomImage = logoInput.files.length > 0;
+
+        if (hasCustomText || hasCustomImage) {
+            logoSizeContainer.classList.remove('hidden');
+            logoPositionContainer.classList.remove('hidden');
+        } else {
+            logoSizeContainer.classList.add('hidden');
+            logoPositionContainer.classList.add('hidden');
+            logoSizeSelect.value = ''; // Reset selection
+            logoPositionSelect.value = ''; // Reset selection
+        }
+    }
+
+    function updateLogoPreviewOnShirt() {
+        const hasCustomText = logoTextInput.value.trim().length > 0;
+        const hasCustomImage = logoInput.files.length > 0;
+
+        if (!hasCustomText && !hasCustomImage) {
+            shirtLogoPreview.classList.add("hidden");
+            shirtLogoPreview.src = "";
+            return;
+        }
+
+        // If custom text is present, we might want to show a placeholder or just the image
+        // For now, prioritize image if available
+        if (hasCustomImage) {
+            const previewUrl = URL.createObjectURL(logoInput.files[0]);
+            shirtLogoPreview.src = previewUrl;
+            shirtLogoPreview.classList.remove("hidden");
+        } else {
+            // If only text, you might want to render text on shirt or hide preview
+            shirtLogoPreview.classList.add("hidden"); // Hide if only text, as we can't render text on image easily
+            shirtLogoPreview.src = "";
+        }
+
+
+        // Apply size and position based on selections
+        const selectedSize = logoSizeSelect.value;
+        const selectedPosition = logoPositionSelect.value;
+
+        // Reset styles
+        shirtLogoPreview.style.width = '';
+        shirtLogoPreview.style.height = '';
+        shirtLogoPreview.style.top = '';
+        shirtLogoPreview.style.left = '';
+        shirtLogoPreview.style.transform = '';
+
+        // Apply size
+        switch (selectedSize) {
+            case 'SMALL':
+                shirtLogoPreview.style.width = '10%'; // Example percentage
+                shirtLogoPreview.style.height = 'auto';
+                break;
+            case 'MEDIUM':
+                shirtLogoPreview.style.width = '15%';
+                shirtLogoPreview.style.height = 'auto';
+                break;
+            case 'LARGE':
+                shirtLogoPreview.style.width = '20%';
+                shirtLogoPreview.style.height = 'auto';
+                break;
+            default:
+                shirtLogoPreview.style.width = '12%'; // Default size
+                shirtLogoPreview.style.height = 'auto';
+        }
+
+        // Apply position
+        switch (selectedPosition) {
+            case 'TOP_LEFT':
+                shirtLogoPreview.style.top = '10%';
+                shirtLogoPreview.style.left = '10%';
+                shirtLogoPreview.style.transform = 'translate(0%, 0%)';
+                break;
+            case 'TOP_CENTER':
+                shirtLogoPreview.style.top = '10%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, 0%)';
+                break;
+            case 'TOP_RIGHT':
+                shirtLogoPreview.style.top = '10%';
+                shirtLogoPreview.style.left = '90%';
+                shirtLogoPreview.style.transform = 'translate(-100%, 0%)';
+                break;
+            case 'LEFT_CHEST':
+                shirtLogoPreview.style.top = '30%';
+                shirtLogoPreview.style.left = '15%';
+                shirtLogoPreview.style.transform = 'translate(0%, -50%)';
+                break;
+            case 'CENTER': // Center Chest
+                shirtLogoPreview.style.top = '38%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, -50%)';
+                break;
+            case 'RIGHT_CHEST':
+                shirtLogoPreview.style.top = '30%';
+                shirtLogoPreview.style.left = '85%';
+                shirtLogoPreview.style.transform = 'translate(-100%, -50%)';
+                break;
+            case 'BOTTOM_LEFT':
+                shirtLogoPreview.style.top = '70%';
+                shirtLogoPreview.style.left = '10%';
+                shirtLogoPreview.style.transform = 'translate(0%, -100%)';
+                break;
+            case 'BOTTOM_CENTER':
+                shirtLogoPreview.style.top = '70%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, -100%)';
+                break;
+            case 'BOTTOM_RIGHT':
+                shirtLogoPreview.style.top = '70%';
+                shirtLogoPreview.style.left = '90%';
+                shirtLogoPreview.style.transform = 'translate(-100%, -100%)';
+                break;
+            case 'BACK_TOP_CENTER': // Assuming back of shirt is shown in preview
+                shirtLogoPreview.style.top = '15%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, 0%)';
+                break;
+            case 'BACK_CENTER':
+                shirtLogoPreview.style.top = '50%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, -50%)';
+                break;
+            case 'BACK_BOTTOM_CENTER':
+                shirtLogoPreview.style.top = '80%';
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, -100%)';
+                break;
+            default:
+                shirtLogoPreview.style.top = '38%'; // Default to center
+                shirtLogoPreview.style.left = '50%';
+                shirtLogoPreview.style.transform = 'translate(-50%, -50%)';
+        }
+    }
+
+    logoTextInput.addEventListener("input", function() {
+        updateCustomizationVisibility();
+        updateLogoPreviewOnShirt();
+    });
 
     logoInput.addEventListener("change", function () {
         const file = this.files[0];
@@ -327,31 +542,47 @@
         if (!file) {
             logoPreview.classList.add("hidden");
             logoPreview.src = "";
-
-            shirtLogoPreview.classList.add("hidden");
-            shirtLogoPreview.src = "";
+            updateCustomizationVisibility();
+            updateLogoPreviewOnShirt();
             return;
         }
 
         if (file.size > 5 * 1024 * 1024) {
             alert("File must be less than 5MB");
             this.value = "";
-
             logoPreview.classList.add("hidden");
             logoPreview.src = "";
-
-            shirtLogoPreview.classList.add("hidden");
-            shirtLogoPreview.src = "";
+            updateCustomizationVisibility();
+            updateLogoPreviewOnShirt();
             return;
         }
 
         const previewUrl = URL.createObjectURL(file);
-
         logoPreview.src = previewUrl;
         logoPreview.classList.remove("hidden");
+        updateCustomizationVisibility();
+        updateLogoPreviewOnShirt();
+    });
 
-        shirtLogoPreview.src = previewUrl;
-        shirtLogoPreview.classList.remove("hidden");
+    logoSizeSelect.addEventListener("change", updateLogoPreviewOnShirt);
+    logoPositionSelect.addEventListener("change", updateLogoPreviewOnShirt);
+
+    // Initial update on page load
+    updateCustomizationVisibility();
+    updateLogoPreviewOnShirt();
+
+    // Size Chart Toggle
+    const sizeChartToggle = document.getElementById("sizeChartToggle");
+    const sizeChartContent = document.getElementById("sizeChartContent");
+
+    sizeChartToggle.addEventListener("click", function(event) {
+        event.preventDefault();
+        sizeChartContent.classList.toggle("hidden");
+        if (sizeChartContent.classList.contains("hidden")) {
+            sizeChartToggle.textContent = "View Size Chart";
+        } else {
+            sizeChartToggle.textContent = "Hide Size Chart";
+        }
     });
 </script>
 </body>

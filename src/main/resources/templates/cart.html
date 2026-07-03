@@ -106,21 +106,34 @@
                                 Set · $<span th:text="${cartItem.product.price}"></span>
                             </p>
 
-                            <!-- Custom Text -->
-                            <p th:if="${cartItem.customLogoText != null and !cartItem.customLogoText.isEmpty()}"
-                               class="text-xs text-gray-400 italic">
-                                "<span th:text="${cartItem.customLogoText}"></span>"
-                            </p>
+                            <!-- Customization Details -->
+                            <div th:if="${(cartItem.customLogoText != null and !cartItem.customLogoText.isEmpty()) or (cartItem.customLogoImageUrl != null and !cartItem.customLogoImageUrl.isEmpty())}">
+                                <!-- Custom Text -->
+                                <p th:if="${cartItem.customLogoText != null and !cartItem.customLogoText.isEmpty()}"
+                                   class="text-xs text-gray-400 italic">
+                                    Text: "<span th:text="${cartItem.customLogoText}"></span>"
+                                </p>
 
-                            <!-- Custom Logo Image: chỉ giữ 1 block này -->
-                            <div th:if="${cartItem.customLogoImageUrl != null and !cartItem.customLogoImageUrl.isEmpty()}"
-                                 class="mt-2">
+                                <!-- Custom Logo Image -->
+                                <div th:if="${cartItem.customLogoImageUrl != null and !cartItem.customLogoImageUrl.isEmpty()}"
+                                     class="mt-2">
+                                    <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
+                                    <img th:src="@{'/uploads/custom-logos/' + ${cartItem.customLogoImageUrl}}"
+                                         alt="Custom Logo"
+                                         class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white"/>
+                                </div>
 
-                                <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
+                                <!-- Logo Size -->
+                                <p th:if="${cartItem.logoSize != null and !cartItem.logoSize.isEmpty()}"
+                                   class="text-xs text-gray-400 mt-1">
+                                    Logo Size: <span th:text="${cartItem.logoSize}"></span>
+                                </p>
 
-                                <img th:src="@{'/uploads/custom-logos/' + ${cartItem.customLogoImageUrl}}"
-                                     alt="Custom Logo"
-                                     class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white"/>
+                                <!-- Logo Position -->
+                                <p th:if="${cartItem.logoPosition != null and !cartItem.logoPosition.isEmpty()}"
+                                   class="text-xs text-gray-400">
+                                    Logo Position: <span th:text="${cartItem.logoPosition}"></span>
+                                </p>
                             </div>
 
                             <!-- Remove Button -->

@@ -39,8 +39,9 @@ public class OrderController {
 
     @PostMapping("/orders/update-status/{orderId}")
     public String updateOrderStatus(@PathVariable long orderId,
-                                    @RequestParam OrderStatusEnum status) {
-        orderService.updateStatus(orderId, status);
+                                    @RequestParam OrderStatusEnum status,
+                                    @RequestParam(required = false) String rejectReason) {
+        orderService.updateStatus(orderId, status, rejectReason);
         return "redirect:/fashion-store/orders";
     }
 

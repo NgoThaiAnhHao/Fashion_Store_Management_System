@@ -17,7 +17,7 @@ public interface OrderService {
 
     Order addNew(OrderCreateDto orderCreateDto, BigDecimal totalAmount);
 
-    void updateStatus(long id, OrderStatusEnum status);
+    void updateStatus(long id, OrderStatusEnum status, String rejectReason);
 
     List<Order> findByUserFullName(String fullName);
 }

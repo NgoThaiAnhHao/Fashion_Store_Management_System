@@ -151,6 +151,7 @@ public class ProductController {
                 "L", "L", // Default sizes
                 Gender.MALE, Gender.FEMALE, // Default genders
                 null, null, // No custom text/image by default
+                null, null, // Default logoSize and logoPosition
                 1, 1, // Default quantities
                 productService.findById(id) // Product
         );

@@ -24,10 +24,29 @@
         </span>
     </h1>
 
-    <h1 class="items-center gap-2 text-xs text-gray-500 mb-10">
+    <h1 class="items-center gap-2 text-xs text-gray-500 mb-2">
         Order By
         <span class="font-bold" th:text="${order.orderedBy.fullName}"></span>
     </h1>
+
+    <div class="flex items-center gap-2 text-xs text-gray-500 mb-10">
+        Status:
+        <span th:text="${order.status}"
+              th:classappend="
+                  ${order.status.toString() == 'PENDING'} ? 'bg-emerald-100 text-emerald-700' :
+                  (${order.status.toString() == 'CONFIRMED'} ? 'bg-amber-100 text-amber-700' :
+                  (${order.status.toString() == 'SHIPPING'} ? 'bg-blue-100 text-blue-700' :
+                  (${order.status.toString() == 'COMPLETED'} ? 'bg-slate-100 text-slate-500' :
+                  (${order.status.toString() == 'CANCELLED'} ? 'bg-red-100 text-red-700' : 'bg-red-100 text-red-700'))))
+              "
+              class="rounded-full px-2 py-0.5 font-medium">
+        </span>
+        <p th:if="${order.status.toString() == 'LOGO_REJECTED' and order.rejectReason != null}"
+           class="text-xs text-red-600 mt-1">
+            Reason: <span th:text="${order.rejectReason}"></span>
+        </p>
+    </div>
+
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Items -->
@@ -69,7 +88,7 @@
                             <!-- Custom text -->
                             <p th:if="${orderDetail.logoText != null and !orderDetail.logoText.isEmpty()}"
                                class="text-xs text-gray-400 italic">
-                                "<span th:text="${orderDetail.logoText}">Custom</span>"
+                                Text: "<span th:text="${orderDetail.logoText}"></span>"
                             </p>
 
                             <!-- Custom logo image -->
@@ -80,6 +99,18 @@
                                      alt="Custom Logo"
                                      class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
                             </div>
+
+                            <!-- Logo Size -->
+                            <p th:if="${orderDetail.logoSize != null and !orderDetail.logoSize.isEmpty()}"
+                               class="text-xs text-gray-400 mt-1">
+                                Logo Size: <span th:text="${orderDetail.logoSize}"></span>
+                            </p>
+
+                            <!-- Logo Position -->
+                            <p th:if="${orderDetail.logoPosition != null and !orderDetail.logoPosition.isEmpty()}"
+                               class="text-xs text-gray-400">
+                                Logo Position: <span th:text="${orderDetail.logoPosition}"></span>
+                            </p>
                         </div>
                     </div>
 
