@@ -44,10 +44,6 @@ public class CartController {
                             HttpSession session,
                             RedirectAttributes redirectAttributes) throws IOException {
 
-        // Backend Validation for conditional required fields - REMOVED, now handled by UI
-        // The @Valid annotation on CartItem will still catch other @NotBlank, @NotNull etc.
-        // if they are present on other fields of CartItem.
-
         // Check validation errors (for other fields if any)
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
@@ -56,6 +52,22 @@ public class CartController {
                     .toList();
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:/fashion-store/products/detail/" + productId;
+        }
+
+        // Business Rule Validation for logoSize and logoPosition
+        boolean hasCustomText = cartItem.getCustomLogoText() != null && !cartItem.getCustomLogoText().trim().isEmpty();
+        boolean hasCustomImage = customLogoImage != null && !customLogoImage.isEmpty();
+        boolean hasCustomLogo = hasCustomText || hasCustomImage;
+
+        if (hasCustomLogo) {
+            if (cartItem.getLogoSize() == null || cartItem.getLogoSize().trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Logo Size is required when custom text or logo image is provided.");
+                return "redirect:/fashion-store/products/detail/" + productId;
+            }
+            if (cartItem.getLogoPosition() == null || cartItem.getLogoPosition().trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Logo Position is required when custom text or logo image is provided.");
+                return "redirect:/fashion-store/products/detail/" + productId;
+            }
         }
 
         cartItem.setProduct(productService.findById(productId));
