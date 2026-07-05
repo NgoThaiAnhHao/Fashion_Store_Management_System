@@ -24,6 +24,8 @@ public class CartItem {
 
     private String customLogoText;
     private String customLogoImageUrl;
+
+    // Removed @NotBlank annotations as requirement is conditional
     private String logoSize; // New field for logo size
     private String logoPosition; // New field for logo position
 

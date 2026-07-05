@@ -5,10 +5,10 @@ import com.student.fashion_store_management_system.exception.common.DuplicateEma
 import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.model.dto.authentication.UserRegistrationDto;
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
-import com.student.fashion_store_management_system.model.entity.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -33,5 +33,11 @@ public class GlobalExceptionHandler {
     public String handleResourceNotFound(ResourceNotFoundException e, Model model) {
         model.addAttribute("error", e.getMessage());
         return "page-not-found";
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleIllegalArgumentException(IllegalArgumentException e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "page-not-found"; // Chuyển hướng đến trang lỗi chung
     }
 }

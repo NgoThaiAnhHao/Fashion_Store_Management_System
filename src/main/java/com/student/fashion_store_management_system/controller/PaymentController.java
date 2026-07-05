@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 
@@ -27,9 +28,28 @@ public class PaymentController {
 
     @GetMapping("/payment")
     public String payment(@ModelAttribute("orderId") long orderId,
-                          Model model) {
+                          Model model,
+                          HttpSession session) {
         Payment payment = new Payment();
-        payment.setPaymentMethod(PaymentMethodEnum.COD);
+
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+        boolean hasLogo = false;
+        if (sessionCart != null && sessionCart.getItems() != null) {
+            hasLogo = sessionCart.getItems()
+                .stream()
+                .anyMatch(item ->
+                    (item.getCustomLogoText() != null && !item.getCustomLogoText().trim().isEmpty())
+                    || (item.getCustomLogoImageUrl() != null && !item.getCustomLogoImageUrl().trim().isEmpty())
+                );
+        }
+
+        model.addAttribute("hasLogo", hasLogo);
+
+        if (hasLogo) {
+            payment.setPaymentMethod(PaymentMethodEnum.CARD);
+        } else {
+            payment.setPaymentMethod(PaymentMethodEnum.COD);
+        }
 
         model.addAttribute("orderId", orderId);
         model.addAttribute("payment", payment);
@@ -41,9 +61,26 @@ public class PaymentController {
                          @RequestParam long orderId,
                          HttpSession session) {
 
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+        boolean hasLogo = false;
+        if (sessionCart != null && sessionCart.getItems() != null) {
+            hasLogo = sessionCart.getItems()
+                .stream()
+                .anyMatch(item ->
+                    (item.getCustomLogoText() != null && !item.getCustomLogoText().trim().isEmpty())
+                    || (item.getCustomLogoImageUrl() != null && !item.getCustomLogoImageUrl().trim().isEmpty())
+                );
+        }
+
+        // Backend Validation
+        if (hasLogo && payment.getPaymentMethod() == PaymentMethodEnum.COD) {
+            throw new IllegalArgumentException(
+                "Orders with custom logos require 100% online payment."
+            );
+        }
+
         // Get total amount
-        Cart cart = (Cart) session.getAttribute("cart");
-        BigDecimal totalAmount = cart.getTotalAmount();
+        BigDecimal totalAmount = sessionCart.getTotalAmount();
 
         // Saving to database
         paymentService.addNew(payment, orderId, totalAmount);

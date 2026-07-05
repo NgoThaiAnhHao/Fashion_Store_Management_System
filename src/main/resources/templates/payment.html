@@ -85,6 +85,11 @@
 
                 <h2 class="text-xs tracking-[0.2em] uppercase text-gray-400 mb-6">Payment Method</h2>
 
+                <!-- Hiển thị thông báo nếu đơn hàng có logo tùy chỉnh -->
+                <div th:if="${hasLogo}" class="alert alert-info my-3">
+                    Orders with custom logos must be paid 100% online before production
+                </div>
+
                 <!-- Method selector -->
                 <div class="grid grid-cols-2 gap-4 mb-8">
                     <!-- COD -->
@@ -94,7 +99,9 @@
                                 type="radio"
                                 th:field="*{paymentMethod}"
                                 value="COD"
-                                class="sr-only peer">
+                                class="sr-only peer"
+                                id="cod"
+                                th:disabled="${hasLogo}">
                         <span class="text-sm mb-0.5 block">Cash on Delivery</span>
                         <span class="text-xs text-gray-400">Pay when delivered</span>
 
@@ -110,7 +117,9 @@
                                 type="radio"
                                 th:field="*{paymentMethod}"
                                 value="CARD"
-                                class="sr-only peer">
+                                class="sr-only peer"
+                                id="card"
+                                th:checked="${hasLogo}">
                         <span class="text-sm mb-0.5 block">Card / Banking</span>
                         <span class="text-xs text-gray-400">Visa, Mastercard, etc.</span>
 
@@ -278,20 +287,34 @@
 <!-- Footer -->
 <div th:replace="~{fragments/layout :: footer}"></div>
 
-<script>
-    document.querySelectorAll('input[name="paymentMethod"]').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            const codInfo = document.getElementById('cod-info');
-            const cardInfo = document.getElementById('card-info');
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const hasLogo = /*[[${hasLogo}]]*/ false;
+    /*]]>*/
 
-            if (this.value === 'COD') {
+    document.addEventListener('DOMContentLoaded', function() {
+        const codRadio = document.getElementById('cod');
+        const cardRadio = document.getElementById('card');
+        const codInfo = document.getElementById('cod-info');
+        const cardInfo = document.getElementById('card-info');
+
+        function togglePaymentInfo() {
+            if (codRadio.checked) {
                 codInfo.classList.remove('hidden');
                 cardInfo.classList.add('hidden');
-            } else if (this.value === 'CARD') {
+            } else if (cardRadio.checked) {
                 codInfo.classList.add('hidden');
                 cardInfo.classList.remove('hidden');
             }
-        });
+        }
+
+        // Gắn sự kiện lắng nghe thay đổi cho các radio button
+        codRadio.addEventListener('change', togglePaymentInfo);
+        cardRadio.addEventListener('change', togglePaymentInfo);
+
+        // Gọi hàm một lần khi trang tải để thiết lập trạng thái hiển thị ban đầu
+        // Dựa trên giá trị th:checked được đặt bởi Thymeleaf
+        togglePaymentInfo();
     });
 </script>
 </body>

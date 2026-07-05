@@ -6,14 +6,18 @@ import com.student.fashion_store_management_system.service.CartService;
 import com.student.fashion_store_management_system.service.ProductService;
 import com.student.fashion_store_management_system.utils.FileUploadUtil;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.Objects; // Import Objects for Objects.requireNonNull
@@ -32,12 +36,27 @@ public class CartController {
     }
 
     @PostMapping("/cart/add-to-cart/{productId}")
-    public String addToCart(@ModelAttribute("cartItem") CartItem cartItem,
+    public String addToCart(@Valid @ModelAttribute("cartItem") CartItem cartItem,
+                            BindingResult bindingResult,
                             @RequestParam(value = "customLogoImage", required = false) MultipartFile customLogoImage,
                             @RequestParam(value = "redirectToCart", required = false) String redirectToCart,
                             @PathVariable long productId,
                             HttpSession session,
                             RedirectAttributes redirectAttributes) throws IOException {
+
+        // Backend Validation for conditional required fields - REMOVED, now handled by UI
+        // The @Valid annotation on CartItem will still catch other @NotBlank, @NotNull etc.
+        // if they are present on other fields of CartItem.
+
+        // Check validation errors (for other fields if any)
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getFieldErrors()
+                    .stream()
+                    .map(FieldError::getDefaultMessage)
+                    .toList();
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/fashion-store/products/detail/" + productId;
+        }
 
         cartItem.setProduct(productService.findById(productId));
 
@@ -99,6 +118,7 @@ public class CartController {
     @PostMapping("/cart/increase-member2-quantity")
     public String increaseMember2Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
+
         cartService.increaseMember2Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
@@ -106,6 +126,7 @@ public class CartController {
     @PostMapping("/cart/decrease-member2-quantity")
     public String decreaseMember2Quantity(@RequestParam int cartItemId,
                                           HttpSession session) {
+
         cartService.decreaseMember2Quantity(session, cartItemId);
         return "redirect:/fashion-store/cart";
     }
