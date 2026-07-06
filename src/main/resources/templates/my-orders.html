@@ -14,7 +14,7 @@
 <!-- Navbar -->
 <div th:replace="~{fragments/layout :: navbar}"></div>
 <div class="h-[72px]"></div>
-<h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#222222] hover:text-black transition-colors ml-12 mt-12">
+<h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#0B0B0B] hover:text-black transition-colors ml-12 mt-12">
     My Orders
 </h1>
 
@@ -23,7 +23,7 @@
     <p class="text-gray-500 mb-2">Your orders are empty</p>
     <p class="text-sm text-gray-400 mb-8">Buy some production to get started</p>
     <a th:href="@{/fashion-store/dashboard}"
-       class="inline-flex items-center gap-2 bg-black text-white px-8 py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
+       class="inline-flex items-center gap-2 bg-[#E5E7EB] text-white px-8 py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
         Shop Collection
     </a>
 </div>
@@ -32,7 +32,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-            <tr class="bg-gray-200 border-b border-[#E5DDD2]">
+            <tr class="bg-gray-200 border-b border-[#E5E7EB]">
                 <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
                     Order ID
                 </th>
@@ -57,8 +57,8 @@
             </thead>
 
             <tbody>
-            <tr th:each="order : ${orders}" class="border-b border-[#E5DDD2]/60 hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 text-xs font-medium text-[#222222] whitespace-nowrap">
+            <tr th:each="order : ${orders}" class="border-b border-[#E5E7EB]/60 hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-3 text-xs font-medium text-[#0B0B0B] whitespace-nowrap">
                     #<span th:text="*{order.orderId}" ></span>
                 </td>
 

@@ -2,7 +2,7 @@
 
     <!-- NAV BAR -->
     <header th:fragment="navbar"
-            class="fixed top-0 left-0 right-0 z-50 bg-[#F5F1EB]/95 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
+            class="fixed top-0 left-0 right-0 z-50 bg-[ #FFFFFF]/95 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
@@ -12,14 +12,14 @@
                 <nav class="hidden md:flex items-center gap-10 flex-1">
 
                     <!-- New In -->
-                    <a href="#"
-                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                    <a  href="#latest-drops"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#0B0B0B] hover:text-[#777777] transition-colors duration-200">
                         New In
                     </a>
 
                     <!-- Collection-->
-                    <a href="#"
-                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#222222] hover:text-[#777777] transition-colors duration-200">
+                    <a href="#lookbook"
+                       class="text-xs font-semibold tracking-[0.14em] uppercase text-[#0B0B0B] hover:text-[#777777] transition-colors duration-200">
                         Collection
                     </a>
 
@@ -30,7 +30,7 @@
                 <a th:href="@{/fashion-store/dashboard}"
                    class="flex flex-col items-center gap-0.5 group absolute left-1/2 -translate-x-1/2">
 
-                    <span class="text-xl font-bold tracking-[0.22em] uppercase text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-300"
+                    <span class="text-xl font-bold tracking-[0.22em] uppercase text-[#111111] group-hover:text-[#D6C4AA] transition-colors duration-300"
                           style="font-family: 'Josefin Sans', sans-serif">
                         Fashion Store
                     </span>
@@ -52,11 +52,11 @@
                                 class="flex items-center gap-3 px-3 py-2 rounded-full transition-all duration-200">
 
                             <!-- Avatar -->
-                            <div class="w-8 h-8 rounded-full border border-[#D8C3A5] overflow-hidden flex items-center justify-center bg-white">
+                            <div class="w-8 h-8 rounded-full border border-[#D6C4AA] overflow-hidden flex items-center justify-center bg-white">
                                 <!-- Use default avatar if user profile photo is null -->
                                 <div th:if="${currentUser != null and currentUser.avatarUrl == null}"
                                      th:text="${currentUser.getFirstCharOfFullName()}"
-                                     class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
+                                     class="w-7 h-7 rounded-full bg-[#D6C4AA] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
                                 </div>
 
                                 <!-- Use user's avatar if user profile photo is not null -->
@@ -74,7 +74,7 @@
                                 </span>
 
                                 <span th:text="${currentUser.fullName}"
-                                      class="text-sm font-medium text-[#222222]"></span>
+                                      class="text-sm font-medium text-[#0B0B0B]"></span>
                             </div>
 
                             <!-- Arrow -->
@@ -91,10 +91,10 @@
                         </button>
 
                         <!-- Dropdown -->
-                        <div class="absolute right-0 mt-3 w-60 bg-white border border-[#E8DDD0] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
+                        <div class="absolute right-0 mt-3 w-60 bg-white border border-[#E5E7EB] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
 
                             <a th:href="@{/fashion-store/my-orders}"
-                               class="flex items-center px-4 py-3 text-xs text-[#222222] hover:bg-[#F5F1EB] transition-colors duration-150">
+                               class="flex items-center px-4 py-3 text-xs text-[#0B0B0B] hover:bg-[ #FFFFFF] transition-colors duration-150">
 
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"
@@ -114,7 +114,7 @@
                             </a>
 
                             <a th:href="@{/fashion-store/users/my-profile}"
-                               class="flex items-center px-4 py-3 text-xs text-[#222222] hover:bg-[#F5F1EB] transition-colors duration-150">
+                               class="flex items-center px-4 py-3 text-xs text-[#0B0B0B] hover:bg-[ #FFFFFF] transition-colors duration-150">
 
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"
@@ -162,7 +162,7 @@
                     <!-- Login Button -->
                     <a sec:authorize="isAnonymous()"
                        th:href="@{/fashion-store/auth/login}"
-                       class="text-xs tracking-[0.14em] uppercase text-[#222222] hover:text-[#D8C3A5] transition-colors duration-200">
+                       class="text-xs tracking-[0.14em] uppercase text-[#0B0B0B] hover:text-[#D6C4AA] transition-colors duration-200">
                         Login
                     </a>
 
@@ -180,7 +180,7 @@
                              stroke-width="2"
                              stroke-linecap="round"
                              stroke-linejoin="round"
-                             class="lucide lucide-shopping-bag-icon lucide-shopping-bag w-5 h-5 text-[#1F1F1F] group-hover:text-[#D8C3A5] transition-colors duration-200">
+                             class="lucide lucide-shopping-bag-icon lucide-shopping-bag w-5 h-5 text-[#111111] group-hover:text-[#D6C4AA] transition-colors duration-200">
                             <path d="M16 10a4 4 0 0 1-8 0"/>
                             <path d="M3.103 6.034h17.794"/>
                             <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/>
@@ -189,7 +189,7 @@
                         <!-- Cart Items Quantity -->
                         <span th:if="${session.cart != null && !session.cart.items.isEmpty()}"
                               th:text="${session.cart.items.size()}"
-                              class="absolute -top-2 -right-2 w-4 h-4 bg-[#1F1F1F] text-[#F5F1EB] rounded-full flex items-center justify-center text-[9px] font-bold">
+                              class="absolute -top-2 -right-2 bg-gray-200 !text-[#0B0B0B] text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
                         </span>
 
                     </a>
@@ -200,45 +200,31 @@
         </div>
     </header>
     <!-- END NAV BAR -->
-
     <!-- FOOTER -->
     <footer th:fragment="footer"
-            class="text-white"
-            style="background: linear-gradient(180deg, #2A2421 0%, #1A1714 100%)">
-
-        <!-- Divider accent -->
-        <div class="h-px w-full opacity-25"
-             style="background: linear-gradient(to right, transparent, #D8C3A5, transparent)">
-        </div>
-
-        <!-- Line gradient -->
-        <div class="h-px w-full opacity-20"
-             style="background: linear-gradient(90deg, transparent 0%, #D8C3A5 40%, #D8C3A5 60%, transparent 100%)">
-        </div>
+            class="bg-[#0B0B0B] text-white border-t border-white/10">
 
         <!-- Content -->
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-10 pb-6">
 
             <!-- Main Content -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-14">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 mb-8">
 
                 <!-- Brand column -->
                 <div class="md:col-span-4">
 
-                    <!-- Info -->
-                    <div class="mb-6">
-                        <p class="text-base font-semibold tracking-[0.35em] uppercase text-white mb-0.5"
+                    <div class="mb-4">
+                        <p class="text-sm font-semibold tracking-[0.32em] uppercase text-white mb-1"
                            style="font-family: 'Josefin Sans', sans-serif">
                             Fashion Store
                         </p>
 
-                        <p class="text-[9px] tracking-[0.3em] uppercase text-white">
+                        <p class="text-[8px] tracking-[0.28em] uppercase text-gray-400">
                             Est. 2024 · Vietnam
                         </p>
                     </div>
 
-                    <!-- Description -->
-                    <p class="text-[13px] text-white leading-[1.85] max-w-[240px] mb-8 font-light">
+                    <p class="text-[12px] text-gray-300 leading-[1.7] max-w-[230px] font-light">
                         Thoughtfully designed matching sets for couples
                         who share a sense of style. Modern minimalism,
                         made in Vietnam.
@@ -248,31 +234,31 @@
 
                 <!-- Shop -->
                 <div class="md:col-span-2">
-                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                    <p class="text-[8px] tracking-[0.35em] uppercase text-white mb-4">
                         Shop
                     </p>
 
-                    <ul class="space-y-4">
+                    <ul class="space-y-3">
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 New Arrivals
                             </div>
                         </li>
 
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Couple Sets
                             </div>
                         </li>
 
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Tees
                             </div>
                         </li>
 
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Sale
                             </div>
                         </li>
@@ -282,25 +268,25 @@
 
                 <!-- Info -->
                 <div class="md:col-span-2">
-                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                    <p class="text-[8px] tracking-[0.35em] uppercase text-white mb-4">
                         Info
                     </p>
 
-                    <ul class="space-y-4">
+                    <ul class="space-y-3">
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Sizing Guide
                             </div>
                         </li>
 
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Shipping
                             </div>
                         </li>
 
                         <li>
-                            <div class="text-[13px] text-white hover:text-[#D8C3A5] transition-colors duration-200 font-light cursor-default">
+                            <div class="text-[12px] text-gray-300 hover:text-white transition-colors duration-200 font-light cursor-default">
                                 Returns
                             </div>
                         </li>
@@ -311,16 +297,16 @@
                 <!-- Stay in touch -->
                 <div class="md:col-span-4">
 
-                    <p class="text-[9px] tracking-[0.35em] uppercase text-white mb-6">
+                    <p class="text-[8px] tracking-[0.35em] uppercase text-white mb-4">
                         Stay in touch
                     </p>
 
-                    <p class="text-[13px] text-white mb-6 leading-[1.8] font-light">
+                    <p class="text-[12px] text-gray-300 mb-4 leading-[1.7] font-light">
                         Early access, exclusive drops, and couple style guides.
                     </p>
 
                     <!-- Subscribe form -->
-                    <form class="space-y-2.5"
+                    <form class="space-y-2"
                           onsubmit="showFooterSubscribeSuccess(event)">
 
                         <label for="footer-email" class="sr-only">Email</label>
@@ -329,11 +315,12 @@
                                id="footer-email"
                                placeholder="your@email.com"
                                required
-                               class="w-full px-4 py-3 bg-white/[0.03] border border-white/20 text-white placeholder-white/40 text-[13px] focus:outline-none focus:border-[#D8C3A5]/50 transition-colors duration-300 font-light"/>
+                               class="w-full px-4 py-2.5 bg-[#E5E7EB] border border-white/15 text-white placeholder-gray-500 text-[12px] focus:outline-none focus:border-white transition-colors duration-300 font-light"/>
 
                         <button type="submit"
-                                class="w-full py-3 bg-[#D8C3A5] text-[#1A1510] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E8D8C0] transition-colors duration-300"
-                                style="font-family: 'Josefin Sans', sans-serif">
+                                id="footerSubscribeBtn"
+                                class="w-full px-7 py-3 bg-[#D6C4AA] text-[#0B0B0B] text-[10px] tracking-[0.25em] uppercase font-semibold hover:bg-[#E5E7EB] hover:text-white transition-colors duration-300 whitespace-nowrap shrink-0"
+                                style="font-family: 'Josefin Sans', sans-serif;">
                             Subscribe
                         </button>
 
@@ -346,23 +333,21 @@
             <!-- End main Content -->
 
             <!-- Bottom bar -->
-            <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="pt-5 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3">
 
-                <span class="text-[11px] text-white tracking-[0.1em]">
-                    © 2026 Fashion Store. All rights reserved.
+            <span class="text-[10px] text-gray-400 tracking-[0.08em]">
+                © 2026 Fashion Store. All rights reserved.
+            </span>
+
+                <div class="flex gap-5">
+                <span class="text-[10px] text-gray-400 hover:text-white tracking-wide cursor-default transition-colors">
+                    Privacy Policy
                 </span>
 
-                <!-- Policy Details: bỏ href để không nhảy trang -->
-                <div class="flex gap-6">
-                    <span class="text-[11px] text-white tracking-wide cursor-default">
-                        Privacy Policy
-                    </span>
-
-                    <span class="text-[11px] text-white tracking-wide cursor-default">
-                        Term of Service
-                    </span>
+                    <span class="text-[10px] text-gray-400 hover:text-white tracking-wide cursor-default transition-colors">
+                    Term of Service
+                </span>
                 </div>
-                <!-- End Policy Details -->
 
             </div>
             <!-- End bottom bar -->
@@ -372,32 +357,32 @@
 
         <!-- Subscribe success popup -->
         <div id="footerSubscribeSuccessBox"
-             class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 px-4">
+             class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-[#E5E7EB]/70 px-4">
 
-            <div class="relative bg-white text-[#1F1B18] w-full max-w-sm p-8 text-center shadow-2xl border border-[#D8C3A5]">
+            <div class="relative bg-[#E5E7EB] text-[#0B0B0B] w-full max-w-sm p-7 text-center shadow-2xl border border-gray-300">
 
                 <button type="button"
                         onclick="closeFooterSubscribeSuccess()"
-                        class="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl leading-none">
+                        class="absolute top-3 right-4 bg-transparent text-gray-500 hover:text-black text-2xl leading-none">
                     ×
                 </button>
 
-                <div class="mx-auto mb-5 w-14 h-14 rounded-full bg-[#D8C3A5] flex items-center justify-center">
-                    <span class="text-2xl font-bold text-[#1F1B18]">✓</span>
+                <div class="mx-auto mb-4 w-12 h-12 rounded-full bg-white border border-gray-300 flex items-center justify-center">
+                    <span class="text-xl font-bold text-[#0B0B0B]">✓</span>
                 </div>
 
-                <h3 class="text-xl font-bold tracking-[0.12em] uppercase mb-3"
+                <h3 class="text-lg font-bold tracking-[0.12em] uppercase mb-3 text-[#0B0B0B]"
                     style="font-family: 'Josefin Sans', sans-serif">
                     Đăng kí thành công!
                 </h3>
 
-                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-5">
                     Cảm ơn bạn đã đăng kí nhận thông tin mới nhất từ Fashion Store.
                 </p>
 
                 <button type="button"
                         onclick="closeFooterSubscribeSuccess()"
-                        class="w-full py-3 bg-black text-white text-xs tracking-[0.2em] uppercase hover:bg-gray-900 transition-colors">
+                        class="w-full py-3 bg-[#E5E7EB] text-white text-xs tracking-[0.2em] uppercase hover:bg-gray-800 transition-colors">
                     Đóng
                 </button>
             </div>
@@ -427,5 +412,4 @@
 
     </footer>
     <!-- END FOOTER -->
-
-</div>
+  </div>

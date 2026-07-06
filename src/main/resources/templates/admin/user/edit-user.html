@@ -11,7 +11,7 @@
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -37,14 +37,14 @@
                             <!-- Use default avatar if user profile photo is null -->
                             <div th:if="${user != null and user.avatarUrl == null}"
                                  th:text="${user.getFirstCharOfFullName()}"
-                                 class="w-24 h-24 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[30px] font-bold text-[#1F1B18] flex-shrink-0">
+                                 class="w-24 h-24 rounded-full bg-[#D6C4AA] flex items-center justify-center text-[30px] font-bold text-[#1F1B18] flex-shrink-0">
                             </div>
 
                             <!-- Use user's avatar if user profile photo is not null -->
                             <img th:if="${user != null and user.avatarUrl != null}"
                                  th:src="@{'/uploads/users/' + ${user.userId} + '/' + ${user.avatarUrl}}"
                                  alt="Profile photo"
-                                 class="w-24 h-24 rounded-full object-cover border-2 border-[#D8C3A5]"
+                                 class="w-24 h-24 rounded-full object-cover border-2 border-[#D6C4AA]"
                             />
                         </div>
                         <div>
@@ -56,7 +56,7 @@
                                     Active
                                 </div>
 
-                                <div th:if="${!user.isEnabled()}" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F3EEE8] text-[#8A6B45]">
+                                <div th:if="${!user.isEnabled()}" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F3F4F6] text-[#6B7280]">
                                     <span class="w-1.5 h-1.5 bg-slate-400 rounded-full mr-1.5"></span>
                                     Inactive
                                 </div>
@@ -125,7 +125,7 @@
 
                         <div class="col-span-full">
                             <button type="submit"
-                                    class="mt-5 px-6 flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
+                                    class="mt-5 px-6 flex items-center justify-center gap-2 bg-[#E5E7EB] text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
                                 Save Changes
                             </button>
                         </div>

@@ -3,205 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Management | Fashion Store</title>
-    <link rel="shortcut icon" href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538" type="image/png">
+
+    <link rel="shortcut icon"
+          href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538"
+          type="image/png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/css/globals.css}" rel="stylesheet" />
-    <link th:href="@{/css/index.css}" rel="stylesheet" />
-    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+
+    <link th:href="@{/css/fonts.css}" rel="stylesheet"/>
+    <link th:href="@{/css/globals.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/theme.css}" rel="stylesheet"/>
 </head>
+
 <body>
-<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+<div class="flex h-screen bg-white overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
     <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 
     <!-- Main -->
-    <div class="flex-1 flex flex-col overflow-hidden w-100">
+    <div class="flex-1 flex flex-col overflow-hidden">
+
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+        <main class="flex-1 overflow-y-auto bg-white">
+
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 
-            <div class="p-6 space-y-5 bg-[#F5F1EB] min-h-full">
-                <div class="flex items-center justify-between">
+            <div class="p-6 space-y-6 bg-white min-h-full">
+
+                <!-- Header -->
+                <div class="flex items-center justify-between gap-4">
                     <div>
-                        <h1 class="text-xl font-bold text-[#222222]">Product Management</h1>
-                        <p class="text-sm text-[#6B6B6B] mt-0.5">
-                            10 total products
+                        <h1 class="text-2xl font-black tracking-[0.08em] uppercase text-black"
+                            style="font-family: 'Josefin Sans', sans-serif;">
+                            Product Management
+                        </h1>
+
+                        <p class="text-sm text-gray-600 mt-1">
+                            <span th:text="${products != null ? products.size() : 0}">0</span>
+                            total products
                         </p>
                     </div>
 
-                    <a th:href="@{/fashion-store/products/add-new}" class="text-[#8A6B45] bg-[#D8C3A5]/60 hover:bg-[#D8C3A5]/80 border border-[#D8C3A5]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D8C3A5]/90 active:bg-[#D8C3A5]/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    <a th:href="@{/fashion-store/products/add-new}"
+                       class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3
+                              bg-[#D6C4AA] text-black border border-[#C8B8A0]
+                              text-sm font-bold hover:bg-black hover:text-white
+                              transition-colors duration-300">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="20"
+                             height="20"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5v14"/>
+                        </svg>
+
                         Add Product
                     </a>
                 </div>
 
                 <!-- Filters -->
-                <div class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] p-4 flex flex-wrap gap-3 items-center">
+                <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
                     <form th:action="@{/fashion-store/products/search-by-name}"
                           method="GET"
-                          class="flex items-center gap-2 bg-[#F3EEE8] rounded-lg px-3 py-2 min-w-[220px] flex-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A6B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                          class="flex items-center gap-3 bg-[#F3F4F6] rounded-lg px-4 py-3 w-full">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="18"
+                             height="18"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="#6B7280"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path d="m21 21-4.34-4.34"/>
+                            <circle cx="11" cy="11" r="8"/>
+                        </svg>
+
                         <input type="text"
                                name="keyword"
                                placeholder="Search products name..."
-                               class="bg-transparent text-sm text-[#222222] placeholder:text-[#8A6B45]/70 outline-none w-full">
+                               class="bg-transparent text-sm text-black placeholder:text-gray-500 outline-none w-full">
                     </form>
                 </div>
 
-                <!-- Error message when products empty -->
-                <div class="flex justify-center items-center">
-                    <ul th:if="${products.isEmpty()}" class="text-xs text-center uppercase bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
-                        <li class="block">No data for products</li>
-                    </ul>
+                <!-- Empty message -->
+                <div th:if="${products == null or products.isEmpty()}"
+                     class="flex justify-center items-center">
+                    <div class="text-xs text-center uppercase bg-red-50 border border-red-300 text-red-600 px-10 py-3 rounded-lg font-bold">
+                        No data for products
+                    </div>
                 </div>
 
                 <!-- Error message -->
                 <div th:if="${error}"
-                     class="text-xs text-center uppercase bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative " role="alert">
-                    <span th:text="${error}" class="block sm:inline"></span>
+                     class="text-xs text-center uppercase bg-red-50 border border-red-300 text-red-600 px-4 py-3 rounded-lg font-bold">
+                    <span th:text="${error}"></span>
                 </div>
 
-                <!-- Success message after register -->
+                <!-- Success message -->
                 <div th:if="${successMessage}"
-                     class="text-xs text-center uppercase bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
-                    <span th:text="${successMessage}" class="block sm:inline"></span>
+                     class="text-xs text-center uppercase bg-green-50 border border-green-300 text-green-700 px-4 py-3 rounded-lg font-bold">
+                    <span th:text="${successMessage}"></span>
                 </div>
 
                 <!-- Table -->
-                <div th:if="${!products.isEmpty()}" class="bg-[#FDFAF6] rounded-xl border border-[#E5DDD2] overflow-hidden">
+                <div th:if="${products != null and !products.isEmpty()}"
+                     class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table class="w-full min-w-[1200px]">
+
+                            <!-- Table Head -->
                             <thead>
-                            <tr class="bg-[#F3EEE8] border-b border-[#E5DDD2]">
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                            <tr class="bg-[#E5E7EB] border-b border-gray-300">
+
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Image
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Product Name
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Description
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Category
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Price
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
-                                    Stock QTY
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
+                                    Stock Qty
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Discount
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
-                                    Created By Manager
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
+                                    Created By
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Created Date
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-left text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Updated Date
                                 </th>
 
-                                <th class="px-4 py-3 text-left text-[10px] font-bold tracking-widest uppercase text-[#8A6B45] whitespace-nowrap">
+                                <th class="px-5 py-4 text-center text-[11px] font-black tracking-[0.12em] uppercase text-gray-700 whitespace-nowrap">
                                     Actions
                                 </th>
                             </tr>
-
                             </thead>
 
-                            <tbody>
-                            <tr th:each="product : ${products}" class="border-b border-[#E5DDD2]/60 hover:bg-[#FBF8F4] transition-colors">
-                                <td class="px-4 py-3 flex items-center justify-center">
-                                    <div class="w-7 h-7 rounded-full bg-[#D8C3A5] flex items-center justify-center text-[11px] font-bold text-[#1F1B18] flex-shrink-0">
-                                        <div class="w-7 h-7 overflow-hidden border-2 border-[#D8C3A5] flex items-center justify-center bg-white">
-                                            <!-- If product was added before -->
-                                            <img th:if="${#strings.startsWith(product.imageUrl, 'images')}"
-                                                 th:src="@{'/' + ${product.imageUrl}}"
-                                                 alt="Product Image"
-                                                 class="object-cover"
-                                            />
+                            <!-- Table Body -->
+                            <tbody class="divide-y divide-gray-200 bg-white">
 
-                                            <!-- If product was uploaded by user -->
-                                            <img th:if="${!#strings.startsWith(product.imageUrl, 'images')}"
-                                                 th:src="@{'/uploads/products/' + ${product.productId} + '/' + ${product.imageUrl}}"
-                                                 alt="Product Image"
-                                                 class="object-cover"
-                                            />
-                                        </div>
-<!--                                        <span th:text="${product.imageUrl}"></span>-->
+                            <tr th:each="product : ${products}"
+                                class="hover:bg-[#F3F4F6] transition-colors duration-200">
+
+                                <!-- Image -->
+                                <td class="px-5 py-4 whitespace-nowrap">
+                                    <div class="w-10 h-10 overflow-hidden border border-gray-300 bg-white flex items-center justify-center">
+
+                                        <img th:if="${#strings.startsWith(product.imageUrl, 'images')}"
+                                             th:src="@{'/' + ${product.imageUrl}}"
+                                             alt="Product Image"
+                                             class="w-full h-full object-cover"/>
+
+                                        <img th:if="${!#strings.startsWith(product.imageUrl, 'images')}"
+                                             th:src="@{'/uploads/products/' + ${product.productId} + '/' + ${product.imageUrl}}"
+                                             alt="Product Image"
+                                             class="w-full h-full object-cover"/>
                                     </div>
                                 </td>
 
-                                <td th:text="*{product.name}" class="px-4 py-3 text-xs font-medium text-[#222222] whitespace-nowrap"></td>
+                                <!-- Product Name -->
+                                <td th:text="${product.name}"
+                                    class="px-5 py-4 text-sm font-black text-black whitespace-nowrap">
+                                </td>
 
-                                <td th:text="*{product.description}" class="px-4 py-3 text-xs text-[#6B6B6B] whitespace-nowrap"></td>
+                                <!-- Description -->
+                                <td th:text="${product.description}"
+                                    class="px-5 py-4 text-sm text-gray-600 font-medium min-w-[360px]">
+                                </td>
 
-                                <td class="px-4 py-3 text-xs whitespace-nowrap">
-                                    <span th:text="*{product.category.name}"
-                                          class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">
+                                <!-- Category -->
+                                <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                    <span th:text="${product.category.name}"
+                                          class="inline-flex items-center px-3 py-1 rounded-full bg-[#F3F4F6] text-gray-700 text-xs font-bold border border-gray-200">
                                     </span>
                                 </td>
 
-                                <td class="px-4 py-3 text-xs text-[#6B6B6B] font-bold whitespace-nowrap">
-                                    $<span th:text="*{product.price}" ></span>
+                                <!-- Price -->
+                                <td class="px-5 py-4 text-sm text-black font-black whitespace-nowrap">
+                                    $<span th:text="${product.price}"></span>
                                 </td>
 
-                                <td th:text="*{product.stockQuantity}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+                                <!-- Stock -->
+                                <td th:text="${product.stockQuantity}"
+                                    class="px-5 py-4 text-sm text-gray-700 font-semibold whitespace-nowrap">
+                                </td>
 
-                                <td class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap">
-                                    <span th:if="${product.discountPercent != 0}"  class="text-xs bg-red-100 text-red-600 font-semibold px-2 py-0.5 rounded-full">
-                                        -<span th:text="*{product.discountPercent}"></span>%
+                                <!-- Discount -->
+                                <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                    <span th:if="${product.discountPercent != 0}"
+                                          class="inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-600 text-xs font-black">
+                                        -<span th:text="${product.discountPercent}"></span>%
+                                    </span>
+
+                                    <span th:if="${product.discountPercent == 0}"
+                                          class="text-gray-400 text-xs font-bold">
+                                        —
                                     </span>
                                 </td>
 
-                                <td th:text="*{product.createdBy.fullName}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+                                <!-- Created By -->
+                                <td th:text="${product.createdBy.fullName}"
+                                    class="px-5 py-4 text-sm text-gray-700 font-medium whitespace-nowrap">
+                                </td>
 
-                                <td th:text="*{product.getFormattedCreatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+                                <!-- Created Date -->
+                                <td th:text="${product.getFormattedCreatedAt()}"
+                                    class="px-5 py-4 text-sm text-gray-600 font-medium whitespace-nowrap">
+                                </td>
 
-                                <td th:text="*{product.getFormattedUpdatedAt()}" class="px-4 py-3 text-xs text-[#8A6B45] whitespace-nowrap"></td>
+                                <!-- Updated Date -->
+                                <td th:text="${product.getFormattedUpdatedAt()}"
+                                    class="px-5 py-4 text-sm text-gray-600 font-medium whitespace-nowrap">
+                                </td>
 
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center gap-1">
+                                <!-- Actions -->
+                                <td class="px-5 py-4 whitespace-nowrap">
+                                    <div class="flex items-center justify-center gap-2">
+
                                         <!-- Edit Product -->
                                         <a th:href="@{/fashion-store/products/update/{id}(id=${product.productId})}"
-                                           class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                                           class="w-8 h-8 rounded-lg flex items-center justify-center
+                                                  bg-[#F3F4F6] text-gray-700 border border-gray-200
+                                                  hover:bg-black hover:text-white transition-colors duration-200">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 width="15"
+                                                 height="15"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none"
+                                                 stroke="currentColor"
+                                                 stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round">
+                                                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
+                                                <path d="m15 5 4 4"/>
+                                            </svg>
                                         </a>
 
                                         <!-- Delete Product -->
                                         <form th:action="@{/fashion-store/products/delete/{id}(id=${product.productId})}"
-                                                method="POST">
-                                            <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-[#8A6B45] transition-all">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                              method="POST"
+                                              onsubmit="return confirm('Are you sure you want to delete this product?');">
+
+                                            <button type="submit"
+                                                    class="w-8 h-8 rounded-lg flex items-center justify-center
+                                                           bg-[#F3F4F6] text-gray-700 border border-gray-200
+                                                           hover:bg-red-600 hover:text-white hover:border-red-600
+                                                           transition-colors duration-200">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     width="15"
+                                                     height="15"
+                                                     viewBox="0 0 24 24"
+                                                     fill="none"
+                                                     stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                                                    <path d="M3 6h18"/>
+                                                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                                </svg>
                                             </button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </main>
     </div>
 </div>
-
 
 </body>
 </html>

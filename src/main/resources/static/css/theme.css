@@ -1,117 +1,163 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Couple Wear — Warm Minimalist Korean Fashion Palette */
+  /* Fashion Store — White / Black / Gray + Beige Accent */
   --font-size: 16px;
-  --background: #F5F1EB;
-  --foreground: #222222;
-  --card: #FDFAF6;
-  --card-foreground: #222222;
-  --popover: #FDFAF6;
-  --popover-foreground: #222222;
-  --primary: #1F1F1F;
-  --primary-foreground: #F5F1EB;
-  --secondary: #E8DDD0;
-  --secondary-foreground: #222222;
-  --muted: #E8DDD0;
-  --muted-foreground: #777777;
-  --accent: #D8C3A5;
-  --accent-foreground: #222222;
-  --beige: #D8C3A5;
-  --dark-gray: #1F1F1F;
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --border: rgba(34, 34, 34, 0.1);
+
+  --background: #FFFFFF;
+  --foreground: #0B0B0B;
+
+  --card: #FAFAFA;
+  --card-foreground: #0B0B0B;
+
+  --popover: #FAFAFA;
+  --popover-foreground: #0B0B0B;
+
+  --primary: #111111;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #E5E7EB;
+  --secondary-foreground: #0B0B0B;
+
+  --muted: #E5E7EB;
+  --muted-foreground: #6B7280;
+
+  --accent: #D6C4AA;
+  --accent-foreground: #0B0B0B;
+
+  --beige: #D6C4AA;
+  --beige-hover: #C8B8A0;
+  --beige-light: #FAF7F2;
+  --beige-table: #EEE6DA;
+  --beige-border: #E5D8C8;
+
+  --dark-gray: #111111;
+  --dark-brown: #2B2118;
+
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  --border: rgba(34, 34, 34, 0.12);
   --input: transparent;
-  --input-background: #E8DDD0;
-  --switch-background: #1F1F1F;
+  --input-background: #F3F4F6;
+
+  --switch-background: #111111;
+
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #D8C3A5;
+
+  --ring: #D6C4AA;
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+
   --radius: 4px;
-  --sidebar: #F5F1EB;
-  --sidebar-foreground: #222222;
-  --sidebar-primary: #1F1F1F;
-  --sidebar-primary-foreground: #F5F1EB;
-  --sidebar-accent: #E8DDD0;
-  --sidebar-accent-foreground: #222222;
-  --sidebar-border: rgba(34, 34, 34, 0.1);
-  --sidebar-ring: #D8C3A5;
+
+  /* Admin Sidebar */
+  --sidebar: #D6C4AA;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #C8B8A0;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #B89F7E;
+  --sidebar-ring: #000000;
 }
 
 .dark {
   --background: #000000;
-  --foreground: #ffffff;
-  --card: #1F1F1F;
-  --card-foreground: #ffffff;
-  --popover: #1F1F1F;
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
+  --foreground: #FFFFFF;
+
+  --card: #111111;
+  --card-foreground: #FFFFFF;
+
+  --popover: #111111;
+  --popover-foreground: #FFFFFF;
+
+  --primary: #FFFFFF;
   --primary-foreground: #000000;
-  --secondary: #1F1F1F;
-  --secondary-foreground: #ffffff;
-  --muted: #1F1F1F;
+
+  --secondary: #111111;
+  --secondary-foreground: #FFFFFF;
+
+  --muted: #111111;
   --muted-foreground: #F5F5F5;
-  --accent: #1D3557;
-  --accent-foreground: #ffffff;
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
+
+  --accent: #D6C4AA;
+  --accent-foreground: #000000;
+
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: #ffffff;
+
+  --ring: #D6C4AA;
+
   --font-weight-medium: 600;
   --font-weight-normal: 400;
+
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #000000;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #1F1F1F;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #ffffff;
+
+  --sidebar: #D6C4AA;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #C8B8A0;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #B89F7E;
+  --sidebar-ring: #000000;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   --radius-sm: 0;
   --radius-md: 0;
   --radius-lg: 0;
   --radius-xl: 0;
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -127,23 +173,21 @@
     @apply border-border outline-ring/50;
   }
 
-  body {
-    @apply bg-background text-foreground antialiased;
-  }
-
-  /**
-  * Premium Fashion Typography
-  */
-
   html {
     font-size: 16px;
+    scroll-behavior: smooth;
   }
 
   body {
+    @apply bg-background text-foreground antialiased;
     font-family: "Jost", sans-serif;
+    background-color: #FFFFFF;
+    color: #0B0B0B;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: "Josefin Sans", sans-serif;
   }
 
@@ -194,10 +238,553 @@
     text-transform: uppercase;
   }
 
-  input {
+  input,
+  select,
+  textarea {
     font-family: "Jost", sans-serif;
     font-size: 16px;
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+}
+
+/* ================================================= */
+/* GLOBAL THEME OVERRIDE                             */
+/* ================================================= */
+
+body {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+}
+
+.bg-\[\ \#FFFFFF\],
+.hover\:bg-\[\ \#FFFFFF\]\/10:hover {
+  background-color: #FFFFFF !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0B0B0B;
+}
+
+p {
+  color: inherit;
+}
+
+.bg-\[\#D6C4AA\] {
+  background-color: #D6C4AA !important;
+}
+
+.text-\[\#D6C4AA\] {
+  color: #D6C4AA !important;
+}
+
+.border-\[\#D6C4AA\] {
+  border-color: #D6C4AA !important;
+}
+
+input,
+select,
+textarea {
+  color: #0B0B0B;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6B7280;
+}
+
+/* ================================================= */
+/* ADMIN SIDEBAR - BEIGE BACKGROUND / BLACK TEXT     */
+/* ================================================= */
+
+.sidebar {
+  background-color: #D6C4AA !important;
+  color: #000000 !important;
+  border-right: 1px solid #B89F7E !important;
+}
+
+.sidebar div,
+.sidebar span,
+.sidebar p,
+.sidebar a,
+.sidebar button,
+.sidebar svg {
+  color: #000000 !important;
+}
+
+.sidebar a,
+.sidebar button {
+  font-weight: 700 !important;
+  transition: all 0.2s ease !important;
+  border-radius: 8px !important;
+}
+
+.sidebar .text-white,
+.sidebar .text-\[\#FFFFFF\],
+.sidebar .text-\[\#0B0B0B\],
+.sidebar .text-\[\#111111\] {
+  color: #000000 !important;
+}
+
+.sidebar .text-gray-400,
+.sidebar .text-gray-500,
+.sidebar .text-gray-600,
+.sidebar .text-gray-700,
+.sidebar .text-\[\#777777\],
+.sidebar .text-\[\#6B7280\],
+.sidebar .text-\[\#6B6B6B\] {
+  color: #000000 !important;
+}
+
+.sidebar nav > div > div:first-child {
+  color: #000000 !important;
+  font-weight: 900 !important;
+}
+
+.sidebar .bg-gray-300,
+.sidebar span[class*="ROLE"],
+.sidebar span[class*="role"] {
+  background-color: #C8B8A0 !important;
+  color: #000000 !important;
+}
+
+.sidebar .border-gray-300,
+.sidebar .border-gray-400,
+.sidebar .border-\[\#D6C4AA\]\/15 {
+  border-color: #B89F7E !important;
+}
+
+.sidebar .rounded-full {
+  border-color: #B89F7E !important;
+}
+
+.sidebar a:hover,
+.sidebar button:hover,
+.sidebar a:active,
+.sidebar button:active,
+.sidebar a.sidebar-active,
+.sidebar button.sidebar-active {
+  background-color: #0B0B0B !important;
+  color: #FFFFFF !important;
+}
+
+.sidebar a:hover *,
+.sidebar button:hover *,
+.sidebar a:active *,
+.sidebar button:active *,
+.sidebar a.sidebar-active *,
+.sidebar button.sidebar-active * {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.sidebar .hover\:bg-\[\ \#FFFFFF\]\/10:hover {
+  background-color: #0B0B0B !important;
+  color: #FFFFFF !important;
+}
+
+/* ================================================= */
+/* ADMIN MAIN LAYOUT - WARM BACKGROUND               */
+/* ================================================= */
+
+main {
+  background-color: #FAF7F2 !important;
+  color: #0B0B0B !important;
+}
+
+main h1,
+main h2,
+main h3 {
+  color: #000000 !important;
+}
+
+main p {
+  color: #6B7280;
+}
+
+header,
+.topbar,
+.admin-topbar {
+  background-color: #FAF7F2 !important;
+  color: #0B0B0B !important;
+  border-bottom: 1px solid #E5D8C8 !important;
+}
+
+/* ================================================= */
+/* ADMIN TABLE GLOBAL THEME                          */
+/* Product / Category / Order Management             */
+/* ================================================= */
+
+main table {
+  width: 100%;
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-collapse: collapse;
+}
+
+main div[class*="rounded-xl"][class*="border"] {
+  background-color: #FFFFFF !important;
+  border-color: #E5D8C8 !important;
+}
+
+main table thead tr {
+  background-color: #EEE6DA !important;
+  border-bottom: 1px solid #E5D8C8 !important;
+}
+
+main table thead th {
+  color: #374151 !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 16px 20px !important;
+  white-space: nowrap;
+}
+
+main table tbody tr {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E5E7EB !important;
+  transition: background-color 0.2s ease;
+}
+
+main table tbody tr:hover {
+  background-color: #FAF7F2 !important;
+}
+
+main table tbody td {
+  color: #111827 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 16px 20px !important;
+  vertical-align: middle;
+}
+
+main table tbody td:nth-child(2) {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+
+main table tbody td:nth-child(3) {
+  color: #4B5563 !important;
+  font-weight: 500 !important;
+}
+
+main table tbody td:nth-child(5) {
+  color: #111111 !important;
+  font-weight: 800 !important;
+}
+
+main table .text-\[\#6B7280\],
+main table .text-\[\#6B6B6B\],
+main table .text-gray-400,
+main table .text-gray-500,
+main table .text-gray-600,
+main table .text-gray-700 {
+  color: #4B5563 !important;
+}
+
+main table span.rounded-full,
+main table span[class*="rounded"] {
+  font-weight: 800 !important;
+}
+
+main table .bg-slate-100,
+main table .bg-gray-100,
+main table .bg-blue-50 {
+  background-color: #F3F4F6 !important;
+  color: #374151 !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+main table .bg-green-100 {
+  background-color: #DCFCE7 !important;
+  color: #166534 !important;
+}
+
+main table .bg-yellow-100 {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+}
+
+main table .bg-red-100 {
+  background-color: #FEE2E2 !important;
+  color: #DC2626 !important;
+}
+
+main table .bg-blue-100 {
+  background-color: #DBEAFE !important;
+  color: #1D4ED8 !important;
+}
+
+main table img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+main table td div[class*="w-7"],
+main table td div[class*="w-8"],
+main table td div[class*="w-10"] {
+  border-color: #D1D5DB !important;
+}
+
+/* Search / filter box */
+main input[type="text"],
+main input[type="search"],
+main select {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #E5D8C8 !important;
+}
+
+main input[type="text"]:focus,
+main input[type="search"]:focus,
+main select:focus {
+  border-color: #111111 !important;
+  outline: none !important;
+}
+
+main input::placeholder {
+  color: #6B7280 !important;
+}
+
+/* Add buttons */
+main a[href*="add"],
+main a[href*="add-new"] {
+  background-color: #D6C4AA !important;
+  color: #0B0B0B !important;
+  border: 1px solid #C8B8A0 !important;
+  font-weight: 800 !important;
+}
+
+main a[href*="add"]:hover,
+main a[href*="add-new"]:hover {
+  background-color: #0B0B0B !important;
+  color: #FFFFFF !important;
+}
+
+/* Table action buttons */
+main table a,
+main table button {
+  color: #374151 !important;
+}
+
+main table a:hover,
+main table button:hover {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
+}
+
+main table form button:hover {
+  background-color: #DC2626 !important;
+  color: #FFFFFF !important;
+}
+
+/* ================================================= */
+/* UPDATE PROFILE BUTTON                             */
+/* Beige default / White hover                       */
+/* ================================================= */
+
+#update-profile-btn {
+  background-color: #D6C4AA !important;
+  color: #0B0B0B !important;
+  border: 1px solid #D6C4AA !important;
+}
+
+#update-profile-btn svg,
+#update-profile-btn path {
+  color: #0B0B0B !important;
+  stroke: #0B0B0B !important;
+}
+
+#update-profile-btn:hover,
+#update-profile-btn:active,
+#update-profile-btn:focus,
+#update-profile-btn.clicked-white,
+#update-profile-btn.clicked-white:hover {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-color: #FFFFFF !important;
+  outline: none !important;
+}
+
+#update-profile-btn:hover svg,
+#update-profile-btn:hover path,
+#update-profile-btn:active svg,
+#update-profile-btn:active path,
+#update-profile-btn:focus svg,
+#update-profile-btn:focus path,
+#update-profile-btn.clicked-white svg,
+#update-profile-btn.clicked-white path {
+  color: #0B0B0B !important;
+  stroke: #0B0B0B !important;
+}
+
+/* ================================================= */
+/* SAVE PROFILE BUTTON                               */
+/* Dark brown default / White hover                  */
+/* ================================================= */
+
+#save-profile-btn {
+  background-color: #2B2118 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2B2118 !important;
+}
+
+#save-profile-btn svg,
+#save-profile-btn path {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+#save-profile-btn:hover,
+#save-profile-btn:active,
+#save-profile-btn:focus {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-color: #FFFFFF !important;
+  outline: none !important;
+}
+
+#save-profile-btn:hover svg,
+#save-profile-btn:hover path,
+#save-profile-btn:active svg,
+#save-profile-btn:active path,
+#save-profile-btn:focus svg,
+#save-profile-btn:focus path {
+  color: #0B0B0B !important;
+  stroke: #0B0B0B !important;
+}
+
+/* ================================================= */
+/* UPDATE PROFILE MODAL CLOSE BUTTON                 */
+/* ================================================= */
+
+.cancel-update-profile-btn {
+  background-color: #D6C4AA !important;
+  color: #0B0B0B !important;
+  border: 1px solid #D6C4AA !important;
+}
+
+.cancel-update-profile-btn svg,
+.cancel-update-profile-btn path {
+  color: #0B0B0B !important;
+  stroke: #0B0B0B !important;
+}
+
+.cancel-update-profile-btn:hover,
+.cancel-update-profile-btn:active,
+.cancel-update-profile-btn:focus {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-color: #FFFFFF !important;
+  outline: none !important;
+}
+
+.cancel-update-profile-btn:hover svg,
+.cancel-update-profile-btn:hover path,
+.cancel-update-profile-btn:active svg,
+.cancel-update-profile-btn:active path,
+.cancel-update-profile-btn:focus svg,
+.cancel-update-profile-btn:focus path {
+  color: #0B0B0B !important;
+  stroke: #0B0B0B !important;
+}
+
+/* ================================================= */
+/* CART / NOTIFICATION BADGE NUMBER                  */
+/* ================================================= */
+
+.cart-badge,
+.notification-badge,
+.badge-count,
+span[class*="badge"],
+span[class*="count"] {
+  color: #0B0B0B !important;
+  font-weight: 800 !important;
+}
+
+/* ================================================= */
+/* FOOTER BLACK THEME                                */
+/* ================================================= */
+
+footer {
+  background-color: #0B0B0B !important;
+  color: #FFFFFF !important;
+}
+
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6,
+footer p,
+footer a,
+footer span,
+footer li {
+  color: #FFFFFF !important;
+}
+
+footer input {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+footer input::placeholder {
+  color: #6B7280 !important;
+}
+
+footer button {
+  background-color: #D6C4AA !important;
+  color: #0B0B0B !important;
+  border-color: #D6C4AA !important;
+}
+
+footer button:hover {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-color: #FFFFFF !important;
+}
+
+footer button:active,
+footer button:focus {
+  background-color: #FFFFFF !important;
+  color: #0B0B0B !important;
+  border-color: #FFFFFF !important;
+  outline: none !important;
+}
+
+/* ================================================= */
+/* POPUP                                             */
+/* ================================================= */
+
+#heroSubscribeSuccessBox > div,
+#footerSubscribeSuccessBox > div {
+  background-color: #E5E7EB !important;
+  color: #0B0B0B !important;
+  border-color: #D1D5DB !important;
+}
+
+#heroSubscribeSuccessBox h3,
+#footerSubscribeSuccessBox h3 {
+  color: #0B0B0B !important;
+}
+
+#heroSubscribeSuccessBox p,
+#footerSubscribeSuccessBox p {
+  color: #4B5563 !important;
+}
+
+/* Selection */
+::selection {
+  background-color: #0B0B0B;
+  color: #FFFFFF;
 }

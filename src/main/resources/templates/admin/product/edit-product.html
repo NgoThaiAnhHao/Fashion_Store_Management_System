@@ -11,7 +11,7 @@
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -54,7 +54,7 @@
                                                id="product-name"
                                                th:field="*{name}"
                                                placeholder="T-Shirt For Couple.."
-                                               class="placeholder:text-[#8A6B45]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
                                                required>
                                     </div>
 
@@ -78,7 +78,7 @@
                                                id="stock-quantity"
                                                placeholder="0.. 999"
                                                th:field="*{stockQuantity}"
-                                               class="placeholder:text-[#8A6B45]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
                                                required>
                                     </div>
 
@@ -89,7 +89,7 @@
                                                id="price"
                                                th:field="*{price}"
                                                placeholder="80.00"
-                                               class="placeholder:text-[#8A6B45]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
                                                required="">
                                     </div>
 
@@ -98,7 +98,7 @@
                                         <label for="description" class="text-xs font-medium text-slate-700 block mb-2">Description</label>
                                         <textarea id="description" th:field="*{description}" rows="6"
                                                   placeholder="Details..."
-                                                  class="placeholder:text-[#8A6B45]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-4">
+                                                  class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-4">
                                         </textarea>
                                     </div>
 
@@ -112,14 +112,14 @@
                                                 placeholder="0.. 99%"
                                                 min="0"
                                                 max="99"
-                                                class="placeholder:text-[#8A6B45]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5" required>
+                                                class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="p-6 border-t border-gray-200 rounded-b">
                             <button type="submit"
-                                    class="mt-5 px-6 flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
+                                    class="mt-5 px-6 flex items-center justify-center gap-2 bg-[#E5E7EB] text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors mb-4">
                                 Save Changes
                             </button>
                         </div>

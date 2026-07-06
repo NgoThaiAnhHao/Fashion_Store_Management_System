@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     public String handleDuplicateCategory(DuplicateCategoryException e, Model model) {
         model.addAttribute("errors", List.of(e.getMessage()));
         model.addAttribute("category", new CategoryCreateDto());
-        return "/admin/add-new-category";
+        return "admin/category/add-new-category";
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

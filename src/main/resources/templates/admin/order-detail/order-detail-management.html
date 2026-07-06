@@ -11,7 +11,7 @@
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -20,12 +20,12 @@
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100">
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+        <main class="flex-1 overflow-y-auto bg-[ #FFFFFF]">
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 
             <div class="max-w-7xl mx-auto px-4 py-10">
-                <h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#222222] hover:text-black transition-colors">
+                <h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#0B0B0B] hover:text-black transition-colors">
                     Order Details -
                     <span class="text-sm font-medium">
                         Order #<span th:text="${order.orderId}"></span>
@@ -39,9 +39,9 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <!-- Items -->
-                    <div class="lg:col-span-2 bg-[#FDFAF6] border border-[#E5DDD2] py-4 px-8">
+                    <div class="lg:col-span-2 bg-[#FAFAFA] border border-[#E5E7EB] py-4 px-8">
                         <!-- Header -->
-                        <div class="sm:grid grid-cols-12 text-xs tracking-[0.1em] uppercase text-[#222222] pb-4 mb-2 font-medium border-b">
+                        <div class="sm:grid grid-cols-12 text-xs tracking-[0.1em] uppercase text-[#0B0B0B] pb-4 mb-2 font-medium border-b">
                             <span class="col-span-6">Product</span>
                             <span class="col-span-2 text-center">Size</span>
                             <span class="col-span-2 text-center">P.Qty</span>
@@ -150,7 +150,7 @@
 
                     <!-- Payment -->
                     <div>
-                        <div class="bg-[#FDFAF6] border border-[#E5DDD2] p-8 sticky top-24">
+                        <div class="bg-[#FAFAFA] border border-[#E5E7EB] p-8 sticky top-24">
                             <h2 class="text-sm tracking-[0.15em] uppercase mb-8 font-bold">
                                 Payment #<span th:text="${payment.paymentId}"></span>
                             </h2>

@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Custom Your Tee | Fashion Store</title>
-    <link rel="shortcut icon" href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538" type="image/png">
+
+    <link rel="shortcut icon"
+          href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538"
+          type="image/png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/css/globals.css}" rel="stylesheet" />
-    <link th:href="@{/css/index.css}" rel="stylesheet" />
-    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+
+    <link th:href="@{/css/fonts.css}" rel="stylesheet"/>
+    <link th:href="@{/css/globals.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/theme.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -38,6 +43,26 @@
             </p>
         </div>
 
+        <!-- Error Message -->
+        <div th:if="${errorMessage}"
+             class="mb-8 border-2 border-red-500 bg-red-50 px-6 py-4 text-red-700 text-sm font-semibold">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Validation Errors -->
+        <div th:if="${errors}"
+             class="mb-8 border-2 border-red-500 bg-red-50 px-6 py-4 text-red-700 text-sm font-semibold">
+            <ul class="list-disc pl-5">
+                <li th:each="err : ${errors}" th:text="${err}"></li>
+            </ul>
+        </div>
+
+        <!-- Success Message -->
+        <div th:if="${successMessage}"
+             class="mb-8 border-2 border-green-500 bg-green-50 px-6 py-4 text-green-700 text-sm font-semibold">
+            <p th:text="${successMessage}"></p>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-14">
 
             <!-- Preview -->
@@ -56,10 +81,10 @@
                         <img id="shirtLogoPreview"
                              src=""
                              alt="Logo Preview"
-                             class="hidden absolute top-[38%] left-[38%] w-28 h-28 object-contain opacity-90 pointer-events-none">
+                             class="hidden absolute object-contain opacity-90 pointer-events-none">
 
                         <div id="textPreview"
-                             class="hidden absolute top-[58%] left-1/2 -translate-x-1/2 text-black text-lg font-bold tracking-wide text-center max-w-[70%] break-words">
+                             class="hidden absolute text-black font-bold tracking-wide text-center max-w-[70%] break-words pointer-events-none">
                         </div>
                     </div>
                 </div>
@@ -69,6 +94,7 @@
             <div>
                 <form id="customForm"
                       th:action="@{/fashion-store/cart/add-to-cart/0}"
+                      th:attr="data-add-cart-base=@{/fashion-store/cart/add-to-cart/}"
                       th:object="${cartItem}"
                       method="POST"
                       enctype="multipart/form-data"
@@ -76,6 +102,10 @@
 
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <input type="hidden" name="redirectToCart" value="true">
+
+                    <!-- Default gender -->
+                    <input type="hidden" name="member1Gender" value="MALE">
+                    <input type="hidden" name="member2Gender" value="FEMALE">
 
                     <!-- Choose product -->
                     <div>
@@ -94,34 +124,34 @@
                         </select>
                     </div>
 
-                    <!-- Male size -->
+                    <!-- Member 1 size -->
                     <div>
                         <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
                             HIS SIZE
                         </label>
 
-                        <select th:field="*{maleSize}"
+                        <select th:field="*{member1Size}"
                                 class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
                             <option value="S">S</option>
                             <option value="M">M</option>
-                            <option value="L" selected>L</option>
+                            <option value="L">L</option>
                             <option value="XL">XL</option>
                             <option value="2XL">2XL</option>
                             <option value="3XL">3XL</option>
                         </select>
                     </div>
 
-                    <!-- Female size -->
+                    <!-- Member 2 size -->
                     <div>
                         <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
                             HER SIZE
                         </label>
 
-                        <select th:field="*{femaleSize}"
+                        <select th:field="*{member2Size}"
                                 class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
                             <option value="S">S</option>
                             <option value="M">M</option>
-                            <option value="L" selected>L</option>
+                            <option value="L">L</option>
                             <option value="XL">XL</option>
                             <option value="2XL">2XL</option>
                             <option value="3XL">3XL</option>
@@ -174,11 +204,58 @@
                         </div>
                     </div>
 
-                    <!-- Pair quantity -->
-                    <input type="hidden"
-                           th:field="*{pairQuantity}"
-                           id="pairQuantity"
-                           value="1">
+                    <!-- Logo Size -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            LOGO SIZE
+                            <span class="text-gray-400 normal-case tracking-normal font-light">
+                                (Required if custom text or logo is used)
+                            </span>
+                        </label>
+
+                        <select th:field="*{logoSize}"
+                                id="logoSize"
+                                name="logoSize"
+                                class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                            <option value="">-- Select Logo Size --</option>
+                            <option value="SMALL">Small</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LARGE">Large</option>
+                        </select>
+                    </div>
+
+                    <!-- Logo Position -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
+                            LOGO POSITION
+                            <span class="text-gray-400 normal-case tracking-normal font-light">
+                                (Required if custom text or logo is used)
+                            </span>
+                        </label>
+
+                        <select th:field="*{logoPosition}"
+                                id="logoPosition"
+                                name="logoPosition"
+                                class="appearance-none w-full px-6 py-3 border-2 text-base transition-all font-light border-gray-300 focus:border-black focus:outline-none">
+                            <option value="">-- Select Logo Position --</option>
+                            <option value="TOP_LEFT">Top Left</option>
+                            <option value="TOP_CENTER">Top Center</option>
+                            <option value="TOP_RIGHT">Top Right</option>
+                            <option value="LEFT_CHEST">Left Chest</option>
+                            <option value="CENTER">Center Chest</option>
+                            <option value="RIGHT_CHEST">Right Chest</option>
+                            <option value="BOTTOM_LEFT">Bottom Left</option>
+                            <option value="BOTTOM_CENTER">Bottom Center</option>
+                            <option value="BOTTOM_RIGHT">Bottom Right</option>
+                            <option value="BACK_TOP_CENTER">Back Top Center</option>
+                            <option value="BACK_CENTER">Back Center</option>
+                            <option value="BACK_BOTTOM_CENTER">Back Bottom Center</option>
+                        </select>
+                    </div>
+
+                    <!-- Quantity -->
+                    <input type="hidden" th:field="*{member1Quantity}" id="member1Quantity">
+                    <input type="hidden" th:field="*{member2Quantity}" id="member2Quantity">
 
                     <div>
                         <label class="block text-xs font-bold tracking-[0.2em] uppercase mb-5">
@@ -206,7 +283,7 @@
                     </div>
 
                     <button type="submit"
-                            class="w-full flex items-center justify-center gap-3 py-4 text-sm font-bold tracking-[0.2em] uppercase transition-all bg-black text-white hover:bg-gray-900">
+                            class="w-full flex items-center justify-center gap-3 py-4 text-sm font-bold tracking-[0.2em] uppercase transition-all bg-[#E5E7EB] text-white hover:bg-gray-900">
                         Add Custom Tee To Cart
                     </button>
                 </form>
@@ -229,14 +306,28 @@
     const logoText = document.getElementById("logoText");
     const textPreview = document.getElementById("textPreview");
 
+    const logoSizeSelect = document.getElementById("logoSize");
+    const logoPositionSelect = document.getElementById("logoPosition");
+
     const minusBtn = document.getElementById("minusBtn");
     const plusBtn = document.getElementById("plusBtn");
     const quantityDisplay = document.getElementById("quantityDisplay");
-    const pairQuantityInput = document.getElementById("pairQuantity");
+
+    const member1QuantityInput = document.getElementById("member1Quantity");
+    const member2QuantityInput = document.getElementById("member2Quantity");
+
+    let quantity = 1;
+
+    member1QuantityInput.value = quantity;
+    member2QuantityInput.value = quantity;
 
     function buildProductImageUrl(productId, imageUrl) {
         if (!imageUrl) {
             return "";
+        }
+
+        if (imageUrl.startsWith("/")) {
+            return imageUrl;
         }
 
         if (imageUrl.startsWith("images")) {
@@ -258,14 +349,117 @@
 
         productPreview.src = buildProductImageUrl(productId, imageUrl);
 
-        customForm.setAttribute(
-            "action",
-            "/fashion-store/cart/add-to-cart/" + productId
-        );
+        const addCartBase = customForm.getAttribute("data-add-cart-base");
+        customForm.setAttribute("action", addCartBase + productId);
+    }
+
+    function applyLogoSize() {
+        const selectedSize = logoSizeSelect.value;
+
+        shirtLogoPreview.style.width = "";
+        shirtLogoPreview.style.height = "";
+
+        textPreview.classList.remove("text-sm", "text-lg", "text-2xl");
+
+        if (selectedSize === "SMALL") {
+            shirtLogoPreview.style.width = "10%";
+            shirtLogoPreview.style.height = "auto";
+            textPreview.classList.add("text-sm");
+        } else if (selectedSize === "LARGE") {
+            shirtLogoPreview.style.width = "20%";
+            shirtLogoPreview.style.height = "auto";
+            textPreview.classList.add("text-2xl");
+        } else {
+            shirtLogoPreview.style.width = "15%";
+            shirtLogoPreview.style.height = "auto";
+            textPreview.classList.add("text-lg");
+        }
+    }
+
+    function setPosition(top, left, transform) {
+        shirtLogoPreview.style.top = top;
+        shirtLogoPreview.style.left = left;
+        shirtLogoPreview.style.transform = transform;
+
+        textPreview.style.top = top;
+        textPreview.style.left = left;
+        textPreview.style.transform = transform;
+    }
+
+    function applyLogoPosition() {
+        const selectedPosition = logoPositionSelect.value;
+
+        shirtLogoPreview.style.top = "";
+        shirtLogoPreview.style.left = "";
+        shirtLogoPreview.style.transform = "";
+
+        textPreview.style.top = "";
+        textPreview.style.left = "";
+        textPreview.style.transform = "";
+
+        switch (selectedPosition) {
+            case "TOP_LEFT":
+                setPosition("10%", "10%", "translate(0%, 0%)");
+                break;
+
+            case "TOP_CENTER":
+                setPosition("10%", "50%", "translate(-50%, 0%)");
+                break;
+
+            case "TOP_RIGHT":
+                setPosition("10%", "90%", "translate(-100%, 0%)");
+                break;
+
+            case "LEFT_CHEST":
+                setPosition("30%", "25%", "translate(-50%, -50%)");
+                break;
+
+            case "CENTER":
+                setPosition("38%", "50%", "translate(-50%, -50%)");
+                break;
+
+            case "RIGHT_CHEST":
+                setPosition("30%", "75%", "translate(-50%, -50%)");
+                break;
+
+            case "BOTTOM_LEFT":
+                setPosition("70%", "10%", "translate(0%, -100%)");
+                break;
+
+            case "BOTTOM_CENTER":
+                setPosition("70%", "50%", "translate(-50%, -100%)");
+                break;
+
+            case "BOTTOM_RIGHT":
+                setPosition("70%", "90%", "translate(-100%, -100%)");
+                break;
+
+            case "BACK_TOP_CENTER":
+                setPosition("15%", "50%", "translate(-50%, 0%)");
+                break;
+
+            case "BACK_CENTER":
+                setPosition("50%", "50%", "translate(-50%, -50%)");
+                break;
+
+            case "BACK_BOTTOM_CENTER":
+                setPosition("80%", "50%", "translate(-50%, -100%)");
+                break;
+
+            default:
+                setPosition("38%", "50%", "translate(-50%, -50%)");
+                break;
+        }
+    }
+
+    function updateCustomPreview() {
+        applyLogoSize();
+        applyLogoPosition();
     }
 
     productSelect.addEventListener("change", updateSelectedProduct);
     updateSelectedProduct();
+    updateCustomPreview();
 
     logoInput.addEventListener("change", function () {
         const file = this.files[0];
@@ -298,6 +492,8 @@
 
         shirtLogoPreview.src = previewUrl;
         shirtLogoPreview.classList.remove("hidden");
+
+        updateCustomPreview();
     });
 
     logoText.addEventListener("input", function () {
@@ -311,21 +507,28 @@
 
         textPreview.textContent = text;
         textPreview.classList.remove("hidden");
+
+        updateCustomPreview();
     });
 
-    let quantity = 1;
+    logoSizeSelect.addEventListener("change", updateCustomPreview);
+    logoPositionSelect.addEventListener("change", updateCustomPreview);
 
     plusBtn.addEventListener("click", function () {
         quantity++;
+
         quantityDisplay.textContent = quantity;
-        pairQuantityInput.value = quantity;
+        member1QuantityInput.value = quantity;
+        member2QuantityInput.value = quantity;
     });
 
     minusBtn.addEventListener("click", function () {
         if (quantity > 1) {
             quantity--;
+
             quantityDisplay.textContent = quantity;
-            pairQuantityInput.value = quantity;
+            member1QuantityInput.value = quantity;
+            member2QuantityInput.value = quantity;
         }
     });
 </script>

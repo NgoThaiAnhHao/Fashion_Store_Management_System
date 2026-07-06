@@ -11,7 +11,7 @@
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="flex h-screen bg-[#F5F1EB] overflow-hidden text-[#222222]"
+<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -20,7 +20,7 @@
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100 ">
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[#F5F1EB]">
+        <main class="flex-1 overflow-y-auto bg-[ #FFFFFF]">
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 
@@ -42,65 +42,65 @@
                           th:object="${product}"
                           method="POST"
                           enctype="multipart/form-data"
-                          class="bg-[#FDFAF6] border border-[#E5DDD2] rounded-lg relative my-10">
+                          class="bg-[#FAFAFA] border border-[#E5E7EB] rounded-lg relative my-10">
 
                         <div class="p-6 space-y-6">
                             <div>
                                 <div class="grid grid-cols-6 gap-6">
                                     <!-- Product Name -->
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="product-name" class="text-xs font-medium text-[#8A6B45] block mb-2">Product Name</label>
+                                        <label for="product-name" class="text-xs font-medium text-[#6B7280] block mb-2">Product Name</label>
                                         <input type="text"
                                                id="product-name"
                                                th:field="*{name}"
                                                placeholder="T-Shirt For Couple.."
-                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
                                                required>
                                     </div>
 
                                     <!-- Select Category -->
                                     <div th:field="*{categoryId}" class="col-span-6 sm:col-span-3">
-                                        <label for="categoryId" class="text-xs text-[#8A6B45] font-medium block mb-2">Category</label>
-                                        <select id="categoryId" name="categoryId" class="bg-[#F3EEE8] text-[#8A6B45] sm:text-sm rounded-lg outline-none block w-full p-2.5">
+                                        <label for="categoryId" class="text-xs text-[#6B7280] font-medium block mb-2">Category</label>
+                                        <select id="categoryId" name="categoryId" class="bg-[#F3F4F6] text-[#6B7280] sm:text-sm rounded-lg outline-none block w-full p-2.5">
                                             <option selected="">Select Category</option>
-                                            <option class="text-[#8A6B45]" th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+                                            <option class="text-[#6B7280]" th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
                                         </select>
                                     </div>
 
                                     <!-- Stock Quantity -->
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="stock-quantity" class="text-xs text-[#8A6B45] font-medium block mb-2">Stock Quantity</label>
+                                        <label for="stock-quantity" class="text-xs text-[#6B7280] font-medium block mb-2">Stock Quantity</label>
                                         <input type="text"
                                                id="stock-quantity"
                                                placeholder="0.. 999"
                                                th:field="*{stockQuantity}"
-                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
                                                required>
                                     </div>
 
                                     <!-- Price -->
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price" class="text-xs text-[#8A6B45] font-medium block mb-2">Price</label>
+                                        <label for="price" class="text-xs text-[#6B7280] font-medium block mb-2">Price</label>
                                         <input type="number"
                                                id="price"
                                                th:field="*{price}"
                                                placeholder="80.00"
-                                               class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
                                                required="">
                                     </div>
 
                                     <!-- Description -->
                                     <div class="col-span-full">
-                                        <label for="description" class="text-xs font-medium text-[#8A6B45] block mb-2">Description</label>
+                                        <label for="description" class="text-xs font-medium text-[#6B7280] block mb-2">Description</label>
                                         <textarea id="description" th:field="*{description}" rows="6"
                                                   placeholder="Details..."
-                                                  class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-4">
+                                                  class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-4">
                                         </textarea>
                                     </div>
 
                                     <!-- Discount -->
                                     <div class="col-span-full">
-                                        <label for="discount" class="text-xs font-medium text-[#8A6B45] block mb-2">Discount</label>
+                                        <label for="discount" class="text-xs font-medium text-[#6B7280] block mb-2">Discount</label>
                                         <input
                                                 type="number"
                                                 id="discount"
@@ -108,25 +108,25 @@
                                                 placeholder="0.. 99%"
                                                 min="0"
                                                 max="99"
-                                                class="placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5" required>
+                                                class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5" required>
                                     </div>
 
                                     <!-- Image -->
                                     <div class="col-span-full">
-                                        <label for="image" class="text-xs font-medium text-[#8A6B45] block mb-2">Product Image</label>
+                                        <label for="image" class="text-xs font-medium text-[#6B7280] block mb-2">Product Image</label>
                                         <input
                                                 type="file"
                                                 id="image"
                                                 name="image"
                                                 accept="image/png, image/jpeg, image/jpg"
-                                                class="file:px-3 file:border-none file:font-medium file:bg-[#F3EEE8] file:text-[#8A6B45]
-                                                placeholder:text-[#8A6B45]/70 bg-[#F3EEE8] text-[#8A6B45]/70 sm:text-sm rounded-lg outline-none block w-full p-2.5" required>
+                                                class="file:px-3 file:border-none file:font-medium file:bg-[#F3F4F6] file:text-[#6B7280]
+                                                placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-[#6B7280]/70 sm:text-sm rounded-lg outline-none block w-full p-2.5" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="p-6 border-t border-gray-200 rounded-b">
-                            <button class="text-[#8A6B45] bg-[#D8C3A5]/60 hover:bg-[#D8C3A5]/80 border border-[#D8C3A5]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D8C3A5]/90 active:bg-[#D8C3A5]/90 font-medium rounded-lg text-sm px-10 py-2.5 text-center" type="submit">Save</button>
+                            <button class="text-[#6B7280] bg-[#D6C4AA]/60 hover:bg-[#D6C4AA]/80 border border-[#D6C4AA]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D6C4AA]/90 active:bg-[#D6C4AA]/90 font-medium rounded-lg text-sm px-10 py-2.5 text-center" type="submit">Save</button>
                         </div>
                     </form>
 
