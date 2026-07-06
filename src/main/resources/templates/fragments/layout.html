@@ -44,6 +44,42 @@
                 <!-- Right actions -->
                 <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
 
+                    <!-- Notification Icon (Only for ROLE_CUSTOMER) -->
+                    <div sec:authorize="hasRole('ROLE_CUSTOMER')" class="relative group">
+                        <button id="notification-bell"
+                                class="relative flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="24"
+                                 height="24"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 class="lucide lucide-bell-icon lucide-bell w-5 h-5 text-[#111111]">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                            </svg>
+                            <span id="unread-notification-count-badge"
+                                  th:if="${unreadNotificationCount != null and unreadNotificationCount > 0}"
+                                  th:text="${unreadNotificationCount}"
+                                  class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                            </span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                             class="absolute right-0 mt-3 w-80 bg-white border border-[#E5E7EB] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50 hidden">
+                            <div class="p-4 border-b border-gray-200">
+                                <h3 class="font-bold text-sm">Notifications</h3>
+                            </div>
+                            <div id="notification-list" class="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                                <!-- Notifications will be loaded here by JavaScript -->
+                                <div class="p-4 text-gray-500 text-sm text-center">No notifications yet.</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Menu Profile -->
                     <div sec:authorize="isAuthenticated()" class="relative group">
 
@@ -105,7 +141,7 @@
                                      stroke-width="2"
                                      stroke-linecap="round"
                                      stroke-linejoin="round"
-                                     class="lucide lucide-handbag-icon lucide-handbag pr-2">
+                                     class="lucide lucude-handbag-icon lucide-handbag pr-2">
                                     <path d="M2.048 18.566A2 2 0 0 0 4 21h16a2 2 0 0 0 1.952-2.434l-2-9A2 2 0 0 0 18 8H6a2 2 0 0 0-1.952 1.566z"/>
                                     <path d="M8 11V6a4 4 0 0 1 8 0v5"/>
                                 </svg>
@@ -408,8 +444,168 @@
                 const successBox = document.getElementById("footerSubscribeSuccessBox");
                 successBox.classList.add("hidden");
             }
+
+            // --- Notification JavaScript ---
+            document.addEventListener('DOMContentLoaded', function () {
+                const notificationBell = document.getElementById('notification-bell');
+                // Only proceed if the notification bell exists (i.e., user is a customer)
+                if (!notificationBell) {
+                    return;
+                }
+
+                const notificationDropdown = document.getElementById('notification-dropdown');
+                const notificationList = document.getElementById('notification-list');
+                const unreadNotificationCountBadge = document.getElementById('unread-notification-count-badge');
+
+                let dropdownVisible = false;
+
+                function fetchNotifications() {
+                    fetch('/fashion-store/api/notifications')
+                        .then(response => {
+                            if (!response.ok) {
+                                if (response.status === 401) { // Unauthorized
+                                    console.log('User not logged in, not fetching notifications.');
+                                    return [];
+                                }
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(notifications => {
+                            notificationList.innerHTML = ''; // Clear previous notifications
+                            if (notifications.length === 0) {
+                                notificationList.innerHTML = '<div class="p-4 text-gray-500 text-sm text-center">No notifications yet.</div>';
+                            } else {
+                                notifications.forEach(notification => {
+                                    const notificationItem = document.createElement('div');
+                                    notificationItem.classList.add('p-4', 'flex', 'items-start', 'gap-3', 'hover:bg-gray-50');
+                                    if (!notification.read) {
+                                        notificationItem.classList.add('bg-blue-50');
+                                    }
+
+                                    let iconSvg = '';
+                                    let iconColorClass = '';
+                                    if (notification.type === 'ORDER_CONFIRMED') {
+                                        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>';
+                                        iconColorClass = 'text-green-600';
+                                    } else if (notification.type === 'LOGO_REJECTED') {
+                                        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>';
+                                        iconColorClass = 'text-red-600';
+                                    } else {
+                                        iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>';
+                                        iconColorClass = 'text-blue-600';
+                                    }
+
+                                    notificationItem.innerHTML = `
+                                        <div class="flex-shrink-0 mt-1 ${iconColorClass}">
+                                            ${iconSvg}
+                                        </div>
+                                        <div class="flex-grow">
+                                            <h4 class="font-semibold text-sm ${notification.read ? 'text-gray-800' : 'text-blue-800'}">
+                                                ${notification.title}
+                                                ${!notification.read ? '<span class="ml-2 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">New</span>' : ''}
+                                            </h4>
+                                            <p class="text-sm mt-1 ${notification.read ? 'text-gray-600' : 'text-blue-700'}">${notification.message}</p>
+                                            <p class="text-xs text-gray-400 mt-2">
+                                                ${new Date(notification.createdAt).toLocaleString()}
+                                                ${notification.orderId ? ` - Order #<a href="/fashion-store/order-detail/${notification.orderId}" class="text-blue-500 hover:underline">${notification.orderId}</a>` : ''}
+                                            </p>
+                                            ${!notification.read ? `<button class="mark-as-read-btn mt-2 text-xs text-blue-500 hover:underline" data-id="${notification.id}">Mark as Read</button>` : ''}
+                                        </div>
+                                    `;
+                                    notificationList.appendChild(notificationItem);
+                                });
+
+                                // Add event listeners for "Mark as Read" buttons using event delegation
+                                notificationList.addEventListener('click', function(event) {
+                                    if (event.target.classList.contains('mark-as-read-btn')) {
+                                        event.preventDefault();
+                                        const notificationId = event.target.dataset.id;
+                                        markNotificationAsRead(notificationId);
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching notifications:', error);
+                            notificationList.innerHTML = '<div class="p-4 text-red-500 text-sm text-center">Error loading notifications.</div>';
+                        });
+                }
+
+                function fetchUnreadCount() {
+                    fetch('/fashion-store/api/notifications/unread-count')
+                        .then(response => {
+                            if (!response.ok) {
+                                if (response.status === 401) { // Unauthorized
+                                    console.log('User not logged in, not fetching unread count.');
+                                    return 0;
+                                }
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(count => {
+                            if (count > 0) {
+                                unreadNotificationCountBadge.textContent = count;
+                                unreadNotificationCountBadge.classList.remove('hidden');
+                            } else {
+                                unreadNotificationCountBadge.classList.add('hidden');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching unread notification count:', error);
+                            unreadNotificationCountBadge.classList.add('hidden');
+                        });
+                }
+
+                function markNotificationAsRead(notificationId) {
+                    fetch(`/fashion-store/api/notifications/mark-as-read/${notificationId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to mark notification as read');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log(data.message);
+                            fetchNotifications(); // Refresh list
+                            fetchUnreadCount(); // Refresh count
+                        })
+                        .catch(error => {
+                            console.error('Error marking notification as read:', error);
+                            alert('Failed to mark notification as read.');
+                        });
+                }
+
+                notificationBell.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    dropdownVisible = !dropdownVisible;
+                    if (dropdownVisible) {
+                        notificationDropdown.classList.remove('hidden');
+                        fetchNotifications();
+                    } else {
+                        notificationDropdown.classList.add('hidden');
+                    }
+                });
+
+                // Close dropdown if clicked outside
+                document.addEventListener('click', function (event) {
+                    if (!notificationBell.contains(event.target) && !notificationDropdown.contains(event.target)) {
+                        notificationDropdown.classList.add('hidden');
+                        dropdownVisible = false;
+                    }
+                });
+
+                // Initial fetch of unread count on page load
+                fetchUnreadCount();
+            });
         </script>
 
     </footer>
-    <!-- END FOOTER -->
+    <!-- END FOOTAR -->
   </div>

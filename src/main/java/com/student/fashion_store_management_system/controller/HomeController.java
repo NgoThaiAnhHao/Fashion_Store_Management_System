@@ -30,6 +30,7 @@ public class HomeController {
     private final OrderService orderService;
     private final PaymentService paymentService;
     private final CategoryService categoryService;
+    private final NotificationService notificationService; // Inject NotificationService
 
     @GetMapping("/dashboard")
     public String home(Model model, HttpSession session) {
@@ -37,6 +38,11 @@ public class HomeController {
         User user = authenticationService.getCurrentUser();
 
         session.setAttribute("currentUser", user);
+
+        // Add unread notification count to model
+        if (user != null) {
+            model.addAttribute("unreadNotificationCount", notificationService.getUnreadNotificationCount(user));
+        }
 
 
         // Process for Admin Or Manager

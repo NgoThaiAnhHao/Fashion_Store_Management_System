@@ -201,25 +201,21 @@ CREATE TABLE [Payment] (
     UNIQUE ([order_id])
     );
 
--- REVIEW 
-CREATE TABLE [Review] (
-    [rating_id] BIGINT IDENTITY(1,1),
-    [product_id] BIGINT NOT NULL,
+-- NOTIFICATIONS
+CREATE TABLE [Notifications] (
+    [notification_id] BIGINT IDENTITY(1,1) NOT NULL,
     [user_id] BIGINT NOT NULL,
-    [order_detail_id] BIGINT NOT NULL,
-    [comment] VARCHAR(MAX),
-    [rating] INT NOT NULL,
+    [order_id] BIGINT NOT NULL,
+    [title] NVARCHAR(255) NOT NULL,
+    [message] NVARCHAR(MAX) NOT NULL,
+    [type] VARCHAR(50) NOT NULL,
+    [is_read] BIT NOT NULL DEFAULT 0,
     [created_at] DATETIME NOT NULL DEFAULT GETDATE(),
 
-    CHECK ([rating] BETWEEN 1 AND 5),
-
-    PRIMARY KEY ([rating_id]),
-    FOREIGN KEY ([product_id]) REFERENCES [Product]([product_id]),
+    PRIMARY KEY ([notification_id]),
     FOREIGN KEY ([user_id]) REFERENCES [Users]([user_id]),
-    FOREIGN KEY ([order_detail_id]) REFERENCES [Order_Details]([order_detail_id]),
-    UNIQUE ([order_detail_id])
-    )
-
+    FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id])
+);
 
 -- ========================================= SEED =========================================
     INSERT INTO [Roles] ([role_name])

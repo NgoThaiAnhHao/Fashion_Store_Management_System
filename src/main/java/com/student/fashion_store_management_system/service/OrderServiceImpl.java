@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final AuthenticationService authenticationService;
+    private final NotificationService notificationService; // Inject NotificationService
 
     @Override
     public List<Order> findAll() {
@@ -54,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void updateStatus(long id, OrderStatusEnum status, String rejectReason) {
         Order order = findById(id);
         order.setStatus(status);
@@ -63,6 +65,27 @@ public class OrderServiceImpl implements OrderService {
             order.setRejectReason(null);
         }
         orderRepository.save(order);
+
+        // Create notification based on status change
+        User customer = order.getOrderedBy();
+        String title;
+        String message;
+        String type;
+
+        if (status == OrderStatusEnum.CONFIRMED) {
+            title = "Order Confirmed";
+            message = "Your logo has been approved. Your order is now confirmed and will proceed to production.";
+            type = "ORDER_CONFIRMED";
+            notificationService.createNotification(customer, order, title, message, type);
+        } else if (status == OrderStatusEnum.LOGO_REJECTED) {
+            title = "Logo Rejected";
+            message = "Your logo has been rejected. Please upload another logo.";
+            if (rejectReason != null && !rejectReason.trim().isEmpty()) {
+                message += " Reason: " + rejectReason;
+            }
+            type = "LOGO_REJECTED";
+            notificationService.createNotification(customer, order, title, message, type);
+        }
     }
 
     @Override
