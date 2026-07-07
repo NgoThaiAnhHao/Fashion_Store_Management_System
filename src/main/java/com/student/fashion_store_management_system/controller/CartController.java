@@ -44,6 +44,11 @@ public class CartController {
                             HttpSession session,
                             RedirectAttributes redirectAttributes) throws IOException {
 
+        boolean isCustomPageRequest = "true".equals(redirectToCart);
+        String errorRedirectUrl = isCustomPageRequest
+                ? "redirect:/fashion-store/custom"
+                : "redirect:/fashion-store/products/detail/" + productId;
+
         // Check validation errors (for other fields if any)
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
@@ -51,22 +56,20 @@ public class CartController {
                     .map(FieldError::getDefaultMessage)
                     .toList();
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/fashion-store/products/detail/" + productId;
+            return errorRedirectUrl;
         }
 
-        // Business Rule Validation for logoSize and logoPosition
-        boolean hasCustomText = cartItem.getCustomLogoText() != null && !cartItem.getCustomLogoText().trim().isEmpty();
+        // Logo Size and Logo Position are required only when the user uploads a logo image.
         boolean hasCustomImage = customLogoImage != null && !customLogoImage.isEmpty();
-        boolean hasCustomLogo = hasCustomText || hasCustomImage;
 
-        if (hasCustomLogo) {
+        if (hasCustomImage) {
             if (cartItem.getLogoSize() == null || cartItem.getLogoSize().trim().isEmpty()) {
-                redirectAttributes.addFlashAttribute("errorMessage", "Logo Size is required when custom text or logo image is provided.");
-                return "redirect:/fashion-store/products/detail/" + productId;
+                redirectAttributes.addFlashAttribute("errorMessage", "Logo Size is required when uploading a logo.");
+                return errorRedirectUrl;
             }
             if (cartItem.getLogoPosition() == null || cartItem.getLogoPosition().trim().isEmpty()) {
-                redirectAttributes.addFlashAttribute("errorMessage", "Logo Position is required when custom text or logo image is provided.");
-                return "redirect:/fashion-store/products/detail/" + productId;
+                redirectAttributes.addFlashAttribute("errorMessage", "Logo Position is required when uploading a logo.");
+                return errorRedirectUrl;
             }
         }
 
