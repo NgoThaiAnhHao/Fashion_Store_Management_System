@@ -30,24 +30,10 @@
                     <p class="text-sm text-slate-500 mt-0.5">Add something about category</p>
                 </div>
 
-                <!-- Avatar & basic -->
-                <div class="bg-white rounded-xl border border-slate-200 p-6">
-                    <div class="flex items-center gap-5 mb-6">
-                        <div class="relative">
-                            <div class="py-4 px-4 bg-pink-500 flex items-center justify-center text-[30px] font-bold text-[#1F1B18] flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-bar-stacked-icon lucide-chart-bar-stacked"><path d="M11 13v4"/><path d="M15 5v4"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/><rect x="7" y="13" width="9" height="4" rx="1"/><rect x="7" y="5" width="12" height="4" rx="1"/></svg>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="text-lg font-bold text-slate-900">Category</div>
-                            <div class="text-sm text-slate-500">You can add new for Category in this page</div>
-                        </div>
-                    </div>
-
+                <div>
                     <!-- Error message-->
                     <ul th:if="${errors}"
-                        class=" text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        class="text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative" role="alert">
                         <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
                     </ul>
 
@@ -55,30 +41,42 @@
                     <form th:action="@{/fashion-store/categories/add-new}"
                           th:object="${category}"
                           method="POST"
-                          class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          class="bg-[#FAFAFA] border border-[#E5E7EB] rounded-lg relative my-10">
 
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1.5">
-                                Name
-                            </label>
-                            <input th:field="*{name}"
-                                   class="w-full border rounded-xl px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-indigo-300 focus:border-indigo-500 bg-white"/>
+                        <div class="p-6 space-y-6">
+                            <div>
+                                <div class="grid grid-cols-6 gap-6">
+                                    <!-- Category Name -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="category-name" class="text-xs font-medium text-[#6B7280] block mb-2">Name</label>
+                                        <input type="text"
+                                               id="category-name"
+                                               th:field="*{name}"
+                                               placeholder="Category name..."
+                                               class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               required>
+                                    </div>
+
+                                    <!-- Category Description -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="category-description" class="text-xs font-medium text-[#6B7280] block mb-2">Description</label>
+                                        <input type="text"
+                                               id="category-description"
+                                               th:field="*{description}"
+                                               placeholder="Category description..."
+                                               class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <label  class="block text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1.5">
-                                Description
-                            </label>
-                            <input th:field="*{description}" class="w-full border rounded-xl px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors border-indigo-300 focus:border-indigo-500 bg-white"/>
-                        </div>
-
-                        <div class="col-span-full">
-                            <button class="mt-4 flex items-center gap-2 px-5 py-2.5 bg-indigo-500 text-white text-sm font-semibold rounded-xl hover:bg-indigo-600 transition-colors">
-                                Save Changes
+                        <div class="p-6 border-t border-gray-200 rounded-b">
+                            <button class="text-[#6B7280] bg-[#D6C4AA]/60 hover:bg-[#D6C4AA]/80 border border-[#D6C4AA]/90 focus:outline-2 focus:outline-offset-2 focus:outline-[#D6C4AA]/90 active:bg-[#D6C4AA]/90 font-medium rounded-lg text-sm px-10 py-2.5 text-center" type="submit">
+                                Save
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </main>

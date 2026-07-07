@@ -10,8 +10,9 @@
     <link th:href="@{/css/index.css}" rel="stylesheet" />
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
+
 <body>
-<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
+<div class="flex h-screen bg-[#FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -19,128 +20,207 @@
 
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100">
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-[ #FFFFFF]">
+        <main class="flex-1 overflow-y-auto bg-[#FFFFFF]">
+
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 
-            <div class="max-w-7xl mx-auto px-4 py-10">
-                <h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#0B0B0B] hover:text-black transition-colors">
-                    Order Details -
-                    <span class="text-sm font-medium">
-                        Order #<span th:text="${order.orderId}"></span>
-                    </span>
-                </h1>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
 
-                <h1 class="items-center gap-2 text-xs text-gray-500 mb-10">
-                    Order By
-                    <span class="font-bold" th:text="${order.orderedBy.fullName}"></span>
-                </h1>
+                <!-- Back button -->
+                <a th:href="@{/fashion-store/orders}"
+                   class="inline-flex items-center gap-2 mb-6 text-xs font-bold tracking-[0.18em] uppercase text-[#6B7280] hover:text-[#0B0B0B] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="16"
+                         height="16"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="M19 12H5"/>
+                    </svg>
+                    Back to Order Management
+                </a>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    <!-- Items -->
-                    <div class="lg:col-span-2 bg-[#FAFAFA] border border-[#E5E7EB] py-4 px-8">
-                        <!-- Header -->
-                        <div class="sm:grid grid-cols-12 text-xs tracking-[0.1em] uppercase text-[#0B0B0B] pb-4 mb-2 font-medium border-b">
-                            <span class="col-span-6">Product</span>
-                            <span class="col-span-2 text-center">Size</span>
-                            <span class="col-span-2 text-center">P.Qty</span>
-                            <span class="col-span-2 text-right">Total</span>
+                <!-- Page title -->
+                <div class="mb-10">
+                    <h1 class="text-2xl font-black tracking-[0.2em] uppercase text-[#0B0B0B]">
+                        Order Details -
+                        <span class="tracking-[0.25em]">Order #</span><span th:text="${order.orderId}"></span>
+                    </h1>
+
+                    <p class="mt-2 text-sm font-bold tracking-[0.15em] uppercase text-[#0B0B0B]">
+                        Order by
+                        <span th:text="${order.orderedBy.fullName}"></span>
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+                    <!-- Order Items -->
+                    <div class="xl:col-span-2 bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-6">
+
+                        <div class="flex items-center justify-between border-b border-[#E5E7EB] pb-4 mb-6">
+                            <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-[#0B0B0B]">
+                                Product
+                            </h2>
                         </div>
 
-                        <!-- Items Detail -->
-                        <div th:each="orderDetail : ${orderDetails}" class="divide-y divide-gray-100">
-                            <div class="py-6 grid grid-cols-12 gap-4 items-center">
-                                <div class="col-span-12 sm:col-span-6 flex gap-4">
-                                    <div class="w-20 h-24 bg-gray-100 flex-shrink-0 overflow-hidden">
-                                        <!-- If product was added before -->
+                        <!-- Item Detail -->
+                        <div th:each="orderDetail : ${orderDetails}"
+                             class="flex flex-col gap-6 border-b border-[#E5E7EB]/70 last:border-b-0 pb-6 mb-6 last:pb-0 last:mb-0">
+
+                            <!-- Product + Customization -->
+                            <div class="flex flex-col xl:flex-row xl:items-start gap-6">
+
+                                <!-- Product Info -->
+                                <div class="flex gap-5 flex-1 min-w-0">
+
+                                    <!-- Product Image -->
+                                    <div class="w-28 h-32 shrink-0 rounded-lg overflow-hidden border border-[#E5E7EB] bg-white">
+                                        <!-- Default image -->
                                         <img th:if="${#strings.startsWith(orderDetail.product.imageUrl, 'images')}"
                                              th:src="@{'/' + ${orderDetail.product.imageUrl}}"
                                              alt="Product Image"
-                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                                        />
+                                             class="w-full h-full object-cover"/>
 
-                                        <!-- If product was uploaded by user -->
+                                        <!-- Uploaded product image -->
                                         <img th:if="${!#strings.startsWith(orderDetail.product.imageUrl, 'images')}"
                                              th:src="@{'/uploads/products/' + ${orderDetail.product.productId} + '/' + ${orderDetail.product.imageUrl}}"
                                              alt="Product Image"
-                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                                        />
+                                             class="w-full h-full object-cover"/>
                                     </div>
 
-                                    <div>
-                                        <h3 th:text="${orderDetail.product.name}" class="text-sm tracking-wide mb-1"></h3>
+                                    <!-- Product Text -->
+                                    <div class="flex-1 min-w-0">
+                                        <h3 th:text="${orderDetail.product.name}"
+                                            class="text-base font-bold text-[#0B0B0B] mb-1">
+                                            Product Name
+                                        </h3>
 
-                                        <p class="text-xs text-gray-400 mb-0.5">
+                                        <p class="text-sm text-[#9CA3AF] mb-3">
                                             Set · $<span th:text="${orderDetail.product.price}"></span>
                                         </p>
+                                    </div>
+                                </div>
 
-                                        <!-- Customization Details -->
-                                        <div th:if="${(orderDetail.logoText != null and !orderDetail.logoText.isEmpty()) or (orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty())}">
-                                            <!-- Custom text -->
+                                <!-- Customization Details -->
+                                <div th:if="${(orderDetail.logoText != null and !orderDetail.logoText.isEmpty()) or (orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty())}"
+                                     class="w-full xl:w-[430px] rounded-xl border border-[#E5E7EB] bg-white p-5">
+
+                                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9CA3AF] mb-4">
+                                        Customization
+                                    </p>
+
+                                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
+
+                                        <!-- Custom Info Left -->
+                                        <div class="flex-1 min-w-0">
+
+                                            <!-- Custom Text -->
                                             <p th:if="${orderDetail.logoText != null and !orderDetail.logoText.isEmpty()}"
-                                               class="text-xs text-gray-400 italic">
-                                                Text: "<span th:text="${orderDetail.logoText}"></span>"
+                                               class="text-sm text-[#6B7280] mb-4">
+                                                <span class="font-medium text-[#0B0B0B]">Text:</span>
+                                                "<span th:text="${orderDetail.logoText}"></span>"
                                             </p>
-
-                                            <!-- Custom logo image -->
-                                            <div th:if="${orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty()}"
-                                                 class="mt-2">
-                                                <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
-                                                <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
-                                                     alt="Custom Logo"
-                                                     class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
-                                            </div>
 
                                             <!-- Logo Size -->
                                             <p th:if="${orderDetail.logoSize != null and !orderDetail.logoSize.isEmpty()}"
-                                               class="text-xs text-gray-400 mt-1">
-                                                Logo Size: <span th:text="${orderDetail.logoSize}"></span>
+                                               class="text-sm text-[#9CA3AF] mt-2">
+                                                Logo Size:
+                                                <span class="font-medium text-[#6B7280]" th:text="${orderDetail.logoSize}"></span>
                                             </p>
 
                                             <!-- Logo Position -->
                                             <p th:if="${orderDetail.logoPosition != null and !orderDetail.logoPosition.isEmpty()}"
-                                               class="text-xs text-gray-400">
-                                                Logo Position: <span th:text="${orderDetail.logoPosition}"></span>
+                                               class="text-sm text-[#9CA3AF]">
+                                                Logo Position:
+                                                <span class="font-medium text-[#6B7280]" th:text="${orderDetail.logoPosition}"></span>
                                             </p>
+                                        </div>
+
+                                        <!-- Custom Logo Image Right -->
+                                        <div th:if="${orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty()}"
+                                             class="shrink-0">
+                                            <p class="text-sm font-medium text-[#9CA3AF] mb-2 text-left sm:text-right">
+                                                Custom logo:
+                                            </p>
+
+                                            <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
+                                                 alt="Custom Logo"
+                                                 class="w-36 h-36 object-contain rounded-xl border border-[#E5E7EB] bg-white p-2"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Member Info -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                <!-- Member 1 -->
+                                <div class="bg-white rounded-xl border border-[#E5E7EB] p-4">
+                                    <div class="flex items-center justify-between gap-4 mb-4">
+                                        <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9CA3AF]">
+                                            Member 1
+                                        </p>
+                                    </div>
+
+                                    <div class="space-y-3 text-sm">
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Size</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member1Size}"></span>
+                                        </div>
+
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Gender</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member1Gender}"></span>
+                                        </div>
+
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Quantity</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member1Quantity}"></span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Size -->
-                                <div class="col-span-4 sm:col-span-2 text-center">
-                                    <p class="text-xs text-gray-400 sm:hidden mb-1">Sizes</p>
-                                    <div class="flex flex-col items-center gap-1">
-                                        <span class="text-xs">Member 1 Size:
-                                            <span th:text="${orderDetail.member1Size}"></span>
-                                        </span>
-                                        <span class="text-xs">Member 1 Gender:
-                                            <span th:text="${orderDetail.member1Gender}"></span>
-                                        </span>
-                                        <span class="text-xs">Member 2 Size:
-                                            <span th:text="${orderDetail.member2Size}"></span>
-                                        </span>
-                                        <span class="text-xs">Member 2 Gender:
-                                            <span th:text="${orderDetail.member2Gender}"></span>
-                                        </span>
+                                <!-- Member 2 -->
+                                <div class="bg-white rounded-xl border border-[#E5E7EB] p-4">
+                                    <div class="flex items-center justify-between gap-4 mb-4">
+                                        <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9CA3AF]">
+                                            Member 2
+                                        </p>
+                                    </div>
+
+                                    <div class="space-y-3 text-sm">
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Size</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member2Size}"></span>
+                                        </div>
+
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Gender</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member2Gender}"></span>
+                                        </div>
+
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-[#6B7280]">Quantity</span>
+                                            <span class="font-bold text-[#0B0B0B]" th:text="${orderDetail.member2Quantity}"></span>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Pair Quantity -->
-                                <div class="col-span-4 sm:col-span-2 flex justify-center">
-                                    <div class="flex items-center">
-                                        <span class="text-xs">Member 1 QTY:
-                                            <span th:text="${orderDetail.member1Quantity}"></span>
-                                        </span>
-                                        <span class="text-xs">Member 2 QTY:
-                                            <span th:text="${orderDetail.member2Quantity}"></span>
-                                        </span>
-                                    </div>
-                                </div>
+                            <!-- Product Total: bottom right -->
+                            <div class="flex justify-end">
+                                <div class="text-right min-w-[120px]">
+                                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9CA3AF] mb-2">
+                                        Item Total
+                                    </p>
 
-                                <!-- Price -->
-                                <div class="col-span-4 sm:col-span-2 text-right">
-                                    <p class="text-sm">
+                                    <p class="text-lg font-bold text-[#0B0B0B]">
                                         $<span th:text="${orderDetail.subTotal}"></span>
                                     </p>
                                 </div>
@@ -149,108 +229,101 @@
                     </div>
 
                     <!-- Payment -->
-                    <div>
-                        <div class="bg-[#FAFAFA] border border-[#E5E7EB] p-8 sticky top-24">
-                            <h2 class="text-sm tracking-[0.15em] uppercase mb-8 font-bold">
-                                Payment #<span th:text="${payment.paymentId}"></span>
-                            </h2>
+                    <div class="bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-6 h-fit sticky top-24">
+                        <h2 class="text-lg font-bold tracking-[0.25em] uppercase text-[#0B0B0B] mb-8">
+                            Payment #<span th:text="${payment.paymentId}"></span>
+                        </h2>
 
-                            <div class="space-y-3 mb-4">
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-gray-500">Method</span>
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-[#6B7280]">Method</span>
 
-                                    <span th:if="${payment.paymentMethod.toString() == 'COD'}"
-                                          class="font-medium text-emerald-700">
-                                        <span th:text="${payment.paymentMethod.toString()}"></span>
-                                    </span>
+                                <span th:if="${payment.paymentMethod.toString() == 'COD'}"
+                                      class="text-sm font-bold text-emerald-700">
+                                    <span th:text="${payment.paymentMethod.toString()}"></span>
+                                </span>
 
-                                    <span th:if="${payment.paymentMethod.toString() == 'CARD'}"
-                                          class="font-medium text-blue-700">
-                                        <span th:text="${payment.paymentMethod.toString()}"></span>
-                                    </span>
-                                </div>
+                                <span th:if="${payment.paymentMethod.toString() == 'CARD'}"
+                                      class="text-sm font-bold text-blue-700">
+                                    <span th:text="${payment.paymentMethod.toString()}"></span>
+                                </span>
                             </div>
 
-                            <div class="space-y-3 mb-4">
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-gray-500">Date</span>
-                                    <span th:text="${payment.getFormattedCreatedAt()}"
-                                          class="font-medium">
-                                    </span>
-                                </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-[#6B7280]">Date</span>
+                                <span th:text="${payment.getFormattedCreatedAt()}"
+                                      class="text-sm font-bold text-[#0B0B0B]">
+                                </span>
                             </div>
 
-                            <div class="space-y-3 mb-4">
-                                <div class="flex justify-between text-xs">
-                                    <span class="text-gray-500">Status</span>
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-sm text-[#6B7280]">Status</span>
 
-                                    <form th:action="@{/fashion-store/payment/update-status/{paymentId}(paymentId=${payment.paymentId})}"
-                                          method="POST"
-                                          class="flex justify-center items-center gap-2">
+                                <form th:action="@{/fashion-store/payment/update-status/{paymentId}(paymentId=${payment.paymentId})}"
+                                      method="POST"
+                                      class="flex items-center gap-2">
 
-                                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                                    <input type="hidden" name="orderId" th:value="${order.orderId}">
 
-                                        <select name="paymentStatus"
-                                                class="text-xs rounded-full px-3 py-1 appearance-none border-0 font-medium text-center"
-                                                th:classappend="
-                                                    ${payment.paymentStatus.toString() == 'PENDING'} ? 'bg-emerald-100 text-emerald-700' :
-                                                    (${payment.paymentStatus.toString() == 'REFUNDED'} ? 'bg-blue-100 text-blue-700' :
-                                                    (${payment.paymentStatus.toString() == 'PAID'} ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'))
-                                                ">
+                                    <select name="paymentStatus"
+                                            class="text-xs rounded-full px-4 py-1.5 appearance-none border-0 font-bold text-center min-w-[110px]"
+                                            th:classappend="
+                                                ${payment.paymentStatus.toString() == 'PENDING'} ? 'bg-emerald-100 text-emerald-700' :
+                                                (${payment.paymentStatus.toString() == 'REFUNDED'} ? 'bg-blue-100 text-blue-700' :
+                                                (${payment.paymentStatus.toString() == 'PAID'} ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'))
+                                            ">
 
-                                            <option value="PENDING"
-                                                    class="bg-emerald-100 text-emerald-700"
-                                                    th:selected="${payment.paymentStatus.toString() == 'PENDING'}">
-                                                PENDING
-                                            </option>
+                                        <option value="PENDING"
+                                                class="bg-emerald-100 text-emerald-700"
+                                                th:selected="${payment.paymentStatus.toString() == 'PENDING'}">
+                                            PENDING
+                                        </option>
 
-                                            <option value="REFUNDED"
-                                                    class="bg-blue-100 text-blue-700"
-                                                    th:selected="${payment.paymentStatus.toString() == 'REFUNDED'}">
-                                                REFUNDED
-                                            </option>
+                                        <option value="REFUNDED"
+                                                class="bg-blue-100 text-blue-700"
+                                                th:selected="${payment.paymentStatus.toString() == 'REFUNDED'}">
+                                            REFUNDED
+                                        </option>
 
-                                            <option value="PAID"
-                                                    class="bg-amber-100 text-amber-700"
-                                                    th:selected="${payment.paymentStatus.toString() == 'PAID'}">
-                                                PAID
-                                            </option>
+                                        <option value="PAID"
+                                                class="bg-amber-100 text-amber-700"
+                                                th:selected="${payment.paymentStatus.toString() == 'PAID'}">
+                                            PAID
+                                        </option>
 
-                                            <option value="FAILED"
-                                                    class="bg-red-100 text-red-700"
-                                                    th:selected="${payment.paymentStatus.toString() == 'FAILED'}">
-                                                FAILED
-                                            </option>
-                                        </select>
+                                        <option value="FAILED"
+                                                class="bg-red-100 text-red-700"
+                                                th:selected="${payment.paymentStatus.toString() == 'FAILED'}">
+                                            FAILED
+                                        </option>
+                                    </select>
 
-                                        <button type="submit">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 width="16"
-                                                 height="16"
-                                                 viewBox="0 0 24 24"
-                                                 fill="none"
-                                                 stroke="currentColor"
-                                                 stroke-width="2"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round"
-                                                 class="lucide lucide-save-icon lucide-save">
-                                                <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
-                                                <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/>
-                                                <path d="M7 3v4a1 1 0 0 0 1 1h7"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
+                                    <button type="submit"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg text-[#6B7280] hover:text-black hover:bg-[#F3F4F6] transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             width="18"
+                                             height="18"
+                                             viewBox="0 0 24 24"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             stroke-linecap="round"
+                                             stroke-linejoin="round"
+                                             class="lucide lucide-save-icon lucide-save">
+                                            <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+                                            <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/>
+                                            <path d="M7 3v4a1 1 0 0 0 1 1h7"/>
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
+                        </div>
 
-                            <div class="border-t border-gray-200 pt-4 mb-6">
-                                <div class="flex justify-between">
-                                    <span class="text-sm">Total</span>
-                                    <span class="text-lg font-bold">
-                                        $<span th:text="${payment.totalAmount}"></span>
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="border-t border-[#E5E7EB] mt-8 pt-6 flex items-center justify-between">
+                            <span class="text-base font-medium text-[#0B0B0B]">Total</span>
+                            <span class="text-2xl font-black text-[#0B0B0B]">
+                                $<span th:text="${payment.totalAmount}"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
