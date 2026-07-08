@@ -31,14 +31,20 @@
                 </div>
 
                 <div>
-                    <!-- Error message -->
+                    <!-- Error message from validation -->
                     <ul th:if="${errors}"
                         class=" text-center uppercase text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
                         <li th:each="error : ${errors}" th:text="${error}" class="block"></li>
                     </ul>
 
+                    <!-- Error message from business logic -->
+                    <div th:if="${errorMessage}"
+                         class=" text-center uppercase text-xs bg-red-100 border border-red-400 text-red-700 px-10 py-3 mb-3 rounded relative " role="alert">
+                        <span th:text="${errorMessage}"></span>
+                    </div>
+
                     <!-- Form fields -->
-                    <form th:action="@{/fashion-store/products/update/{id}(id=${product.productId})}"
+                    <form th:action="@{/fashion-store/products/update/{id}(id=${productId})}"
                           th:object="${product}"
                           method="POST"
                           enctype="multipart/form-data"
@@ -59,15 +65,15 @@
                                     </div>
 
                                     <!-- Select Category -->
-                                    <div th:field="*{category.getCategoryId()}" class="col-span-6 sm:col-span-3">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="categoryId" class="text-xs text-slate-700 font-medium block mb-2">Category</label>
-                                        <select id="categoryId" name="categoryId" class="border border-gray-400  sm:text-sm outline-none block w-full p-2.5">
+                                        <select id="categoryId" name="categoryId" th:field="*{categoryId}" class="border border-gray-400  sm:text-sm outline-none block w-full p-2.5">
                                             <option value="">Select Category</option>
                                             <option
                                                     th:each="category : ${categories}"
                                                     th:value="${category.categoryId}"
                                                     th:text="${category.name}"
-                                                    th:selected="${category.categoryId == product.getCategory().getCategoryId()}"></option>
+                                                    th:selected="${category.categoryId == product.categoryId}"></option>
                                         </select>
                                     </div>
 
@@ -88,6 +94,8 @@
                                         <input type="number"
                                                id="price"
                                                th:field="*{price}"
+                                               min="0"
+                                               step="0.01"
                                                placeholder="80.00"
                                                class="placeholder:text-[#6B7280]/70 border border-gray-400 text-gray-900 sm:text-sm outline-none block w-full p-2.5"
                                                required="">

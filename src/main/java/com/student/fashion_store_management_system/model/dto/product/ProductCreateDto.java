@@ -39,5 +39,5 @@ public class ProductCreateDto {
     private Integer discountPercent;
 
     @NotNull(message = "* Category is mandatory!")
-    private long categoryId;
+    private Long categoryId; // Changed from long to Long
 }

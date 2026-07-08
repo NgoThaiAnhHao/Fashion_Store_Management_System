@@ -1,6 +1,7 @@
 package com.student.fashion_store_management_system.controller;
 
 import com.student.fashion_store_management_system.enums.Gender; // Import Gender enum
+import com.student.fashion_store_management_system.exception.common.ProductUpdateRestrictedException;
 import com.student.fashion_store_management_system.model.dto.product.ProductCreateDto;
 import com.student.fashion_store_management_system.model.dto.user.UserResponseDto;
 import com.student.fashion_store_management_system.model.entity.CartItem;
@@ -116,8 +117,22 @@ public class ProductController {
     @GetMapping("/products/update/{id}")
     public String showUpdateProduct(@PathVariable long id,
                               Model model) {
-        Product product = productService.findById(id);
-        model.addAttribute("product", product);
+        Product productEntity = productService.findById(id);
+
+        // Convert Product entity to ProductCreateDto for form binding
+        ProductCreateDto productCreateDto = new ProductCreateDto();
+        productCreateDto.setName(productEntity.getName());
+        productCreateDto.setDescription(productEntity.getDescription());
+        productCreateDto.setPrice(productEntity.getPrice());
+        productCreateDto.setStockQuantity(productEntity.getStockQuantity());
+        productCreateDto.setDiscountPercent(productEntity.getDiscountPercent());
+        productCreateDto.setImageUrl(productEntity.getImageUrl());
+        if (productEntity.getCategory() != null) {
+            productCreateDto.setCategoryId(productEntity.getCategory().getCategoryId());
+        }
+
+        model.addAttribute("product", productCreateDto); // 'product' is now a ProductCreateDto
+        model.addAttribute("productId", id); // Add productId separately
         model.addAttribute("categories", findAllCategories());
         return "/admin/product/edit-product";
     }
@@ -127,19 +142,30 @@ public class ProductController {
                                 @Valid @ModelAttribute("product") ProductCreateDto productCreateDto,
                                 BindingResult bindingResult,
                                 Model model) {
+        // Always add productId to the model for the form action URL
+        model.addAttribute("productId", id);
+
         // Check validation
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
+            model.addAttribute("errors", bindingResult.getFieldErrors()
                     .stream()
                     .map(FieldError::getDefaultMessage)
-                    .toList();
-            model.addAttribute("errors", errors);
+                    .toList());
             model.addAttribute("categories", findAllCategories());
+            // Re-add productCreateDto to retain user input
             model.addAttribute("product", productCreateDto);
-            return "/admin/product/add-new-product";
+            return "/admin/product/edit-product"; // Return to edit page
         }
 
-        productService.update(productCreateDto, id);
+        try {
+            productService.update(productCreateDto, id);
+        } catch (ProductUpdateRestrictedException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("categories", findAllCategories());
+            // Re-add productCreateDto to retain user input
+            model.addAttribute("product", productCreateDto);
+            return "/admin/product/edit-product"; // Return to edit page
+        }
         return "redirect:/fashion-store/products";
     }
 

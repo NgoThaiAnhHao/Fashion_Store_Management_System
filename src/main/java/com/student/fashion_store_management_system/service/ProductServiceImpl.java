@@ -1,5 +1,6 @@
 package com.student.fashion_store_management_system.service;
 
+import com.student.fashion_store_management_system.exception.common.ProductUpdateRestrictedException;
 import com.student.fashion_store_management_system.exception.common.ResourceNotFoundException;
 import com.student.fashion_store_management_system.mapper.ProductMapper;
 import com.student.fashion_store_management_system.model.dto.product.ProductCreateDto;
@@ -53,6 +54,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product update(ProductCreateDto productCreateDto, long id) {
+        // Check if the product is used in any active orders
+        if (productRepository.existsActiveOrdersByProductId(id)) {
+            throw new ProductUpdateRestrictedException("Cannot update this product because it is being used in active orders.");
+        }
+
         Product product = findById(id);
         Category category = categoryService.findById(productCreateDto.getCategoryId());
 
