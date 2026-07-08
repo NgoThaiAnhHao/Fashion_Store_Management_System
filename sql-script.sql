@@ -181,25 +181,39 @@ CREATE TABLE [Order_Details] (
 CREATE TABLE [Payment] (
     [payment_id] BIGINT IDENTITY(1,1) NOT NULL,
     [order_id] BIGINT NOT NULL,
-    [total_amount] DECIMAL(10, 2) NOT NULL,
-    [payment_method] VARCHAR(100) NOT NULL DEFAULT 'COD',
-    [payment_status] VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    [total_amount] DECIMAL(10,2) NOT NULL,
+
+    -- DEPOSIT Or REMAINING
+    [payment_type] VARCHAR(30) NOT NULL,
+
+    -- COD / CARD / PAYPAL
+    [payment_method] VARCHAR(30) NOT NULL DEFAULT 'PAYPAL',
+
+    -- PENDING / PAID / FAILED / REFUNDED
+    [payment_status] VARCHAR(30) NOT NULL DEFAULT 'PENDING',
+
+    -- PayPal
+    [paypal_order_id] VARCHAR(255),
+    [paypal_capture_id] VARCHAR(255),
     [created_at] DATETIME NOT NULL DEFAULT GETDATE(),
 
-    CHECK ([total_amount] >= 0.0),
+    PRIMARY KEY ([payment_id]),
+    FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id])ON DELETE CASCADE,
+
+    CHECK ([total_amount] >= 0),
+
     CHECK (
-    [payment_method] IN
-('COD', 'CARD')
-    ),
-    CHECK (
-    [payment_status] IN
-('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+        [payment_type] IN ('DEPOSIT', 'REMAINING')
     ),
 
-    PRIMARY KEY ([payment_id]),
-    FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id]) ON DELETE CASCADE,
-    UNIQUE ([order_id])
-    );
+    CHECK (
+        [payment_method] IN ('COD', 'CARD', 'PAYPAL')
+    ),
+
+    CHECK (
+        [payment_status] IN ('PENDING', 'PAID', 'FAILED', 'REFUNDED')
+    )
+);
 
 -- NOTIFICATIONS
 CREATE TABLE [Notifications] (
@@ -269,84 +283,84 @@ VALUES
 -- Couple T-Shirts (Category 1)
     ('Forever Together Couple Tee',
     'Romantic matching t-shirt set for couples with a minimalist heart design.',
-    24.99, 'images/products/couple-01.jpg', 1, 2, 10, 1000013),
+    24.99, 'images/products/couple-01.jpg', 1, 999, 10, 1000013),
 
     ('King & Queen Matching Shirt',
     'Stylish matching shirts featuring King and Queen prints.',
-    29.99, 'images/products/couple-02.jpg', 1, 10, 15, 1000013),
+    29.99, 'images/products/couple-02.jpg', 1, 999, 15, 1000013),
 
     ('Love Story Couple T-Shirt',
     'Comfortable cotton couple shirt perfect for everyday wear.',
-    22.50, 'images/products/couple-03.jpg', 1, 140, 5, 1000015),
+    22.50, 'images/products/couple-03.jpg', 1, 999, 5, 1000015),
 
     ('Soulmate Matching Tee',
     'Modern matching t-shirts designed for couples who love simplicity.',
-    26.99, 'images/products/couple-04.jpg', 1, 95, 0, 1000015),
+    26.99, 'images/products/couple-04.jpg', 1, 999, 0, 1000015),
 
 -- Family Matching (Category 2)
     ('Happy Family Vacation Shirt',
     'Matching family shirts ideal for vacations and family trips.',
-    34.99, 'images/products/family-01.jpg', 2, 75, 20, 1000018),
+    34.99, 'images/products/family-01.jpg', 2, 999, 20, 1000018),
 
     ('Family Squad T-Shirt',
     'Fun family matching shirt collection with squad-inspired design.',
-    32.50, 'images/products/family-02.jpg', 2, 60, 10, 1000018),
+    32.50, 'images/products/family-02.jpg', 2, 999, 10, 1000018),
 
     ('Family Day Matching Tee',
     'Soft cotton family t-shirts perfect for weekend gatherings.',
-    28.99, 'images/products/family-03.jpg', 2, 90, 0, 1000019),
+    28.99, 'images/products/family-03.jpg', 2, 999, 0, 1000019),
 
     ('Together We Shine Family Shirt',
     'Coordinated family shirt featuring a cheerful and modern look.',
-    31.99, 'images/products/family-04.jpg', 2, 55, 12, 1000019),
+    31.99, 'images/products/family-04.jpg', 2, 999, 12, 1000019),
 
 -- Best Friend Shirts (Category 3)
     ('Besties Forever Shirt',
     'Matching best friend t-shirts designed for lifelong friendships.',
-    21.99, 'images/products/bff-01.jpg', 3, 130, 10, 1000013),
+    21.99, 'images/products/bff-01.jpg', 3, 999, 10, 1000013),
 
     ('Partner In Crime Tee',
     'Fun matching shirt set for best friends with playful graphics.',
-    23.99, 'images/products/bff-02.jpg', 3, 100, 5, 1000013),
+    23.99, 'images/products/bff-02.jpg', 3, 999, 5, 1000013),
 
     ('Friendship Goals T-Shirt',
     'Trendy matching shirt celebrating friendship and memories.',
-    24.50, 'images/products/bff-03.jpg', 3, 115, 0, 1000015),
+    24.50, 'images/products/bff-03.jpg', 3, 999, 0, 1000015),
 
     ('Dynamic Duo Shirt',
     'Matching t-shirt for inseparable best friends.',
-    22.99, 'images/products/bff-04.jpg', 3, 90, 8, 1000015),
+    22.99, 'images/products/bff-04.jpg', 3, 999, 8, 1000015),
 
 -- Oversized Collection (Category 4)
     ('Urban Oversized Tee',
     'Premium oversized t-shirt with a modern streetwear design.',
-    35.99, 'images/products/oversized-01.jpg', 4, 150, 15, 1000018),
+    35.99, 'images/products/oversized-01.jpg', 4, 999, 15, 1000018),
 
     ('Minimalist Oversized Shirt',
     'Simple oversized t-shirt crafted for comfort and style.',
-    33.99, 'images/products/oversized-02.jpg', 4, 110, 10, 1000018),
+    33.99, 'images/products/oversized-02.jpg', 4, 999, 10, 1000018),
 
     ('Vintage Street Oversized Tee',
     'Fashionable oversized shirt featuring a retro-inspired print.',
-    38.50, 'images/products/oversized-03.jpg', 4, 70, 20, 1000019),
+    38.50, 'images/products/oversized-03.jpg', 4, 999, 20, 1000019),
 
     ('Classic Oversized Cotton Shirt',
     'Comfortable oversized cotton t-shirt suitable for all seasons.',
-    30.99, 'images/products/oversized-04.jpg', 4, 140, 0, 1000019),
+    30.99, 'images/products/oversized-04.jpg', 4, 999, 0, 1000019),
 
 -- Seasonal Collection (Category 5)
     ('Valentine Love Matching Tee',
     'Special edition matching shirt designed for Valentine''s Day.',
-    27.99, 'images/products/seasonal-01.jpg', 5, 80, 25, 1000013),
+    27.99, 'images/products/seasonal-01.jpg', 5, 999, 25, 1000013),
 
     ('Christmas Family Shirt',
     'Festive family matching shirt featuring Christmas-themed graphics.',
-    36.99, 'images/products/seasonal-02.jpg', 5, 65, 30, 1000015),
+    36.99, 'images/products/seasonal-02.jpg', 5, 999, 30, 1000015),
 
     ('Happy New Year Matching Tee',
     'Celebrate the new year with coordinated matching shirts.',
-    29.50, 'images/products/seasonal-03.jpg', 5, 100, 18, 1000018),
+    29.50, 'images/products/seasonal-03.jpg', 5, 999, 18, 1000018),
 
     ('Summer Beach Matching Shirt',
     'Lightweight matching shirt perfect for beach vacations and summer events.',
-    28.99, 'images/products/seasonal-04.jpg', 5, 125, 10, 1000019);
+    28.99, 'images/products/seasonal-04.jpg', 5, 999, 10, 1000019);
