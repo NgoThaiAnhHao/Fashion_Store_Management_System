@@ -159,34 +159,60 @@
 
                             let iconSvg = '';
                             let iconColorClass = '';
-                            if (notification.type === 'ORDER_CONFIRMED') {
+                            if (notification.type === 'ORDER_CONFIRMED' || notification.type === 'PAYMENT_SUCCESS') {
                                 iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>';
                                 iconColorClass = 'text-green-600';
-                            } else if (notification.type === 'LOGO_REJECTED') {
-                                iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>';
-                                iconColorClass = 'text-red-600';
+                            } else if (notification.type === 'PAYMENT_REQUIRED') {
+                                iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>';
+                                iconColorClass = 'text-blue-600';
                             } else {
                                 iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>';
                                 iconColorClass = 'text-blue-600';
                             }
 
                             notificationItem.innerHTML = `
-                                <div class="flex-shrink-0 mt-1 ${iconColorClass}">
-                                    ${iconSvg}
-                                </div>
-                                <div class="flex-grow">
-                                    <h4 class="font-semibold text-sm ${notification.read ? 'text-gray-800' : 'text-blue-800'}">
-                                        ${notification.title}
-                                        ${!notification.read ? '<span class="ml-2 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">New</span>' : ''}
-                                    </h4>
-                                    <p class="text-sm mt-1 ${notification.read ? 'text-gray-600' : 'text-blue-700'}">${notification.message}</p>
-                                    <p class="text-xs text-gray-400 mt-2">
-                                        ${new Date(notification.createdAt).toLocaleString()}
-                                        ${notification.orderId ? ` - Order #<a href="/fashion-store/order-detail/${notification.orderId}" class="text-blue-500 hover:underline">${notification.orderId}</a>` : ''}
-                                    </p>
-                                    ${!notification.read ? `<button class="mark-as-read-btn-topbar mt-2 text-xs text-blue-500 hover:underline" data-id="${notification.id}">Mark as Read</button>` : ''}
-                                </div>
-                            `;
+    <div class="flex-shrink-0 mt-1 ${iconColorClass}">
+        ${iconSvg}
+    </div>
+
+    <div class="flex-grow">
+        <a href="${notification.orderDetailUrl || `/fashion-store/order-detail/${notification.orderId}`}"
+           class="block hover:opacity-80 transition">
+            <h4 class="font-semibold text-sm ${notification.read ? 'text-gray-800' : 'text-blue-800'}">
+                ${notification.title}
+                ${!notification.read ? '<span class="ml-2 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">New</span>' : ''}
+            </h4>
+
+            <p class="text-sm mt-1 ${notification.read ? 'text-gray-600' : 'text-blue-700'}">
+                ${notification.message}
+            </p>
+
+            ${notification.productNames ? `
+                <p class="text-xs text-gray-500 mt-1">
+                    Product: <span class="font-semibold">${notification.productNames}</span>
+                </p>
+            ` : ''}
+
+            <p class="text-xs text-gray-400 mt-2">
+                ${new Date(notification.createdAt).toLocaleString()}
+                ${notification.orderId ? ` - Order #${notification.orderId}` : ''}
+            </p>
+        </a>
+
+        ${notification.paymentRequired && notification.paymentUrl ? `
+            <a href="${notification.paymentUrl}"
+               class="inline-flex items-center justify-center mt-3 px-4 py-2 bg-black text-white text-xs font-bold uppercase tracking-[0.12em] rounded hover:bg-gray-800 transition-colors">
+                Payment
+            </a>
+        ` : ''}
+
+        ${!notification.read ? `
+            <button class="mark-as-read-btn-topbar mt-2 text-xs text-blue-500 hover:underline" data-id="${notification.id}">
+                Mark as Read
+            </button>
+        ` : ''}
+    </div>
+`;
                             notificationListTopbar.appendChild(notificationItem);
                         });
 

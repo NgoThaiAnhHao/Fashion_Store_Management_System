@@ -44,6 +44,12 @@ public class Payment {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "paypal_order_id")
+    private String paypalOrderId;
+
+    @Column(name = "paypal_capture_id")
+    private String paypalCaptureId;
+
     @PrePersist
     private void onCreate() {
         this.paymentStatus = PaymentStatusEnum.PENDING;

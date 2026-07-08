@@ -43,7 +43,9 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .requestMatchers(
                                         "/fashion-store/checkout",
-                                        "/fashion-store/payment"
+                                        "/fashion-store/payment",
+                                        "/fashion-store/paypal/**",
+                                        "/fashion-store/api/paypal/**"
                                 ).hasRole("CUSTOMER")
                                 .requestMatchers("/fashion-store/users/users-management/**")
                                 .hasRole("ADMIN")
