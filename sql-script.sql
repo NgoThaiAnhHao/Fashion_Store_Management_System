@@ -183,9 +183,6 @@ CREATE TABLE [Payment] (
     [order_id] BIGINT NOT NULL,
     [total_amount] DECIMAL(10,2) NOT NULL,
 
-    -- DEPOSIT Or REMAINING
-    [payment_type] VARCHAR(30) NOT NULL,
-
     -- COD / CARD / PAYPAL
     [payment_method] VARCHAR(30) NOT NULL DEFAULT 'PAYPAL',
 
@@ -201,10 +198,6 @@ CREATE TABLE [Payment] (
     FOREIGN KEY ([order_id]) REFERENCES [Orders]([order_id])ON DELETE CASCADE,
 
     CHECK ([total_amount] >= 0),
-
-    CHECK (
-        [payment_type] IN ('DEPOSIT', 'REMAINING')
-    ),
 
     CHECK (
         [payment_method] IN ('COD', 'CARD', 'PAYPAL')

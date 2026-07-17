@@ -29,7 +29,7 @@ public class Product {
 
     private String description;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     private String imageUrl;

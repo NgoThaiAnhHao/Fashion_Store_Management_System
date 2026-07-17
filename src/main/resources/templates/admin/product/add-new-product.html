@@ -59,10 +59,10 @@
                                     </div>
 
                                     <!-- Select Category -->
-                                    <div th:field="*{categoryId}" class="col-span-6 sm:col-span-3">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="categoryId" class="text-xs text-[#6B7280] font-medium block mb-2">Category</label>
-                                        <select id="categoryId" name="categoryId" class="bg-[#F3F4F6] text-[#6B7280] sm:text-sm rounded-lg outline-none block w-full p-2.5">
-                                            <option selected="">Select Category</option>
+                                        <select id="categoryId" th:field="*{categoryId}" class="bg-[#F3F4F6] text-[#6B7280] sm:text-sm rounded-lg outline-none block w-full p-2.5">
+                                            <option value="">Select Category</option>
                                             <option class="text-[#6B7280]" th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
                                         </select>
                                     </div>
@@ -86,6 +86,7 @@
                                                th:field="*{price}"
                                                placeholder="80.00"
                                                min="0"
+                                               max="99999999.99"
                                                step="0.01"
                                                class="placeholder:text-[#6B7280]/70 bg-[#F3F4F6] text-gray-900 sm:text-sm rounded-lg outline-none block w-full p-2.5"
                                                required="">

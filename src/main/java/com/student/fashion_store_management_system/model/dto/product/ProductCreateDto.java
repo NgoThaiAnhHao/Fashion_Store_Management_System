@@ -25,6 +25,7 @@ public class ProductCreateDto {
 
     @NotNull(message = "* Price must be not null")
     @Min(value = 0, message = "* Price must be greater than 0")
+    @Digits(integer = 8, fraction = 2, message = "* Price must not exceed 99,999,999.99 and may have at most 2 decimal places")
     private BigDecimal price;
 
     private String imageUrl;
@@ -38,6 +39,6 @@ public class ProductCreateDto {
     @Max(value = 100, message = "* Discount percent be least than 100")
     private Integer discountPercent;
 
-    @NotNull(message = "* Category is mandatory!")
+    @NotNull(message = "Please select a category.")
     private Long categoryId; // Changed from long to Long
 }

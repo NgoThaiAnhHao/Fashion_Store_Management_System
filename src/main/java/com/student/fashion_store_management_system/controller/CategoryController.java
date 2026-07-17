@@ -1,11 +1,13 @@
 package com.student.fashion_store_management_system.controller;
 
+import com.student.fashion_store_management_system.exception.common.DuplicateCategoryException;
 import com.student.fashion_store_management_system.model.dto.category.CategoryCreateDto;
 import com.student.fashion_store_management_system.model.entity.Category;
 import com.student.fashion_store_management_system.model.entity.Product;
 import com.student.fashion_store_management_system.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/fashion-store")
 @AllArgsConstructor
+@Slf4j
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -55,7 +58,19 @@ public class CategoryController {
             return "/admin/category/add-new-category";
         }
 
-        categoryService.addNew(categoryCreateDto);
+        try {
+            categoryService.addNew(categoryCreateDto);
+        } catch (DuplicateCategoryException e) {
+            String message = String.format(
+                    "A category named '%s' already exists. Please choose a different name.",
+                    categoryCreateDto.getName()
+            );
+            log.warn("Category creation rejected because the name already exists. categoryName='{}'",
+                    categoryCreateDto.getName());
+            model.addAttribute("errors", List.of(message));
+            model.addAttribute("category", categoryCreateDto);
+            return "/admin/category/add-new-category";
+        }
         return "redirect:/fashion-store/categories";
     }
 
@@ -95,7 +110,23 @@ public class CategoryController {
             return "/admin/category/edit-category";
         }
 
-        categoryService.update(categoryCreateDto, id);
+        try {
+            categoryService.update(categoryCreateDto, id);
+        } catch (DuplicateCategoryException e) {
+            String message = String.format(
+                    "A category named '%s' already exists. Please choose a different name.",
+                    categoryCreateDto.getName()
+            );
+            log.warn("Category update rejected because the name already exists. categoryId={}, categoryName='{}'",
+                    id, categoryCreateDto.getName());
+
+            Category category = categoryService.findById(id);
+            category.setName(categoryCreateDto.getName());
+            category.setDescription(categoryCreateDto.getDescription());
+            model.addAttribute("category", category);
+            model.addAttribute("errors", List.of(message));
+            return "/admin/category/edit-category";
+        }
         return "redirect:/fashion-store/categories";
     }
 }

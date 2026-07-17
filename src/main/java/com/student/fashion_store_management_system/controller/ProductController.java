@@ -12,6 +12,8 @@ import com.student.fashion_store_management_system.service.ProductService;
 import com.student.fashion_store_management_system.utils.FileUploadUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -27,6 +29,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/fashion-store")
 @AllArgsConstructor
+@Slf4j
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
@@ -59,10 +62,9 @@ public class ProductController {
                          Model model) {
         // Check validation
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(FieldError::getDefaultMessage)
-                    .toList();
+            List<String> errors = getValidationMessages(bindingResult.getFieldErrors());
+            log.warn("Product creation rejected. name='{}', price={}, validationErrors={}",
+                    productCreateDto.getName(), productCreateDto.getPrice(), errors);
             model.addAttribute("errors", errors);
             model.addAttribute("categories", findAllCategories());
             model.addAttribute("product", productCreateDto);
@@ -82,7 +84,19 @@ public class ProductController {
             productCreateDto.setImageUrl(fileName);
         }
 
-        Product savedProduct = productService.addNew(productCreateDto);
+        Product savedProduct;
+        try {
+            savedProduct = productService.addNew(productCreateDto);
+        } catch (DataAccessException e) {
+            log.error("Failed to create product due to invalid database value: name='{}', price={}",
+                    productCreateDto.getName(), productCreateDto.getPrice(), e);
+            model.addAttribute("errors", List.of(
+                    "Product could not be saved. Price must not exceed 99,999,999.99."
+            ));
+            model.addAttribute("categories", findAllCategories());
+            model.addAttribute("product", productCreateDto);
+            return "/admin/product/add-new-product";
+        }
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
             // Create folder for every product
@@ -147,10 +161,10 @@ public class ProductController {
 
         // Check validation
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errors", bindingResult.getFieldErrors()
-                    .stream()
-                    .map(FieldError::getDefaultMessage)
-                    .toList());
+            List<String> errors = getValidationMessages(bindingResult.getFieldErrors());
+            log.warn("Product update rejected. productId={}, name='{}', price={}, validationErrors={}",
+                    id, productCreateDto.getName(), productCreateDto.getPrice(), errors);
+            model.addAttribute("errors", errors);
             model.addAttribute("categories", findAllCategories());
             // Re-add productCreateDto to retain user input
             model.addAttribute("product", productCreateDto);
@@ -195,5 +209,16 @@ public class ProductController {
         }
 
         return categories;
+    }
+
+    private List<String> getValidationMessages(List<FieldError> fieldErrors) {
+        return fieldErrors.stream()
+                .map(error -> {
+                    if ("categoryId".equals(error.getField()) && "typeMismatch".equals(error.getCode())) {
+                        return "Please select a valid category.";
+                    }
+                    return error.getDefaultMessage();
+                })
+                .toList();
     }
 }
