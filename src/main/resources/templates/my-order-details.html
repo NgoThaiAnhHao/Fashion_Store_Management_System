@@ -1,248 +1,693 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Orders Today | Fashion Store</title>
-    <link rel="shortcut icon" href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Details | Fashion Store</title>
+
+    <link rel="shortcut icon"
+          href="//cdn.hstatic.net/themes/1000184601/1001406013/14/favicon.png?v=1538"
+          type="image/png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link th:href="@{/css/fonts.css}" rel="stylesheet" />
-    <link th:href="@{/css/globals.css}" rel="stylesheet" />
-    <link th:href="@{/css/index.css}" rel="stylesheet" />
-    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+
+    <link th:href="@{/css/fonts.css}" rel="stylesheet"/>
+    <link th:href="@{/css/globals.css}" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/theme.css}" rel="stylesheet"/>
 </head>
+
 <body>
+
 <!-- Navbar -->
 <div th:replace="~{fragments/layout :: navbar}"></div>
+
 <div class="h-[72px]"></div>
 
-<!-- MAIN CONTENT -->
-<div class="max-w-7xl mx-auto px-4 py-10">
-    <h1 class="inline-flex items-center gap-2 text-lg font-bold tracking-[0.1em] uppercase text-[#0B0B0B] hover:text-black transition-colors">
-        Order Details -
-        <span class="text-sm font-medium">
-            Order #<span th:text="${order.orderId}"></span>
-        </span>
-    </h1>
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-10">
 
-    <h1 class="items-center gap-2 text-xs text-gray-500 mb-2">
-        Order By
-        <span class="font-bold" th:text="${order.orderedBy.fullName}"></span>
-    </h1>
+    <!-- Back -->
+    <a th:href="@{/fashion-store/my-orders}"
+       class="inline-flex items-center gap-2
+              text-xs font-bold tracking-[0.18em] uppercase
+              text-gray-400 hover:text-black
+              transition-colors mb-10">
 
-    <div class="flex items-center gap-2 text-xs text-gray-500 mb-10">
-        Status:
-        <span th:text="${order.status}"
-              th:classappend="
-                  ${order.status.toString() == 'PENDING'} ? 'bg-emerald-100 text-emerald-700' :
-                  (${order.status.toString() == 'CONFIRMED'} ? 'bg-amber-100 text-amber-700' :
-                  (${order.status.toString() == 'SHIPPING'} ? 'bg-blue-100 text-blue-700' :
-                  (${order.status.toString() == 'COMPLETED'} ? 'bg-slate-100 text-slate-500' :
-                  (${order.status.toString() == 'CANCELLED'} ? 'bg-red-100 text-red-700' : 'bg-red-100 text-red-700'))))
-              "
-              class="rounded-full px-2 py-0.5 font-medium">
-        </span>
-        <p th:if="${order.status.toString() == 'LOGO_REJECTED' and order.rejectReason != null}"
-           class="text-xs text-red-600 mt-1">
-            Reason: <span th:text="${order.rejectReason}"></span>
-        </p>
-    </div>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M6 8L2 12L6 16"/>
+            <path d="M2 12H22"/>
+        </svg>
 
+        Back to my orders
+    </a>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <!-- Items -->
-        <div class="lg:col-span-2 py-4 px-8">
-            <!-- Header -->
-            <div class="sm:grid grid-cols-12 text-xs tracking-[0.1em] uppercase text-gray-400 pb-4 border-b border-gray-100 mb-2 font-medium">
-                <span class="col-span-6">Product</span>
-                <span class="col-span-2 text-center">Size</span>
-                <span class="col-span-2 text-center">P.Qty</span>
-                <span class="col-span-2 text-right">Total</span>
-            </div>
+    <!-- Order heading -->
+    <div class="flex flex-col sm:flex-row
+                sm:items-end sm:justify-between
+                gap-6 mb-10">
 
-            <!-- Items Detail -->
-            <div th:each="orderDetail : ${orderDetails}" class="divide-y divide-gray-100">
-                <div class="py-6 grid grid-cols-12 gap-4 items-center">
-                    <div class="col-span-12 sm:col-span-6 flex gap-4">
-                        <div class="w-20 h-24 bg-gray-100 flex-shrink-0 overflow-hidden">
-                            <!-- If product was added before -->
-                            <img th:if="${#strings.startsWith(orderDetail.product.imageUrl, 'images')}"
-                                 th:src="@{'/' + ${orderDetail.product.imageUrl}}"
-                                 alt="Product Image"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                            />
+        <div>
+            <h1 class="text-3xl font-black tracking-tight text-[#0B0B0B]">
+                Order #<span th:text="${order.orderId}">1</span>
+            </h1>
 
-                            <!-- If product was uploaded by user -->
-                            <img th:if="${!#strings.startsWith(orderDetail.product.imageUrl, 'images')}"
-                                 th:src="@{'/uploads/products/' + ${orderDetail.product.productId} + '/' + ${orderDetail.product.imageUrl}}"
-                                 alt="Product Image"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                            />
-                        </div>
-
-                        <div>
-                            <h3 th:text="${orderDetail.product.name}" class="text-sm tracking-wide mb-1"></h3>
-                            <p class="text-xs text-gray-400 mb-0.5">
-                                Set · $<span th:text="${orderDetail.product.price}"></span>
-                            </p>
-
-                            <!-- Custom text -->
-                            <p th:if="${orderDetail.logoText != null and !orderDetail.logoText.isEmpty()}"
-                               class="text-xs text-gray-400 italic">
-                                Text: "<span th:text="${orderDetail.logoText}"></span>"
-                            </p>
-
-                            <!-- Custom logo image -->
-                            <div th:if="${orderDetail.logoImageUrl != null and !orderDetail.logoImageUrl.isEmpty()}"
-                                 class="mt-2">
-                                <p class="text-xs text-gray-400 mb-1">Custom logo:</p>
-                                <img th:src="@{'/uploads/custom-logos/' + ${orderDetail.logoImageUrl}}"
-                                     alt="Custom Logo"
-                                     class="w-16 h-16 object-contain border border-gray-200 p-1 bg-white">
-                            </div>
-
-                            <!-- Logo Size -->
-                            <p th:if="${orderDetail.logoSize != null and !orderDetail.logoSize.isEmpty()}"
-                               class="text-xs text-gray-400 mt-1">
-                                Logo Size: <span th:text="${orderDetail.logoSize}"></span>
-                            </p>
-
-                            <!-- Logo Position -->
-                            <p th:if="${orderDetail.logoPosition != null and !orderDetail.logoPosition.isEmpty()}"
-                               class="text-xs text-gray-400">
-                                Logo Position: <span th:text="${orderDetail.logoPosition}"></span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Size -->
-                    <div class="col-span-4 sm:col-span-2 text-center">
-                        <p class="text-xs text-gray-400 sm:hidden mb-1">Sizes</p>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-xs">Member 1 Size:
-                                <span th:text="${orderDetail.member1Size}"></span>
-                            </span>
-                            <span class="text-xs">Member 1 Gender:
-                                <span th:text="${orderDetail.member1Gender}"></span>
-                            </span>
-                            <span class="text-xs">Member 2 Size:
-                                <span th:text="${orderDetail.member2Size}"></span>
-                            </span>
-                            <span class="text-xs">Member 2 Gender:
-                                <span th:text="${orderDetail.member2Gender}"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Pair quantity -->
-                    <div class="col-span-4 sm:col-span-2 flex justify-center">
-                        <div class="flex items-center">
-                            <span class="text-xs">Member 1 QTY:
-                                <span th:text="${orderDetail.member1Quantity}"></span>
-                            </span>
-                            <span class="text-xs">Member 2 QTY:
-                                <span th:text="${orderDetail.member2Quantity}"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Price -->
-                    <div class="col-span-4 sm:col-span-2 text-right">
-                        <p class="text-sm">
-                            $<span th:text="${orderDetail.subTotal}"></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <p class="mt-2 text-sm text-gray-400">
+                Review your couple set and payment information
+            </p>
         </div>
 
-        <!-- Payment -->
-        <div>
-            <div class="bg-gray-50 p-8 sticky top-24">
-                <h2 class="text-sm tracking-[0.15em] uppercase mb-8 font-bold">
-                    Payment #<span th:text="${payment.paymentId}"></span>
+        <div class="sm:text-right">
+
+            <p class="text-xs text-gray-400 mb-2">
+                Ordered by
+
+                <span class="font-bold text-[#0B0B0B]"
+                      th:text="${order.orderedBy.fullName}">
+                    Customer
+                </span>
+            </p>
+
+            <div class="flex items-center sm:justify-end gap-2">
+
+                <span class="text-xs text-gray-500">
+                    Status
+                </span>
+
+                <span th:text="${order.status}"
+                      class="rounded-full px-3 py-1 text-xs font-medium"
+                      th:classappend="
+                        ${order.status.toString() == 'PENDING'}
+                        ? ' bg-emerald-100 text-emerald-700'
+                        : (${order.status.toString() == 'CONFIRMED'}
+                        ? ' bg-amber-100 text-amber-700'
+                        : (${order.status.toString() == 'SHIPPING'}
+                        ? ' bg-blue-100 text-blue-700'
+                        : (${order.status.toString() == 'COMPLETED'}
+                        ? ' bg-slate-100 text-slate-500'
+                        : ' bg-red-100 text-red-700')))">
+                    PENDING
+                </span>
+
+            </div>
+
+            <p th:if="${order.status.toString() == 'LOGO_REJECTED'
+                       and order.rejectReason != null
+                       and !order.rejectReason.isEmpty()}"
+               class="text-xs text-red-600 mt-2">
+
+                Reason:
+                <span th:text="${order.rejectReason}">
+                    Rejected reason
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Products -->
+        <div class="lg:col-span-2
+                    bg-[#FAFAFA]
+                    border border-[#E5E7EB]
+                    rounded-xl p-6">
+
+            <!-- Product header -->
+            <div class="flex items-center justify-between
+                        border-b border-[#E5E7EB]
+                        pb-4 mb-6">
+
+                <h2 class="text-sm font-bold
+                           tracking-[0.2em] uppercase
+                           text-[#0B0B0B]">
+                    Product
                 </h2>
 
-                <div class="space-y-3 mb-4">
-                    <div class="flex justify-between text-xs">
-                        <span class="text-gray-500">Method</span>
+                <span class="text-sm text-gray-400">
+                    <span th:text="${orderDetails.size()}">1</span>
+                    items
+                </span>
+
+            </div>
+
+            <!-- Order item -->
+            <div th:each="orderDetail : ${orderDetails}"
+                 class="flex flex-col gap-6
+                        border-b border-[#E5E7EB]/70
+                        last:border-b-0
+                        pb-6 mb-6
+                        last:pb-0 last:mb-0">
+
+                <!-- Product + customization -->
+                <div class="flex flex-col xl:flex-row
+                            xl:items-start gap-6">
+
+                    <!-- Product information -->
+                    <div class="flex gap-5 flex-1 min-w-0">
+
+                        <!-- Product image -->
+                        <div class="w-28 h-32 shrink-0
+                                    rounded-lg overflow-hidden
+                                    border border-[#E5E7EB]
+                                    bg-white">
+
+                            <!-- Image in resources -->
+                            <img th:if="${orderDetail.product.imageUrl != null
+                                        and #strings.startsWith(
+                                            orderDetail.product.imageUrl,
+                                            'images'
+                                        )}"
+                                 th:src="@{'/' + ${orderDetail.product.imageUrl}}"
+                                 th:alt="${orderDetail.product.name}"
+                                 class="w-full h-full object-cover"/>
+
+                            <!-- Uploaded image -->
+                            <img th:if="${orderDetail.product.imageUrl != null
+                                        and !#strings.startsWith(
+                                            orderDetail.product.imageUrl,
+                                            'images'
+                                        )}"
+                                 th:src="@{'/uploads/products/'
+                                          + ${orderDetail.product.productId}
+                                          + '/'
+                                          + ${orderDetail.product.imageUrl}}"
+                                 th:alt="${orderDetail.product.name}"
+                                 class="w-full h-full object-cover"/>
+
+                            <!-- No image -->
+                            <div th:if="${orderDetail.product.imageUrl == null
+                                        or orderDetail.product.imageUrl.isEmpty()}"
+                                 class="w-full h-full
+                                        flex items-center justify-center
+                                        text-xs text-gray-400">
+                                No image
+                            </div>
+
+                        </div>
+
+                        <!-- Product text -->
+                        <div class="flex-1 min-w-0">
+
+                            <h3 th:text="${orderDetail.product.name}"
+                                class="text-base font-bold
+                                       text-[#0B0B0B] mb-1">
+                                Product name
+                            </h3>
+
+                            <p class="text-sm text-gray-400 mb-3">
+                                Set ·
+                                $<span th:text="${orderDetail.product.price}">
+                                    0.00
+                                </span>
+                            </p>
+
+                            <span th:if="${orderDetail.product.discountPercent != 0}"
+                                  class="inline-flex rounded-full
+                                         bg-green-50 px-2.5 py-1
+                                         text-[10px] font-bold
+                                         tracking-[0.12em] uppercase
+                                         text-green-600">
+
+                                <span th:text="${orderDetail.product.discountPercent}">
+                                    0
+                                </span>% off
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Customization -->
+                    <div th:if="${
+                            (orderDetail.logoText != null
+                                and !orderDetail.logoText.isEmpty())
+                            or
+                            (orderDetail.logoImageUrl != null
+                                and !orderDetail.logoImageUrl.isEmpty())
+                        }"
+                         class="w-full xl:w-[430px]
+                                rounded-xl
+                                border border-[#E5E7EB]
+                                bg-white p-5">
+
+                        <p class="text-[10px] font-bold
+                                  tracking-[0.2em] uppercase
+                                  text-gray-400 mb-4">
+                            Customization
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row
+                                    sm:items-start sm:justify-between
+                                    gap-5">
+
+                            <!-- Custom information -->
+                            <div class="flex-1 min-w-0">
+
+                                <p th:if="${orderDetail.logoText != null
+                                           and !orderDetail.logoText.isEmpty()}"
+                                   class="text-sm text-[#6B7280] mb-4">
+
+                                    <span class="font-medium text-[#0B0B0B]">
+                                        Text:
+                                    </span>
+
+                                    "<span th:text="${orderDetail.logoText}">
+                                        Custom text
+                                    </span>"
+                                </p>
+
+                                <p th:if="${orderDetail.logoSize != null
+                                           and !orderDetail.logoSize.isEmpty()}"
+                                   class="text-sm text-gray-400 mt-2">
+
+                                    Logo Size:
+
+                                    <span class="font-medium text-[#6B7280]"
+                                          th:text="${orderDetail.logoSize}">
+                                        Medium
+                                    </span>
+                                </p>
+
+                                <p th:if="${orderDetail.logoPosition != null
+                                           and !orderDetail.logoPosition.isEmpty()}"
+                                   class="text-sm text-gray-400">
+
+                                    Logo Position:
+
+                                    <span class="font-medium text-[#6B7280]"
+                                          th:text="${orderDetail.logoPosition}">
+                                        Center
+                                    </span>
+                                </p>
+
+                            </div>
+
+                            <!-- Custom logo -->
+                            <div th:if="${orderDetail.logoImageUrl != null
+                                        and !orderDetail.logoImageUrl.isEmpty()}"
+                                 class="shrink-0">
+
+                                <p class="text-sm font-medium
+                                          text-gray-400 mb-2
+                                          text-left sm:text-right">
+                                    Custom logo:
+                                </p>
+
+                                <img th:src="@{'/uploads/custom-logos/'
+                                              + ${orderDetail.logoImageUrl}}"
+                                     alt="Custom Logo"
+                                     class="w-36 h-36
+                                            object-contain
+                                            rounded-xl
+                                            border border-[#E5E7EB]
+                                            p-2 bg-white"/>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Members -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <!-- Member 1 -->
+                    <div class="bg-white
+                                rounded-xl
+                                border border-[#E5E7EB]
+                                p-4">
+
+                        <div class="flex items-center
+                                    justify-between gap-4 mb-4">
+
+                            <p class="text-[10px] font-bold
+                                      tracking-[0.2em] uppercase
+                                      text-gray-400">
+                                Member 1
+                            </p>
+
+                            <p class="text-sm font-bold text-[#0B0B0B]">
+
+                                $<span th:text="${
+                                    orderDetail.product.salePrice
+                                    * orderDetail.member1Quantity
+                                }">
+                                    0.00
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Size
+                                </span>
+
+                                <span class="font-bold text-[#0B0B0B]"
+                                      th:text="${orderDetail.member1Size}">
+                                    L
+                                </span>
+
+                            </div>
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Gender
+                                </span>
+
+                                <span class="font-bold text-[#0B0B0B]"
+                                      th:text="${orderDetail.member1Gender}">
+                                    MALE
+                                </span>
+
+                            </div>
+
+                            <div class="flex items-center
+                                        justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Quantity
+                                </span>
+
+                                <div class="flex items-center
+                                            border border-[#E5E7EB]
+                                            rounded-lg overflow-hidden">
+
+                                    <span class="w-8 h-8
+                                                 flex items-center justify-center
+                                                 text-gray-300">
+                                        −
+                                    </span>
+
+                                    <span th:text="${orderDetail.member1Quantity}"
+                                          class="w-9 h-8
+                                                 flex items-center justify-center
+                                                 border-x border-[#E5E7EB]
+                                                 text-sm font-bold">
+                                        1
+                                    </span>
+
+                                    <span class="w-8 h-8
+                                                 flex items-center justify-center
+                                                 text-gray-300">
+                                        +
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="bg-white
+                                rounded-xl
+                                border border-[#E5E7EB]
+                                p-4">
+
+                        <div class="flex items-center
+                                    justify-between gap-4 mb-4">
+
+                            <p class="text-[10px] font-bold
+                                      tracking-[0.2em] uppercase
+                                      text-gray-400">
+                                Member 2
+                            </p>
+
+                            <p class="text-sm font-bold text-[#0B0B0B]">
+
+                                $<span th:text="${
+                                    orderDetail.product.salePrice
+                                    * orderDetail.member2Quantity
+                                }">
+                                    0.00
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Size
+                                </span>
+
+                                <span class="font-bold text-[#0B0B0B]"
+                                      th:text="${orderDetail.member2Size}">
+                                    L
+                                </span>
+
+                            </div>
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Gender
+                                </span>
+
+                                <span class="font-bold text-[#0B0B0B]"
+                                      th:text="${orderDetail.member2Gender}">
+                                    FEMALE
+                                </span>
+
+                            </div>
+
+                            <div class="flex items-center
+                                        justify-between gap-4">
+
+                                <span class="text-[#6B7280]">
+                                    Quantity
+                                </span>
+
+                                <div class="flex items-center
+                                            border border-[#E5E7EB]
+                                            rounded-lg overflow-hidden">
+
+                                    <span class="w-8 h-8
+                                                 flex items-center justify-center
+                                                 text-gray-300">
+                                        −
+                                    </span>
+
+                                    <span th:text="${orderDetail.member2Quantity}"
+                                          class="w-9 h-8
+                                                 flex items-center justify-center
+                                                 border-x border-[#E5E7EB]
+                                                 text-sm font-bold">
+                                        1
+                                    </span>
+
+                                    <span class="w-8 h-8
+                                                 flex items-center justify-center
+                                                 text-gray-300">
+                                        +
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Item total -->
+                <div class="flex justify-end">
+
+                    <div class="text-right min-w-[120px]">
+
+                        <p class="text-[10px] font-bold
+                                  tracking-[0.2em] uppercase
+                                  text-gray-400 mb-2">
+                            Item Total
+                        </p>
+
+                        <p class="text-lg font-bold text-[#0B0B0B]">
+
+                            $<span th:text="${orderDetail.subTotal}">
+                                0.00
+                            </span>
+
+                        </p>
+
+                        <p th:if="${orderDetail.product.discountPercent != 0}"
+                           class="text-xs font-light
+                                  text-gray-400 line-through">
+
+                            $<span th:text="${
+                                orderDetail.product.price
+                                *
+                                (
+                                    orderDetail.member1Quantity
+                                    +
+                                    orderDetail.member2Quantity
+                                )
+                            }">
+                                0.00
+                            </span>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Payment summary -->
+        <div>
+
+            <div class="bg-[#FAFAFA]
+                        border border-[#E5E7EB]
+                        rounded-xl p-8 sticky top-24">
+
+                <h2 class="text-sm font-bold
+                           tracking-[0.15em] uppercase
+                           mb-8 text-[#0B0B0B]">
+
+                    Payment #<span th:text="${payment.paymentId}">
+                        1
+                    </span>
+
+                </h2>
+
+                <div class="space-y-4 mb-6">
+
+                    <!-- Method -->
+                    <div class="flex justify-between text-sm">
+
+                        <span class="text-gray-500">
+                            Method
+                        </span>
+
                         <span th:if="${payment.paymentMethod.toString() == 'COD'}"
-                              class="font-medium text-emerald-700">
-                            <span th:text="${payment.paymentMethod.toString()}"></span>
+                              class="font-medium text-emerald-700"
+                              th:text="${payment.paymentMethod}">
+                            COD
                         </span>
 
                         <span th:if="${payment.paymentMethod.toString() == 'CARD'}"
-                              class="font-medium text-blue-700">
-                            <span th:text="${payment.paymentMethod.toString()}"></span>
+                              class="font-medium text-blue-700"
+                              th:text="${payment.paymentMethod}">
+                            CARD
                         </span>
-                    </div>
-                </div>
 
-                <div class="space-y-3 mb-4">
-                    <div class="flex justify-between text-xs">
-                        <span class="text-gray-500">Date</span>
-                        <span th:text="${payment.getFormattedCreatedAt()}"
-                              class="font-medium">
+                    </div>
+
+                    <!-- Date -->
+                    <div class="flex justify-between text-sm">
+
+                        <span class="text-gray-500">
+                            Date
                         </span>
-                    </div>
-                </div>
 
-                <div class="space-y-3 mb-4">
-                    <div class="flex justify-between text-xs">
-                        <span class="text-gray-500">Status</span>
-                        <div class="flex justify-center items-center gap-2">
-                            <input type="hidden" name="orderId" th:value="${order.orderId}">
-
-                            <select name="paymentStatus"
-                                    disabled
-                                    class="text-xs rounded-full px-3 py-1 appearance-none border-0 font-medium text-center"
-                                    th:classappend="
-                                        ${payment.paymentStatus.toString() == 'PENDING'} ? 'bg-emerald-100 text-emerald-700' :
-                                        (${payment.paymentStatus.toString() == 'REFUNDED'} ? 'bg-blue-100 text-blue-700' :
-                                        (${payment.paymentStatus.toString() == 'PAID'} ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'))
-                                    ">
-
-                                <option value="PENDING"
-                                        class="bg-emerald-100 text-emerald-700"
-                                        th:selected="${payment.paymentStatus.toString() == 'PENDING'}">
-                                    PENDING
-                                </option>
-
-                                <option value="REFUNDED"
-                                        class="bg-blue-100 text-blue-700"
-                                        th:selected="${payment.paymentStatus.toString() == 'REFUNDED'}">
-                                    REFUNDED
-                                </option>
-
-                                <option value="PAID"
-                                        class="bg-amber-100 text-amber-700"
-                                        th:selected="${payment.paymentStatus.toString() == 'PAID'}">
-                                    PAID
-                                </option>
-
-                                <option value="FAILED"
-                                        class="bg-red-100 text-red-700"
-                                        th:selected="${payment.paymentStatus.toString() == 'FAILED'}">
-                                    FAILED
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-200 pt-4 mb-6">
-                    <div class="flex justify-between">
-                        <span class="text-sm">Total</span>
-                        <span class="text-lg font-bold">
-                            $<span th:text="${payment.totalAmount}"></span>
+                        <span class="font-medium text-[#0B0B0B]"
+                              th:text="${payment.getFormattedCreatedAt()}">
+                            17/07/26 - 13:29
                         </span>
+
                     </div>
+
+                    <!-- Payment status -->
+                    <div class="flex items-center
+                                justify-between text-sm">
+
+                        <span class="text-gray-500">
+                            Status
+                        </span>
+
+                        <span th:text="${payment.paymentStatus}"
+                              class="rounded-full
+                                     px-3 py-1
+                                     text-xs font-medium"
+                              th:classappend="
+                                ${payment.paymentStatus.toString() == 'PENDING'}
+                                ? ' bg-emerald-100 text-emerald-700'
+                                : (${payment.paymentStatus.toString() == 'REFUNDED'}
+                                ? ' bg-blue-100 text-blue-700'
+                                : (${payment.paymentStatus.toString() == 'PAID'}
+                                ? ' bg-amber-100 text-amber-700'
+                                : ' bg-red-100 text-red-700'))">
+                            PENDING
+                        </span>
+
+                    </div>
+
                 </div>
+
+                <!-- Total -->
+                <div class="border-t border-gray-200 pt-5 mb-6">
+
+                    <div class="flex justify-between items-center">
+
+                        <span class="text-sm font-medium text-[#0B0B0B]">
+                            Total
+                        </span>
+
+                        <span class="text-2xl font-black text-[#0B0B0B]">
+
+                            $<span th:text="${payment.totalAmount}">
+                                0.00
+                            </span>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Read-only button -->
+                <div class="w-full
+                            flex items-center justify-center
+                            bg-[#E5E7EB]
+                            text-white py-4
+                            text-xs font-bold
+                            tracking-[0.15em] uppercase
+                            mb-4">
+                    Order completed
+                </div>
+
+                <p class="text-xs text-center text-gray-400">
+                    Order information is read-only
+                </p>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 <!-- Footer -->
 <div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>

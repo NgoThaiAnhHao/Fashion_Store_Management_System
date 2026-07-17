@@ -788,3 +788,70 @@ footer button:focus {
   background-color: #0B0B0B;
   color: #FFFFFF;
 }
+/* ================================================= */
+/* GLOBAL PRIMARY ACTION BUTTONS                     */
+/* ================================================= */
+
+button.primary-action:not(:disabled),
+input.primary-action:not(:disabled),
+a.primary-action:not([aria-disabled="true"]) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #111827 !important;
+  color: #ffffff !important;
+  border: 1px solid #111827 !important;
+
+  cursor: pointer !important;
+  opacity: 1 !important;
+
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.14);
+
+  transition:
+          background-color 180ms ease,
+          border-color 180ms ease,
+          box-shadow 180ms ease,
+          transform 180ms ease !important;
+}
+
+button.primary-action:not(:disabled):hover,
+input.primary-action:not(:disabled):hover,
+a.primary-action:not([aria-disabled="true"]):hover {
+  background-color: #030712 !important;
+  color: #ffffff !important;
+  border-color: #030712 !important;
+
+  box-shadow: 0 10px 24px rgba(3, 7, 18, 0.24);
+  transform: translateY(-1px);
+}
+
+button.primary-action:not(:disabled):active,
+input.primary-action:not(:disabled):active,
+a.primary-action:not([aria-disabled="true"]):active {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+  transform: translateY(0);
+}
+
+button.primary-action:focus-visible,
+input.primary-action:focus-visible,
+a.primary-action:focus-visible {
+  outline: 2px solid #6b7280 !important;
+  outline-offset: 3px;
+}
+
+button.primary-action:disabled,
+input.primary-action:disabled,
+a.primary-action[aria-disabled="true"] {
+  background-color: #e5e7eb !important;
+  color: #6b7280 !important;
+  border-color: #e5e7eb !important;
+
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
