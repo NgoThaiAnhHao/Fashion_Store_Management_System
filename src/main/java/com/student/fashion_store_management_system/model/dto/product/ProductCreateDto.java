@@ -23,9 +23,9 @@ public class ProductCreateDto {
 
     private String description;
 
-    @NotNull(message = "* Price must be not null")
-    @Min(value = 0, message = "* Price must be greater than 0")
-    @Digits(integer = 8, fraction = 2, message = "* Price must not exceed 99,999,999.99 and may have at most 2 decimal places")
+    @NotNull(message = "Price is required. Enter a number from 0 to 99,999,999.99.")
+    @DecimalMin(value = "0.00", message = "Price cannot be negative.")
+    @Digits(integer = 8, fraction = 2, message = "Price must be from 0 to 99,999,999.99 and have no more than 2 decimal places.")
     private BigDecimal price;
 
     private String imageUrl;

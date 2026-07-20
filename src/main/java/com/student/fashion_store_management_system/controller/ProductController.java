@@ -66,6 +66,7 @@ public class ProductController {
             log.warn("Product creation rejected. name='{}', price={}, validationErrors={}",
                     productCreateDto.getName(), productCreateDto.getPrice(), errors);
             model.addAttribute("errors", errors);
+            addPriceError(bindingResult, model);
             model.addAttribute("categories", findAllCategories());
             model.addAttribute("product", productCreateDto);
             return "/admin/product/add-new-product";
@@ -165,6 +166,7 @@ public class ProductController {
             log.warn("Product update rejected. productId={}, name='{}', price={}, validationErrors={}",
                     id, productCreateDto.getName(), productCreateDto.getPrice(), errors);
             model.addAttribute("errors", errors);
+            addPriceError(bindingResult, model);
             model.addAttribute("categories", findAllCategories());
             // Re-add productCreateDto to retain user input
             model.addAttribute("product", productCreateDto);
@@ -213,12 +215,24 @@ public class ProductController {
 
     private List<String> getValidationMessages(List<FieldError> fieldErrors) {
         return fieldErrors.stream()
-                .map(error -> {
-                    if ("categoryId".equals(error.getField()) && "typeMismatch".equals(error.getCode())) {
-                        return "Please select a valid category.";
-                    }
-                    return error.getDefaultMessage();
-                })
+                .map(this::getValidationMessage)
                 .toList();
+    }
+
+    private void addPriceError(BindingResult bindingResult, Model model) {
+        FieldError priceError = bindingResult.getFieldError("price");
+        if (priceError != null) {
+            model.addAttribute("priceError", getValidationMessage(priceError));
+        }
+    }
+
+    private String getValidationMessage(FieldError error) {
+        if ("categoryId".equals(error.getField()) && "typeMismatch".equals(error.getCode())) {
+            return "Please select a valid category.";
+        }
+        if ("price".equals(error.getField()) && "typeMismatch".equals(error.getCode())) {
+            return "Price must be a valid number from 0 to 99,999,999.99. Use a dot for decimals and no more than 2 decimal places (for example: 80.00).";
+        }
+        return error.getDefaultMessage();
     }
 }
