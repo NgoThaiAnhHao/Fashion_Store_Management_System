@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -121,9 +122,20 @@ public class ProductController {
                                 RedirectAttributes redirectAttributes) {
         try {
             productService.delete(id);
-            redirectAttributes.addFlashAttribute("successMessage", "Deleted Success!");
+            redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully.");
+        } catch (DataIntegrityViolationException e) {
+            log.warn("Product deletion rejected because the product is referenced by an order. productId={}", id);
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "This product cannot be deleted because it is included in one or more orders. " +
+                            "You can set its stock quantity to 0 if you no longer want customers to order it."
+            );
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Cannot deleted for this product because its have FK for Order.");
+            log.error("Unexpected error while deleting product. productId={}", id, e);
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "The product could not be deleted right now. Please try again."
+            );
         }
 
         return "redirect:/fashion-store/products";

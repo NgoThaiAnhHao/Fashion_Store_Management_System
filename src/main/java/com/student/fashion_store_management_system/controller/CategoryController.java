@@ -8,6 +8,7 @@ import com.student.fashion_store_management_system.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,9 +79,20 @@ public class CategoryController {
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
             categoryService.delete(id);
-            redirectAttributes.addFlashAttribute("successMessage", "Deleted Success !");
+            redirectAttributes.addFlashAttribute("successMessage", "Category deleted successfully.");
+        } catch (DataIntegrityViolationException e) {
+            log.warn("Category deletion rejected because the category still contains products. categoryId={}", id);
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "This category cannot be deleted because it still contains products. " +
+                            "Move or delete those products first, then try again."
+            );
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Cannot deleted for this category because its have FK.");
+            log.error("Unexpected error while deleting category. categoryId={}", id, e);
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "The category could not be deleted right now. Please try again."
+            );
         }
 
         return "redirect:/fashion-store/categories";
