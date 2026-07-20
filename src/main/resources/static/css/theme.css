@@ -397,6 +397,12 @@ main {
   color: #0B0B0B !important;
 }
 
+.admin-page,
+.admin-page main,
+.admin-page header {
+  background-color: #FFFFFF !important;
+}
+
 main h1,
 main h2,
 main h3 {
@@ -854,4 +860,86 @@ a.primary-action[aria-disabled="true"] {
   cursor: not-allowed !important;
   transform: none !important;
   opacity: 1 !important;
+}
+
+/* ================================================= */
+/* ADMIN SEARCH BAR                                  */
+/* ================================================= */
+.admin-filter-panel {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.admin-search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 56px;
+  padding: 0.875rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.75rem;
+  background-color: #FAFAFA;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-search-form:focus-within {
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+
+.admin-search-icon {
+  flex-shrink: 0;
+}
+
+.admin-search-input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background-color: #FAFAFA !important;
+  color: #0B0B0B;
+  font-size: 0.95rem;
+}
+
+.admin-search-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* ================================================= */
+/* ORDER SUMMARY META                                */
+/* ================================================= */
+.order-summary-meta {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.order-summary-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9CA3AF;
+}
+
+.order-summary-meta-row--muted {
+  font-style: italic;
+}
+
+.order-summary-meta-label {
+  color: #6B7280;
+}
+
+.order-summary-meta-value {
+  color: #4B5563;
+  font-weight: 500;
+}
+
+.order-summary-meta-separator {
+  color: #D1D5DB;
 }

@@ -27,7 +27,7 @@
     <div class="flex items-center justify-center mb-14">
         <div class="flex items-center">
             <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-[#E5E7EB] text-white" >
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>                    </div>
                 <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
                     Cart
@@ -38,7 +38,7 @@
 
         <div class="flex items-center">
             <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-[#E5E7EB] text-white" >
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
                     2
                 </div>
                 <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
@@ -50,7 +50,7 @@
 
         <div class="flex items-center">
             <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-gray-100 text-gray-400" >
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
                     3
                 </div>
                 <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
@@ -62,7 +62,7 @@
 
         <div class="flex items-center">
             <div class="flex flex-col items-center">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-gray-100 text-gray-400" >
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all bg-black text-white" >
                     4
                 </div>
                 <span class="text-[10px] tracking-[0.1em] uppercase mt-2 text-gray-400">
@@ -157,7 +157,7 @@
 
                 <div class="pt-4">
                     <button
-                       class="w-full flex items-center justify-center gap-2 bg-[#E5E7EB] text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
+                       class="w-full flex items-center justify-center gap-2 bg-black text-white py-4 text-xs tracking-[0.15em] uppercase hover:bg-gray-900 transition-colors">
                         Continue to Payment
                     </button>
                 </div>
@@ -188,21 +188,36 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p th:text="${cartItem.product.name}" class="text-sm truncate"></p>
-                            <p class="w-full text-xs text-gray-400">
-                                <span>Member 1 Size: <span th:text="${cartItem.member1Size}" ></span></span>
-                                /
-                                <span>Member 1 Gender: <span th:text="${cartItem.member1Gender}" ></span></span>
-                            </p>
-                            <p class="w-full text-xs text-gray-400">
-                                <span>Member 2 Size: <span th:text="${cartItem.member2Size}" ></span></span>
-                                /
-                                <span>Member 2 Gender: <span th:text="${cartItem.member2Gender}" ></span></span>
-                            </p>
-                            <p th:text="${cartItem.customLogoText}" class="text-xs text-gray-400 italic"></p>
-                            <p class="text-xs text-gray-400 italic">
-                                Member 1 QTY: <span th:text="${cartItem.member1Quantity}" ></span>
-                                / Member 2 QTY: <span th:text="${cartItem.member2Quantity}" ></span>
-                            </p>
+
+                            <div class="order-summary-meta">
+                                <div class="order-summary-meta-row">
+                                    <span class="order-summary-meta-label">Member 1 Size:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Size}"></span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Gender:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Gender}"></span>
+                                </div>
+
+                                <div class="order-summary-meta-row">
+                                    <span class="order-summary-meta-label">Member 2 Size:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Size}"></span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Gender:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Gender}"></span>
+                                </div>
+
+                                <p th:if="${cartItem.customLogoText != null and !cartItem.customLogoText.isEmpty()}"
+                                   th:text="${cartItem.customLogoText}"
+                                   class="text-xs text-gray-400 italic"></p>
+
+                                <div class="order-summary-meta-row order-summary-meta-row--muted">
+                                    <span class="order-summary-meta-label">Member 1 QTY:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Quantity}"></span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Member 2 QTY:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Quantity}"></span>
+                                </div>
+                            </div>
                         </div>
                         <p class="text-sm flex-shrink-0">
                             <span>

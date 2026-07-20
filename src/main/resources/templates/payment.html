@@ -62,7 +62,7 @@
 
                 <div class="w-8 h-8 rounded-full
                             flex items-center justify-center
-                            text-xs bg-[#E5E7EB] text-white">
+                            text-xs bg-black text-white">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="14"
@@ -101,7 +101,7 @@
 
                 <div class="w-8 h-8 rounded-full
                             flex items-center justify-center
-                            text-xs bg-[#E5E7EB] text-white">
+                            text-xs bg-black text-white">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="14"
@@ -140,7 +140,7 @@
 
                 <div class="w-8 h-8 rounded-full
                             flex items-center justify-center
-                            text-xs bg-[#E5E7EB] text-white">
+                            text-xs bg-black text-white">
                     3
                 </div>
 
@@ -165,7 +165,7 @@
 
                 <div class="w-8 h-8 rounded-full
                             flex items-center justify-center
-                            text-xs bg-gray-100 text-gray-400">
+                            text-xs bg-black text-white">
                     4
                 </div>
 
@@ -195,7 +195,6 @@
                    name="orderId"
                    th:value="${orderId}">
 
-            <!-- Payment method is selected automatically by backend -->
             <input type="hidden"
                    th:field="*{paymentMethod}">
 
@@ -210,100 +209,6 @@
                 <p class="mt-2 text-sm text-gray-400">
                     Review your order summary before confirming.
                 </p>
-
-            </div>
-
-            <!-- Automatic payment information -->
-            <div class="bg-[#FAFAFA]
-                        border border-[#E5E7EB]
-                        p-6 mb-8">
-
-                <div class="flex items-start gap-4">
-
-                    <div class="w-10 h-10 shrink-0
-                                flex items-center justify-center
-                                rounded-full
-                                bg-white
-                                border border-[#E5E7EB]">
-
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             width="18"
-                             height="18"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="1.8"
-                             stroke-linecap="round"
-                             stroke-linejoin="round">
-
-                            <rect width="20"
-                                  height="14"
-                                  x="2"
-                                  y="5"
-                                  rx="2"/>
-
-                            <line x1="2"
-                                  x2="22"
-                                  y1="10"
-                                  y2="10"/>
-
-                        </svg>
-
-                    </div>
-
-                    <div class="flex-1">
-
-                        <p class="text-sm font-medium text-[#0B0B0B]">
-                            Payment method
-                        </p>
-
-                        <!-- COD -->
-                        <div th:if="${payment.paymentMethod != null
-                                    and payment.paymentMethod.toString() == 'COD'}">
-
-                            <p class="mt-1 text-xs
-                                      leading-relaxed text-gray-500">
-
-                                Cash on Delivery has been selected automatically.
-                                Pay the exact amount when your order arrives.
-                            </p>
-
-                            <span class="inline-flex mt-3
-                                         px-3 py-1
-                                         rounded-full
-                                         bg-emerald-100
-                                         text-xs font-medium
-                                         text-emerald-700">
-                                Cash on Delivery
-                            </span>
-
-                        </div>
-
-                        <!-- Card -->
-                        <div th:if="${payment.paymentMethod != null
-                                    and payment.paymentMethod.toString() == 'CARD'}">
-
-                            <p class="mt-1 text-xs
-                                      leading-relaxed text-gray-500">
-
-                                This order contains a custom logo, so online
-                                payment is required before production.
-                            </p>
-
-                            <span class="inline-flex mt-3
-                                         px-3 py-1
-                                         rounded-full
-                                         bg-blue-100
-                                         text-xs font-medium
-                                         text-blue-700">
-                                Card / Online Payment
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -431,66 +336,37 @@
                                 Product name
                             </p>
 
-                            <p class="w-full text-xs text-gray-400">
+                            <div class="order-summary-meta">
+                                <div class="order-summary-meta-row">
+                                    <span class="order-summary-meta-label">Member 1 Size:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Size}">L</span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Gender:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Gender}">MALE</span>
+                                </div>
 
-                                <span>
-                                    Member 1 Size:
-                                    <span th:text="${cartItem.member1Size}">
-                                        L
-                                    </span>
-                                </span>
+                                <div class="order-summary-meta-row">
+                                    <span class="order-summary-meta-label">Member 2 Size:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Size}">L</span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Gender:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Gender}">FEMALE</span>
+                                </div>
 
-                                /
+                                <p th:if="${cartItem.customLogoText != null
+                                          and !cartItem.customLogoText.isEmpty()}"
+                                   th:text="${cartItem.customLogoText}"
+                                   class="text-xs text-gray-400 italic">
+                                </p>
 
-                                <span>
-                                    Member 1 Gender:
-                                    <span th:text="${cartItem.member1Gender}">
-                                        MALE
-                                    </span>
-                                </span>
-
-                            </p>
-
-                            <p class="w-full text-xs text-gray-400">
-
-                                <span>
-                                    Member 2 Size:
-                                    <span th:text="${cartItem.member2Size}">
-                                        L
-                                    </span>
-                                </span>
-
-                                /
-
-                                <span>
-                                    Member 2 Gender:
-                                    <span th:text="${cartItem.member2Gender}">
-                                        FEMALE
-                                    </span>
-                                </span>
-
-                            </p>
-
-                            <p th:if="${cartItem.customLogoText != null
-                                      and !cartItem.customLogoText.isEmpty()}"
-                               th:text="${cartItem.customLogoText}"
-                               class="text-xs text-gray-400 italic">
-                            </p>
-
-                            <p class="text-xs text-gray-400 italic">
-
-                                Member 1 QTY:
-                                <span th:text="${cartItem.member1Quantity}">
-                                    1
-                                </span>
-
-                                / Member 2 QTY:
-
-                                <span th:text="${cartItem.member2Quantity}">
-                                    1
-                                </span>
-
-                            </p>
+                                <div class="order-summary-meta-row order-summary-meta-row--muted flex-nowrap whitespace-nowrap">
+                                    <span class="order-summary-meta-label">Member 1 QTY:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member1Quantity}">1</span>
+                                    <span class="order-summary-meta-separator">·</span>
+                                    <span class="order-summary-meta-label">Member 2 QTY:</span>
+                                    <span class="order-summary-meta-value" th:text="${cartItem.member2Quantity}">1</span>
+                                </div>
+                            </div>
 
                         </div>
 

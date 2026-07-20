@@ -16,7 +16,7 @@
     <link th:href="@{/css/theme.css}" rel="stylesheet"/>
 </head>
 
-<body>
+<body class="admin-page">
 <div class="flex h-screen bg-white overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
@@ -72,10 +72,10 @@
                 </div>
 
                 <!-- Filters -->
-                <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <div class="admin-filter-panel">
                     <form th:action="@{/fashion-store/products/search-by-name}"
                           method="GET"
-                          class="flex items-center gap-3 bg-[#F3F4F6] rounded-lg px-4 py-3 w-full">
+                          class="admin-search-form">
 
                         <svg xmlns="http://www.w3.org/2000/svg"
                              width="18"
@@ -85,7 +85,8 @@
                              stroke="#6B7280"
                              stroke-width="2"
                              stroke-linecap="round"
-                             stroke-linejoin="round">
+                             stroke-linejoin="round"
+                             class="admin-search-icon">
                             <path d="m21 21-4.34-4.34"/>
                             <circle cx="11" cy="11" r="8"/>
                         </svg>
@@ -93,7 +94,8 @@
                         <input type="text"
                                name="keyword"
                                placeholder="Search products name..."
-                               class="bg-transparent text-sm text-black placeholder:text-gray-500 outline-none w-full">
+                               class="admin-search-input"
+                               style="background-color: #FAFAFA !important;">
                     </form>
                 </div>
 

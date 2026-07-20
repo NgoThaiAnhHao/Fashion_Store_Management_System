@@ -2,7 +2,7 @@
 
     <!-- NAV BAR -->
     <header  th:fragment="topbar" class="top-0 left-0 right-0 z-50 bg-[#E5E7EB]/50 backdrop-blur-md border-b border-[rgba(34,34,34,0.08)]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="w-full px-4">
 
             <div class="flex items-center justify-between h-18" style="height: 60px">
                 <!-- Center logo -->
@@ -11,7 +11,7 @@
                 <!-- End center logo -->
 
                 <!-- Right actions -->
-                <div class="hidden md:flex items-center gap-8 flex-1 justify-end">
+                <div class="hidden md:flex items-center gap-8 ml-auto justify-end">
 
                     <!-- Notification Icon (Only for ROLE_CUSTOMER) -->
                     <div sec:authorize="hasRole('ROLE_CUSTOMER')" class="relative group">
@@ -207,7 +207,7 @@
         ` : ''}
 
         ${!notification.read ? `
-            <button class="mark-as-read-btn-topbar mt-2 text-xs text-blue-500 hover:underline" data-id="${notification.id}">
+            <button class="mark-as-read-btn-topbar mt-2 text-xs text-black underline underline-offset-2" data-id="${notification.id}">
                 Mark as Read
             </button>
         ` : ''}

@@ -10,8 +10,8 @@
     <link th:href="@{/css/index.css}" rel="stylesheet" />
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
-<body>
-<div class="flex h-screen bg-[ #FFFFFF] overflow-hidden text-[#0B0B0B]"
+<body class="admin-page">
+<div class="flex h-screen bg-white overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
     <!-- SideBar -->
@@ -20,7 +20,7 @@
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden w-100 ">
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-gray-50 ">
+        <main class="flex-1 overflow-y-auto bg-white">
             <!-- Topbar -->
             <div th:replace="~{fragments/topbar :: topbar}"></div>
 

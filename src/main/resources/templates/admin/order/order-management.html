@@ -10,7 +10,7 @@
     <link th:href="@{/css/index.css}" rel="stylesheet" />
     <link th:href="@{/css/theme.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="admin-page">
 <div class="flex h-screen bg-[#FFFFFF] overflow-hidden text-[#0B0B0B]"
      style="font-family: 'DM Sans', 'Inter', system-ui, sans-serif">
 
@@ -35,8 +35,8 @@
                 </div>
 
                 <!-- Filters -->
-                <div class="bg-[#FAFAFA] rounded-xl border border-[#E5E7EB] p-4 flex flex-wrap gap-3 items-center">
-                    <div class="flex items-center gap-2 bg-[#F3F4F6] rounded-lg px-3 py-2 min-w-[220px] flex-1">
+                <div class="admin-filter-panel flex flex-wrap gap-3 items-center">
+                    <div class="admin-search-form min-w-[220px] flex-1">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              width="16"
                              height="16"
@@ -46,13 +46,14 @@
                              stroke-width="2"
                              stroke-linecap="round"
                              stroke-linejoin="round"
-                             class="lucide lucide-search-icon lucide-search">
+                             class="lucide lucide-search-icon lucide-search admin-search-icon">
                             <path d="m21 21-4.34-4.34"/>
                             <circle cx="11" cy="11" r="8"/>
                         </svg>
                         <input type="text"
-                               placeholder="Search by order.."
-                               class="bg-transparent text-sm text-[#0B0B0B] placeholder:text-[#6B7280]/70 outline-none w-full">
+                               placeholder="Search by order..."
+                               class="admin-search-input"
+                               style="background-color: #FAFAFA !important;">
                     </div>
                 </div>
 
