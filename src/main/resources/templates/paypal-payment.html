@@ -56,33 +56,66 @@
         showMessage('PayPal SDK could not be loaded. Please check your PayPal Client ID.');
     } else {
         paypal.Buttons({
-            createOrder: function () {
-                return fetch(`/fashion-store/api/paypal/orders/${localOrderId}`, {
-                    method: 'POST'
-                })
-                    .then(response => response.json())
-                    .then(data => data.id);
+            createOrder: async function () {
+                showMessage('Creating your secure PayPal order...');
+
+                const response = await fetch(`/fashion-store/api/paypal/orders/${localOrderId}`, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' }
+                });
+                const data = await readJsonResponse(response);
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'The payment order could not be created.');
+                }
+                if (data.status === 'ALREADY_PAID' && data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                    throw new Error('This order has already been paid.');
+                }
+                if (!data.id) {
+                    throw new Error('PayPal did not return an order ID. Please try again.');
+                }
+
+                showMessage('');
+                return data.id;
             },
 
-            onApprove: function (data) {
-                return fetch(`/fashion-store/api/paypal/orders/${localOrderId}/capture/${data.orderID}`, {
-                    method: 'POST'
-                })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.status === 'COMPLETED') {
-                            window.location.href = result.redirectUrl;
-                        } else {
-                            showMessage(result.message || 'Payment failed. Please try again.');
-                        }
-                    });
+            onApprove: async function (data) {
+                showMessage('Confirming your payment...');
+
+                const response = await fetch(`/fashion-store/api/paypal/orders/${localOrderId}/capture/${data.orderID}`, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' }
+                });
+                const result = await readJsonResponse(response);
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Payment could not be completed.');
+                }
+                if (result.status !== 'COMPLETED' || !result.redirectUrl) {
+                    throw new Error(result.message || 'Payment was not completed.');
+                }
+
+                window.location.href = result.redirectUrl;
             },
 
             onError: function (err) {
                 console.error(err);
-                showMessage('PayPal payment error. Please try again.');
+                showMessage(err && err.message
+                    ? err.message
+                    : 'PayPal payment error. Please try again.');
             }
         }).render('#paypal-button-container');
+    }
+
+    async function readJsonResponse(response) {
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+            throw new Error(response.status === 401 || response.status === 403
+                ? 'Your session has expired. Please log in and try again.'
+                : 'The server returned an invalid payment response.');
+        }
+        return response.json();
     }
 </script>
 

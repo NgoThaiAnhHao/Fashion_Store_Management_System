@@ -15,6 +15,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,9 @@ public class PayPalService {
     @Value("${paypal.secret}")
     private String secret;
 
-    private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final HttpClient httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
     public String createOrder(Order order, Payment payment) {
         try {
@@ -56,6 +59,7 @@ public class PayPalService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl + "/v2/checkout/orders"))
+                    .timeout(Duration.ofSeconds(20))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + accessToken)
                     .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(body)))
@@ -82,6 +86,7 @@ public class PayPalService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl + "/v2/checkout/orders/" + paypalOrderId + "/capture"))
+                    .timeout(Duration.ofSeconds(20))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + accessToken)
                     .POST(HttpRequest.BodyPublishers.ofString("{}"))
@@ -109,6 +114,7 @@ public class PayPalService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl + "/v1/oauth2/token"))
+                    .timeout(Duration.ofSeconds(20))
                     .header("Authorization", "Basic " + encodedAuth)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .POST(HttpRequest.BodyPublishers.ofString("grant_type=client_credentials"))
